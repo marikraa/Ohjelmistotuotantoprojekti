@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="640.0" style="-fx-background-color: #70faf1;">
+         <children>
+            <FlowPane prefHeight="86.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="64.0" prefWidth="130.0" text="Label" />
+                  <ImageView fitHeight="17.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/Edit.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </FlowPane>
+            <Label layoutY="93.0" prefHeight="64.0" prefWidth="130.0" text="Label" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="375.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="575.0" layoutY="16.0" prefHeight="37.0" prefWidth="42.0" text="Log out">
+               <font>
+                  <Font name="Corbel" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="234.0" prefHeight="93.0" prefWidth="640.0" style="-fx-background-color: #70faf1;" />
+      <AnchorPane layoutY="349.0" prefHeight="548.0" prefWidth="640.0" style="-fx-background-color: #70faf1; -fx-border-radius: 20;" />
+   </children>
+</AnchorPane>
