@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "CustomFont";
+    src: url("fonts/Poppins-Regular.ttf");
+}
+
+.widget {
+    /*-fx-background-color: rgba(220, 166, 27, 0.06);*/ /* 50% läpinäkyvä tausta */
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(0, 0, 0, 0.04)
+;
+
+
+}
+
+.label {
+    -fx-font-family: "CustomFont";
+    -fx-font-size: 27px;
+}
+
+.addNote {
+
+    -fx-font-family: "CustomFont";
+    -fx-font-size: 150px;
+    -fx-text-fill: rgba(0, 0, 0, 0.44);
+
+}
+
+.canvas {
+    -fx-background-color: rgb(153, 255, 204, 0.5);
+
+
+}
+.drobdown{
+    -fx-background-color: rgb(153, 255, 204);
+
+
+}
+
