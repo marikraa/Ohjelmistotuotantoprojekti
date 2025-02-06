@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="FrontEnd.GUIController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.GUIController">
    <children>
       <Label layoutX="242.0" layoutY="35.0" text="Notez wizard" />
       <AnchorPane layoutX="34.0" layoutY="350.0" prefHeight="86.0" prefWidth="568.0">
@@ -39,13 +39,13 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Button id="login" layoutX="253.0" layoutY="724.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Sign up" />
+      <Button id="signup" layoutX="253.0" layoutY="724.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Sign up" />
       <AnchorPane layoutX="36.0" layoutY="596.0" prefHeight="74.0" prefWidth="568.0">
          <children>
             <Label layoutY="17.0" text="Password:" />
             <AnchorPane layoutX="127.0" prefHeight="74.0" prefWidth="382.0" styleClass="widget">
                <children>
-                  <TextField id="passwordField" prefHeight="74.0" prefWidth="402.0" promptText="Re-enter password" style="-fx-background-color: 0000;">
+                  <TextField id="passwordField2" prefHeight="74.0" prefWidth="402.0" promptText="Re-enter password" style="-fx-background-color: 0000;">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -54,12 +54,12 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="418.0" layoutY="106.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
          <graphic>
             <ImageView id="addPictureButton" fitHeight="22.0" fitWidth="20.0" onMouseClicked="#addPicture" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/edit.png" />
+                  <Image url="@../images/edit.png" />
                </image>
             </ImageView>
          </graphic>

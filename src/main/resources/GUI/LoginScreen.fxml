@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="FrontEnd.GUIController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.GUIController">
    <children>
       <Label layoutX="241.0" layoutY="100.0" text="Notez wizard" />
       <AnchorPane layoutX="34.0" layoutY="350.0" prefHeight="86.0" prefWidth="568.0">
@@ -35,6 +35,6 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Button id="loginButton" layoutX="253.0" layoutY="631.0" mnemonicParsing="false" onAction="#login" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Log in" />
+      <Button id="loginButton" layoutX="253.0" layoutY="631.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Log in" />
    </children>
 </AnchorPane>

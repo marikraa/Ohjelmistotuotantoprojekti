@@ -1,5 +1,5 @@
 package FrontEnd;
-
+import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +7,7 @@ public class User {
     private String username;
     private String password;
     List<Note> notes;
+    Image profilePicture;
 
 
     public User(String username, String password, List<Note> notes) {
@@ -38,4 +39,10 @@ public class User {
         return sortedNotes;
     }
 
+    public void setProfilePicture(Image image) {
+        profilePicture = image;
+    }
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
 }
