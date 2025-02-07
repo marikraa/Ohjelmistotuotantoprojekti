@@ -14,7 +14,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.notes = notes;
-        profilePicture = new Image(Objects.requireNonNull(getClass().getResource("images/defaultProfilePic.png")).toExternalForm());
 
     }
 
@@ -29,6 +28,8 @@ public class User {
     public List<Note> getNotes() {
         return notes;
     }
+
+
 
     public List<Note> sortNotes(String title) {
         List<Note> sortedNotes = new ArrayList<>();

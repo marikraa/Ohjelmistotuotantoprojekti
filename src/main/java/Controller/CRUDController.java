@@ -1,12 +1,27 @@
 package Controller;
 
+import FrontEnd.Note;
 import FrontEnd.User;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CRUDController {
+    static CRUDController crudController;
+ private CRUDController() {}
+
+
+    public static CRUDController getInstance(){
+     if(crudController == null){
+            crudController = new CRUDController();
+     }
+        return crudController;
+    }
+
     List<String> notes;
+
+
 
     public User login(String username, String password) {
           /*
@@ -14,7 +29,9 @@ public class CRUDController {
         }*/
 
         //testi data
-        User user = new User(username, password, null);
+        Note note = new Note("title", "asddsa");
+        List<Note> notes = new ArrayList<>() ;
+        User user = new User(username, password, notes);
         return user ;
     }
 

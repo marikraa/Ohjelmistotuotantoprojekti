@@ -12,9 +12,14 @@
 
 }
 
-.label {
+.normaltext {
     -fx-font-family: "CustomFont";
-    -fx-font-size: 27px;
+    -fx-font-size: 20px;
+}
+.header {
+    -fx-font-family: "CustomFont";
+    -fx-font-size: 40px;
+
 }
 
 .addNote {
