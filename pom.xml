@@ -87,7 +87,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>FrontEnd.Main</mainClass> <!-- Määritä oikea pääluokka -->
+                    <mainClass>View.Main</mainClass> <!-- Määritä oikea pääluokka -->
                 </configuration>
             </plugin>
         </plugins>

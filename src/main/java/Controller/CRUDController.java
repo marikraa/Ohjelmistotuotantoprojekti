@@ -1,34 +1,48 @@
 package Controller;
 
+import Model.Note;
 import Model.User;
 import DataSource.UserDAO;
 
 import javafx.scene.image.Image;
+import java.util.*;
 import java.io.*;
 import java.sql.*;
-import java.util.List;
 
 public class CRUDController {
+    static CRUDController crudController;
     UserDAO userDAO;
+ private CRUDController() {
+     userDAO = new UserDAO();
+ }
+
+
+    public static CRUDController getInstance(){
+     if(crudController == null){
+            crudController = new CRUDController();
+     }
+        return crudController;
+    }
 
     private User currentUser;
     List<String> notes;
 
-    public CRUDController() {
-        userDAO = new UserDAO();
-    }
 
-    public String login(String username, String password) {
-        //tähän post pyyntö
-        //pitää palauttaa tällänen json
-        /*{
-          "username": "jokuKäyttäjä",
-         "password": "salasana",
-          "notes": "muistiinpanoja List<String> muodossa"
-          muistiinpanolla pitää olla otsikko päivämäärä ja sitte itse muistiinpano
+
+    public User login(String username, String password) {
+          /*
+          TODO: requesti palauttaaa User olio
         }*/
 
-        return "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"notes\": \"" + notes + "\"}";
+        //gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi ja returnaa sen
+
+        //testi data
+        Note note = new Note("title", "asddsa");
+
+
+        User user = new User(username, password, null);
+        user.addNote(note);
+        return user ;
     }
 
     public boolean logOut(String username) {
@@ -36,68 +50,69 @@ public class CRUDController {
             currentUser = null;
 
             // tässä sit pitäs vaihtaa login fxml sivuun
-            
+
             return true;
         }
         return false;
     }
+/*
+    public boolean signup() {
 
+        // kuvan uppaus servulle??
     public boolean signUp(String username, String password, Image profileImage) {
         //tähän post pyyntö
-        boolean success = false;
+ Gson gson = new Gson();
+        String json = gson.toJson(user);
+
+        // Luodaan HTTP POST -pyyntö
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://example.com/api/user"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
+                .build();
+
+                boolean success = false;
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
 
-        try {
+                try {
             userDAO.createUser(user);
             success = true;
         } catch (SQLException e) {
             System.err.println("Error registering user: " + e.getMessage());
         }
 
-        //tällein kait sais ladattuu kuvan sitten palvelimelle
-        /*
-        public class ImageUploader {
-        public static String uploadImage(File file) {
-        try {
-            String uploadUrl = "https://yourserver.com/upload"; // <-- MUUTA TÄMÄ
-            URL url = new URL(uploadUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=*****");
+        // Lähetetään pyyntö ja saadaan vastaus
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            OutputStream outputStream = conn.getOutputStream();
-            FileInputStream fileInputStream = new FileInputStream(file);
+        // Tulostetaan palvelimen vastaus
+        System.out.println("Response: " + response.body());
 
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            fileInputStream.close();
-            outputStream.flush();
-            outputStream.close();
-
-            // Saadaan palvelimen vastaus
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-
-            return response.toString(); // Palauttaa URL:n tallennettuun kuvaan
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-}*/
+        // toisessa päässä gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi
+        User user = new User("username", "password", null);
         return success;
+    }*/
+
+    public List<Note> addNote(Note note)
+
+    {   //lisää uuden noten userilla ja palauttaa listan kaikista noteista
+        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
+        //tähän post pyyntö
+        // palauttaa listan kaikista noteista
+        List<Note> notes = new ArrayList<>();
+        notes.add(note);
+        return notes;
+
+
+    }
+
+    public User signup(String username, String password, Image image) {
+        //backEndCreateUser(username, password, image); tämä palauttaa user olion
+
+        //testiä varten tämä
+        User user = new User(username, password, image);
+        return user;
     }
 }

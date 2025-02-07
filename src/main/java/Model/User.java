@@ -1,21 +1,31 @@
 package Model;
 
+import javafx.scene.image.Image;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Timestamp;
 
 public class User {
     private Long id;
     private String username;
     private String password;
-    private String profilePictureUrl;
+    List<Note> notes;
+    Image profilePicture;
     private Timestamp createdAt;
 
     public User() {}
 
-    public User(Long id, String username, String password, String profilePictureUrl, Timestamp createdAt) {
+    public User(String username, String password, Image image) {
+        this.username = username;
+        this.password = password;
+        profilePicture = image;
+        notes = new ArrayList<>();
+    }
+
+    public User(Long id, String username, String password, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.profilePictureUrl = profilePictureUrl;
         this.createdAt = createdAt;
     }
 
@@ -43,12 +53,30 @@ public class User {
         this.password = password;
     }
 
-    public String getProfilePictureUrl() {
-        return profilePictureUrl;
+    public List<Note> getNotes() {
+        return notes;
+
+public void addNote (Note note){
+        notes.add(note);}
+
+
+    public List<Note> sortNotes(String title) {
+        List<Note> sortedNotes = new ArrayList<>();
+        for (Note note : notes) {
+            if (note.getTitle().equals(title)) {
+                sortedNotes.add(note);
+            }
+        }
+
+        return sortedNotes;
     }
 
-    public void setProfilePictureUrl(String profilePictureUrl) {
-        this.profilePictureUrl = profilePictureUrl;
+        public Image getProfilePicture() {
+            return profilePicture;
+        }
+
+    public void setProfilePic(Image image) {
+        profilePicture = image;
     }
 
     public Timestamp getCreatedAt() {
@@ -57,5 +85,6 @@ public class User {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
-    }
+        }
+
 }

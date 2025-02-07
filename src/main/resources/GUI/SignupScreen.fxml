@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FrontEnd.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginSignupController">
    <children>
-      <Label layoutX="242.0" layoutY="35.0" text="Notez wizard" />
+      <Label layoutX="204.0" layoutY="33.0" styleClass="header" text="Notez wizard" />
       <AnchorPane layoutX="34.0" layoutY="350.0" prefHeight="86.0" prefWidth="568.0">
          <children>
-            <Label layoutY="23.0" text="Username:" />
+            <Label layoutY="23.0" styleClass="normaltext" text="Username:" />
             <AnchorPane layoutX="126.0" layoutY="5.0" prefHeight="74.0" prefWidth="402.0" styleClass="widget">
                <children>
-                  <TextField id="usernameField" prefHeight="74.0" prefWidth="402.0" promptText="Username" style="-fx-background-color: 0000;">
+                  <TextField fx:id="usernameField" prefHeight="74.0" prefWidth="402.0" promptText="Username" style="-fx-background-color: 0000;">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -27,10 +27,10 @@
       </AnchorPane>
       <AnchorPane layoutX="33.0" layoutY="476.0" prefHeight="74.0" prefWidth="568.0">
          <children>
-            <Label layoutY="17.0" text="Password:" />
+            <Label layoutY="17.0" styleClass="normaltext" text="Password:" />
             <AnchorPane layoutX="127.0" prefHeight="74.0" prefWidth="382.0" styleClass="widget">
                <children>
-                  <TextField id="passwordField" prefHeight="74.0" prefWidth="402.0" promptText="Password" style="-fx-background-color: 0000;">
+                  <TextField fx:id="passwordField" prefHeight="74.0" prefWidth="402.0" promptText="Password" style="-fx-background-color: 0000;">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -39,13 +39,13 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Button id="signup" layoutX="253.0" layoutY="724.0" mnemonicParsing="false"  onMouseClicked="#signup" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Sign up" />
+      <Button layoutX="253.0" layoutY="724.0" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Sign up" />
       <AnchorPane layoutX="36.0" layoutY="596.0" prefHeight="74.0" prefWidth="568.0">
          <children>
-            <Label layoutY="17.0" text="Password:" />
+            <Label layoutY="17.0" styleClass="normaltext" text="Password:" />
             <AnchorPane layoutX="127.0" prefHeight="74.0" prefWidth="382.0" styleClass="widget">
                <children>
-                  <TextField id="passwordField2" prefHeight="74.0" prefWidth="402.0" promptText="Re-enter password" style="-fx-background-color: 0000;">
+                  <TextField fx:id="passwordField2" prefHeight="74.0" prefWidth="402.0" promptText="Re-enter password" style="-fx-background-color: 0000;">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -54,10 +54,14 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <ImageView id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="418.0" layoutY="106.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
+      <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="245.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/defaultProfilePic.png" />
+            </image>
+        </ImageView>
+      <Button  layoutX="377.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#addPicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
          <graphic>
-            <ImageView id="addPictureButton" fitHeight="22.0" fitWidth="20.0" onMouseClicked="#addPicture" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/edit.png" />
                </image>
