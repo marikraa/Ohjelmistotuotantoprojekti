@@ -28,6 +28,8 @@ public class CRUDController {
           TODO: requesti palauttaaa User olio
         }*/
 
+        //gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi ja returnaa sen
+
         //testi data
         Note note = new Note("title", "asddsa");
         List<Note> notes = new ArrayList<>() ;
@@ -60,6 +62,8 @@ public class CRUDController {
 
         // Tulostetaan palvelimen vastaus
         System.out.println("Response: " + response.body());*/
+
+        // toisessa päässä gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi
 
         boolean success = true;
         return success;
