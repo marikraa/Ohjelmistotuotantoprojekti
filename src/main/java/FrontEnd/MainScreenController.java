@@ -17,7 +17,7 @@ public class MainScreenController {
     public void initialize() {
         int noteCount = SessionManager.getCurrentUser().getNotes().size();
         username.setText(SessionManager.getCurrentUser().getUsername());
-        notecounter.setText("Note"+(noteCount > 1 ? "s":"")+": "+ noteCount);
+        notecounter.setText("Notes: " + noteCount);
 
     }
     @FXML

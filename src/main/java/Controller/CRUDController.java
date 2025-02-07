@@ -31,6 +31,7 @@ public class CRUDController {
         //testi data
         Note note = new Note("title", "asddsa");
         List<Note> notes = new ArrayList<>() ;
+        notes.add(note);
         User user = new User(username, password, notes);
         return user ;
     }
