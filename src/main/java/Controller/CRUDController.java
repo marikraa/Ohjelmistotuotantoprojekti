@@ -1,11 +1,22 @@
 package Controller;
 
-import javafx.scene.image.Image;
+import Model.User;
+import DataSource.UserDAO;
 
+import javafx.scene.image.Image;
+import java.io.*;
+import java.sql.*;
 import java.util.List;
 
 public class CRUDController {
+    UserDAO userDAO;
+
+    private User currentUser;
     List<String> notes;
+
+    public CRUDController() {
+        userDAO = new UserDAO();
+    }
 
     public String login(String username, String password) {
         //tähän post pyyntö
@@ -21,20 +32,33 @@ public class CRUDController {
     }
 
     public boolean logOut(String username) {
-        //tähän post pyyntö
-        boolean success = true;
+        if (currentUser != null && currentUser.getUsername().equals(username)) {
+            currentUser = null;
 
-        return success;
+            // tässä sit pitäs vaihtaa login fxml sivuun
+            
+            return true;
+        }
+        return false;
     }
 
-    public boolean signUp(String text, String text1, Image profilepic) {
+    public boolean signUp(String username, String password, Image profileImage) {
         //tähän post pyyntö
+        boolean success = false;
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+
+        try {
+            userDAO.createUser(user);
+            success = true;
+        } catch (SQLException e) {
+            System.err.println("Error registering user: " + e.getMessage());
+        }
 
         //tällein kait sais ladattuu kuvan sitten palvelimelle
-        /*import java.io.*;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
-
+        /*
         public class ImageUploader {
         public static String uploadImage(File file) {
         try {
@@ -74,7 +98,6 @@ public class CRUDController {
         }
     }
 }*/
-        boolean success = true;
         return success;
     }
 }
