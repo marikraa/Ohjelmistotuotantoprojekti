@@ -1,7 +1,7 @@
 package Controller;
 
-import FrontEnd.Note;
-import FrontEnd.User;
+import Model.Note;
+import Model.User;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -32,9 +32,10 @@ public class CRUDController {
 
         //testi data
         Note note = new Note("title", "asddsa");
-        List<Note> notes = new ArrayList<>() ;
-        notes.add(note);
-        User user = new User(username, password, notes);
+
+
+        User user = new User(username, password, null);
+        user.addNote(note);
         return user ;
     }
 
@@ -44,10 +45,12 @@ public class CRUDController {
 
         return success;
     }
+/*
+    public boolean signup() {
 
-    public boolean signUp(User user) {
+        // kuvan uppaus servulle??
         //tähän post pyyntö
-/* Gson gson = new Gson();
+ Gson gson = new Gson();
         String json = gson.toJson(user);
 
         // Luodaan HTTP POST -pyyntö
@@ -61,11 +64,32 @@ public class CRUDController {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         // Tulostetaan palvelimen vastaus
-        System.out.println("Response: " + response.body());*/
+        System.out.println("Response: " + response.body());
 
         // toisessa päässä gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi
-
+        User user = new User("username", "password", null);
         boolean success = true;
         return success;
+    }*/
+
+    public List<Note> addNote(Note note)
+
+    {   //lisää uuden noten userilla ja palauttaa listan kaikista noteista
+        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
+        //tähän post pyyntö
+        // palauttaa listan kaikista noteista
+        List<Note> notes = new ArrayList<>();
+        notes.add(note);
+        return notes;
+
+
+    }
+
+    public User signup(String username, String password, Image image) {
+        //backEndCreateUser(username, password, image); tämä palauttaa user olion
+
+        //testiä varten tämä
+        User user = new User(username, password, image);
+        return user;
     }
 }

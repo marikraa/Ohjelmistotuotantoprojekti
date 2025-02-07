@@ -1,8 +1,7 @@
-package FrontEnd;
+package Model;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class User {
     private String username;
@@ -10,10 +9,11 @@ public class User {
     List<Note> notes;
     Image profilePicture;
 
-    public User(String username, String password, List<Note> notes) {
+    public User(String username, String password, Image image) {
         this.username = username;
         this.password = password;
-        this.notes = notes;
+       profilePicture = image;
+        notes = new ArrayList<>();
 
     }
 
@@ -28,7 +28,8 @@ public class User {
     public List<Note> getNotes() {
         return notes;
     }
-
+public void addNote (Note note){
+        notes.add(note);}
 
 
     public List<Note> sortNotes(String title) {
@@ -56,4 +57,5 @@ public class User {
     public void setPassword(String text) {
         password = text;
     }
+
 }

@@ -1,6 +1,7 @@
-package FrontEnd;
+package View;
 
 import Controller.CRUDController;
+import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -59,18 +60,19 @@ public class LoginSignupController {
         }
         //if everything is ok, set user data
         else {
-            User user = new User(usernameField.getText(), passwordField.getText(), null);
+            //User user = new User(usernameField.getText(), passwordField.getText(), null);
+            User currentUser = crudController.signup(usernameField.getText(),passwordField.getText(),new Image(selectedFile.toURI().toString()));
             //if user has selected a profile picture, set it
-            if (selectedFile != null) {
+            /*if (selectedFile != null) {
                 user.setProfilePic(new Image(selectedFile.toURI().toString()));
-            }
+            }*/
 
             //TODO:maybe try block here???
-            if(crudController.signUp(user)){
+
                 //if signup succesfull set user to session manager and switch to main screen
-                SessionManager.setCurrentUser(user);
+                SessionManager.setCurrentUser(currentUser);
                 SceneManager.switchScene("MainScreen.fxml");
-            }
+
 
         }
 

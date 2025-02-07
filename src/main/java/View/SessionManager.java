@@ -1,4 +1,6 @@
-package FrontEnd;
+package View;
+
+import Model.User;
 
 public class SessionManager {
     public static User currentUser = null;
