@@ -54,10 +54,10 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <ImageView id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="418.0" layoutY="106.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
+      <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="418.0" layoutY="106.0" id="addPictureButton" onMouseClicked="#addPicture" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
          <graphic>
-            <ImageView id="addPictureButton" fitHeight="22.0" fitWidth="20.0" onMouseClicked="#addPicture" pickOnBounds="true" preserveRatio="true">
+            <ImageView  fitHeight="22.0" fitWidth="20.0"  pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/edit.png" />
                </image>
