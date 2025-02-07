@@ -1,6 +1,7 @@
 package Model;
 
 import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
@@ -11,9 +12,11 @@ public class User {
     private String password;
     List<Note> notes;
     Image profilePicture;
+    String profilePictureUrl;
     private Timestamp createdAt;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password, Image image) {
         this.username = username;
@@ -22,10 +25,12 @@ public class User {
         notes = new ArrayList<>();
     }
 
-    public User(Long id, String username, String password, Timestamp createdAt) {
+    // tämä tietokantaa varten, tuo edellinen oletettavasti testiä varten
+    public User(Long id, String username, String password, String profilePictureUrl, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
         this.createdAt = createdAt;
     }
 
@@ -53,12 +58,21 @@ public class User {
         this.password = password;
     }
 
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
     public List<Note> getNotes() {
         return notes;
+    }
 
-public void addNote (Note note){
-        notes.add(note);}
-
+    public void addNote(Note note) {
+        notes.add(note);
+    }
 
     public List<Note> sortNotes(String title) {
         List<Note> sortedNotes = new ArrayList<>();
@@ -67,15 +81,14 @@ public void addNote (Note note){
                 sortedNotes.add(note);
             }
         }
-
         return sortedNotes;
     }
 
-        public Image getProfilePicture() {
-            return profilePicture;
-        }
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
 
-    public void setProfilePic(Image image) {
+    public void setProfilePicture(Image image) {
         profilePicture = image;
     }
 
@@ -85,6 +98,5 @@ public void addNote (Note note){
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
-        }
-
+    }
 }
