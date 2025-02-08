@@ -10,28 +10,29 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    List<Note> notes;
-    Image profilePicture;
-    String profilePictureUrl;
+    private List<Note> notes;
+    private Image profilePicture;
+    private String profilePictureUrl;
     private Timestamp createdAt;
 
     public User() {
+        this.notes = new ArrayList<>();
     }
 
     public User(String username, String password, Image image) {
         this.username = username;
         this.password = password;
-        profilePicture = image;
-        notes = new ArrayList<>();
+        this.profilePicture = image;
+        this.notes = new ArrayList<>();
     }
 
-    // tämä tietokantaa varten, tuo edellinen oletettavasti testiä varten
     public User(Long id, String username, String password, String profilePictureUrl, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
         this.createdAt = createdAt;
+        this.notes = new ArrayList<>();
     }
 
     public Long getId() {
@@ -89,7 +90,7 @@ public class User {
     }
 
     public void setProfilePicture(Image image) {
-        profilePicture = image;
+        this.profilePicture = image;
     }
 
     public Timestamp getCreatedAt() {
