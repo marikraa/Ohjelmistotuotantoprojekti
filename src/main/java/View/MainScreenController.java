@@ -6,6 +6,7 @@ import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -14,6 +15,8 @@ import java.util.List;
 
 
 public class MainScreenController {
+;
+    public ImageView profilePic;
     List<Note> notes = new ArrayList<>();
     public Label notecounter;
     public Label username;
@@ -25,6 +28,7 @@ public class MainScreenController {
         int noteCount = SessionManager.getCurrentUser().getNotes().size();
         username.setText(SessionManager.getCurrentUser().getUsername());
         notecounter.setText("Notes: " + noteCount);
+        profilePic.setImage(user.getProfilePicture());
 
 
     }
@@ -39,8 +43,9 @@ public class MainScreenController {
     }
 
     public void addNote(ActionEvent actionEvent) {
-        Note newNote = new Note("New Note", "Write your note here");
-        notes = crudController.addNote(newNote);
+       String title = "New Note";
+       String content = "My first note";
+        notes = crudController.addNote(title, content);
     }
 
 

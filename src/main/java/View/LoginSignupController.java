@@ -8,6 +8,8 @@ import javafx.stage.FileChooser;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
 import java.io.File;
+import java.util.Objects;
+
 import javafx.scene.image.Image;
 
 
@@ -58,10 +60,20 @@ public class LoginSignupController {
         else if (!passwordField.getText().equals(passwordField2.getText())) {
             throw new Error("Passwords do not match");
         }
-        //if everything is ok, set user data
+
+
         else {
+            Image profPic;
+            //if user has not selected a profile picture, set default
+            if(selectedFile==null){
+                profPic = new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm());
+
+            }
+            else{
+                profPic = new Image(selectedFile.toURI().toString());
+            }
             //User user = new User(usernameField.getText(), passwordField.getText(), null);
-            User currentUser = crudController.signup(usernameField.getText(),passwordField.getText(),new Image(selectedFile.toURI().toString()));
+            User currentUser = crudController.signup(usernameField.getText(),passwordField.getText(),profPic);
             //if user has selected a profile picture, set it
             /*if (selectedFile != null) {
                 user.setProfilePic(new Image(selectedFile.toURI().toString()));

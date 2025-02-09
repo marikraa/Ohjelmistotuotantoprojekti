@@ -20,7 +20,7 @@ public class CRUDController {
     }
 
     List<String> notes;
-
+    //Backend backend = new Backend();
 
 
     public User login(String username, String password) {
@@ -32,8 +32,6 @@ public class CRUDController {
 
         //testi data
         Note note = new Note("title", "asddsa");
-
-
         User user = new User(username, password, null);
         user.addNote(note);
         return user ;
@@ -72,12 +70,14 @@ public class CRUDController {
         return success;
     }*/
 
-    public List<Note> addNote(Note note)
-
-    {   //lisää uuden noten userilla ja palauttaa listan kaikista noteista
+    public List<Note> addNote(String title , String content) {
+        //tähän post pyyntö
+        //lisää uuden noten userilla ja palauttaa listan kaikista noteista
         // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
         //tähän post pyyntö
         // palauttaa listan kaikista noteista
+       // notes = backend.createNote(title, content);
+        Note note = new Note(title, content);
         List<Note> notes = new ArrayList<>();
         notes.add(note);
         return notes;
@@ -86,7 +86,7 @@ public class CRUDController {
     }
 
     public User signup(String username, String password, Image image) {
-        //backEndCreateUser(username, password, image); tämä palauttaa user olion
+        //backend.CreateUser(username, password, image); tämä palauttaa user olion
 
         //testiä varten tämä
         User user = new User(username, password, image);
