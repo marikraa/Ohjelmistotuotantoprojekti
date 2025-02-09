@@ -21,7 +21,7 @@ public class MainScreenController {
     public Label notecounter;
     public Label username;
     public GridPane noteGrid;
-    CRUDController crudController = new CRUDController();
+    CRUDController crudController =CRUDController.getInstance();
     User user = SessionManager.getCurrentUser();
 
     public void initialize() {
