@@ -16,7 +16,8 @@ import javafx.scene.image.Image;
 public class LoginSignupController {
     //create controller for CRUD operations
 
-    CRUDController crudController = CRUDController.getInstance();
+    CRUDController crudController = new CRUDController();
+
     //create json parser
 
     File selectedFile;

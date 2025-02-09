@@ -15,13 +15,13 @@ import java.util.List;
 
 
 public class MainScreenController {
-;
+    ;
     public ImageView profilePic;
     List<Note> notes = new ArrayList<>();
     public Label notecounter;
     public Label username;
     public GridPane noteGrid;
-    CRUDController crudController = CRUDController.getInstance();
+    CRUDController crudController = new CRUDController();
     User user = SessionManager.getCurrentUser();
 
     public void initialize() {
@@ -32,6 +32,7 @@ public class MainScreenController {
 
 
     }
+
     @FXML
     public void logout(MouseEvent mouseEvent) {
         SessionManager.clearUser();
@@ -43,19 +44,19 @@ public class MainScreenController {
     }
 
     public void addNote(ActionEvent actionEvent) {
-       String title = "New Note";
-       String content = "My first note";
+        String title = "New Note";
+        String content = "My first note";
         notes = crudController.addNote(title, content);
     }
 
 
-public void drawNotes(){
+    public void drawNotes() {
         notes = user.getNotes();
-        for(Note note : notes){
+        for (Note note : notes) {
 
         }
 
-}
+    }
 
 }
 

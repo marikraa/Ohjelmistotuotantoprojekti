@@ -8,17 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CRUDController {
-    static CRUDController crudController;
- private CRUDController() {}
-
-
-    public static CRUDController getInstance(){
-     if(crudController == null){
-            crudController = new CRUDController();
-     }
-        return crudController;
-    }
-
     List<String> notes;
     //Backend backend = new Backend();
 
