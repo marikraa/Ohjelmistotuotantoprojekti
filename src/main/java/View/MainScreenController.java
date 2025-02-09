@@ -1,6 +1,6 @@
 package View;
 
-import Controller.CRUDController;
+import Controller.Controller;
 import Model.Note;
 import Model.User;
 import javafx.event.ActionEvent;
@@ -21,7 +21,7 @@ public class MainScreenController {
     public Label notecounter;
     public Label username;
     public GridPane noteGrid;
-    CRUDController crudController = CRUDController.getInstance();
+    Controller controller = Controller.getInstance();
     User user = SessionManager.getCurrentUser();
 
     public void initialize() {
@@ -46,7 +46,7 @@ public class MainScreenController {
     public void addNote(ActionEvent actionEvent) {
         String title = "New Note";
         String content = "My first note";
-        notes = crudController.addNote(SessionManager.currentUser.getUsername(), title, content);
+        notes = controller.addNote(SessionManager.currentUser.getUsername(), title, content);
     }
 
 

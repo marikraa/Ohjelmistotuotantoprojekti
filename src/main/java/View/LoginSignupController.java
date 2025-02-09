@@ -1,6 +1,6 @@
 package View;
 
-import Controller.CRUDController;
+import Controller.Controller;
 import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 public class LoginSignupController {
     //create controller for CRUD operations
 
-    CRUDController crudController =CRUDController.getInstance();
+    Controller controller = Controller.getInstance();
 
     //create json parser
 
@@ -36,7 +36,7 @@ public class LoginSignupController {
     //try to login with given credentials and get user data if successful
     @FXML
     public void login(MouseEvent mouseEvent) {
-       User user = crudController.login(usernameField.getText(), passwordField.getText());
+       User user = controller.login(usernameField.getText(), passwordField.getText());
         if (user == null) {
             throw new Error("Wrong credentials");
         }
@@ -74,7 +74,7 @@ public class LoginSignupController {
                 profPic = new Image(selectedFile.toURI().toString());
             }
             //User user = new User(usernameField.getText(), passwordField.getText(), null);
-            User currentUser = crudController.signup(usernameField.getText(),passwordField.getText(),profPic);
+            User currentUser = controller.signup(usernameField.getText(),passwordField.getText(),profPic);
             //if user has selected a profile picture, set it
             /*if (selectedFile != null) {
                 user.setProfilePic(new Image(selectedFile.toURI().toString()));

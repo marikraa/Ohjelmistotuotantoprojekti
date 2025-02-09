@@ -9,6 +9,7 @@ public class StartScreenController {
     public void handleLogin(ActionEvent actionEvent) {
         SceneManager.switchScene("LoginScreen.fxml");
 
+
     }
 
     @FXML

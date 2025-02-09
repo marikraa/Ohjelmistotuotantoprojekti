@@ -13,6 +13,7 @@ public class GUI extends Application {
      SceneManager.setStage(primaryStage);
         SceneManager.switchScene("StartScreen.fxml");
 
+
         primaryStage.setOnCloseRequest(evt -> {
             Platform.exit();
             System.exit(0);

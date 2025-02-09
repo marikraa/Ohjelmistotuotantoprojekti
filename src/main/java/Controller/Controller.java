@@ -4,30 +4,31 @@ import Model.Note;
 import Model.User;
 import DataSource.UserDAO;
 
+import View.IControllerForGUI;
 import javafx.scene.image.Image;
 import java.util.*;
 import java.sql.*;
 
-public class CRUDController {
-    static CRUDController crudController;
+public class Controller extends IControllerForGUI {
+    static Controller controller;
     UserDAO userDAO;
 
-    private CRUDController() {
+    private Controller() {
         userDAO = new UserDAO();
 
     }
 
-    public static CRUDController getInstance() {
-        if (crudController == null) {
-            crudController = new CRUDController();
+    public static Controller getInstance() {
+        if (controller == null) {
+            controller = new Controller();
         }
-        return crudController;
+        return controller;
     }
     //TODO tätä currentUser ei pakosti tarvita. Frontissa on tieto kirjautuneesta käyttäjästä
     // tänne tulee vaan pyynnöt. Helpottaa jatkoa jos haluaa tehdä HTTP tyyliin
     private User currentUser;
     List<String> notes;
-
+    @Override
     public User login(String username, String password) {
 
         try {
@@ -92,7 +93,7 @@ public class CRUDController {
         return success;
     }
     */
-
+    @Override
     public List<Note> addNote(String username,String title, String content) {
         // lisää uuden noten userilla ja palauttaa listan kaikista noteista
         // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
@@ -107,7 +108,7 @@ public class CRUDController {
         }
         return Collections.emptyList();
     }
-
+    @Override
     public User signup(String username, String password, Image image) {
         // backEndCreateUser(username, password, image); tämä palauttaa user olion
 
