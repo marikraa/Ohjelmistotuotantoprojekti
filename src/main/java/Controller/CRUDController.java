@@ -22,7 +22,8 @@ public class CRUDController {
         }
         return crudController;
     }
-
+    //TODO tätä currentUser ei pakosti tarvita. Frontissa on tieto kirjautuneesta käyttäjästä
+    // tänne tulee vaan pyynnöt. Helpottaa jatkoa jos haluaa tehdä HTTP tyyliin
     private User currentUser;
     List<String> notes;
 
