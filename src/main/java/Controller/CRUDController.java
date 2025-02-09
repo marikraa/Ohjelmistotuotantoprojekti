@@ -91,11 +91,13 @@ public class CRUDController {
     }
     */
 
-    public List<Note> addNote(String title, String content) {
+    public List<Note> addNote(String username,String title, String content) {
         // lisää uuden noten userilla ja palauttaa listan kaikista noteista
         // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
         // tähän post pyyntö
         // palauttaa listan kaikista noteista
+        //tee uusi note userille jonka username on username
+
         if (currentUser != null) {
             Note note = new Note(title, content);
             currentUser.addNote(note);

@@ -46,7 +46,7 @@ public class MainScreenController {
     public void addNote(ActionEvent actionEvent) {
         String title = "New Note";
         String content = "My first note";
-        notes = crudController.addNote(title, content);
+        notes = crudController.addNote(SessionManager.currentUser.getUsername(), title, content);
     }
 
 
