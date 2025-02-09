@@ -14,36 +14,43 @@
     </properties>
 
     <dependencies>
-        <!-- JavaFX riippuvuudet -->
+        <!-- JavaFX dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21</version> <!-- Vaihda JavaFX versioon 21 -->
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>21</version> <!-- Vaihda JavaFX versioon 21 -->
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>21</version> <!-- Vaihda JavaFX versioon 21 -->
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>21</version> <!-- Vaihda JavaFX versioon 21 -->
+            <version>21</version>
         </dependency>
 
-        <!-- MariaDB JDBC riippuvuus -->
+        <!-- MariaDB JDBC dependency -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>3.5.1</version>
         </dependency>
 
-        <!-- JUnit 5 riippuvuus -->
+        <!-- SLF4J Simple Logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.7</version>
+        </dependency>
+
+        <!-- JUnit 5 dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -70,8 +77,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>21</source> <!-- Java 21 -->
-                    <target>21</target> <!-- Java 21 -->
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
 
@@ -87,7 +94,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>View.Main</mainClass> <!-- Määritä oikea pääluokka -->
+                    <mainClass>View.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
