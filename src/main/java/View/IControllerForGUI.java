@@ -6,10 +6,10 @@ import javafx.scene.image.Image;
 
 import java.util.List;
 
-public abstract class IControllerForGUI {
-    public abstract User login(String username, String password);
+public interface IControllerForGUI {
+    User login(String username, String password);
 
-    public abstract List<Note> addNote(String username, String title, String content);
+    List<Note> addNote(String username, String title, String content);
 
-    public abstract User signup(String username, String password, Image image);
+    User signup(String username, String password, Image image);
 }

@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import java.util.*;
 import java.sql.*;
 
-public class Controller extends IControllerForGUI {
+public class Controller implements IControllerForGUI {
     static Controller controller;
     UserDAO userDAO;
 
@@ -28,6 +28,7 @@ public class Controller extends IControllerForGUI {
     // tänne tulee vaan pyynnöt. Helpottaa jatkoa jos haluaa tehdä HTTP tyyliin
     private User currentUser;
     List<String> notes;
+
     @Override
     public User login(String username, String password) {
 
