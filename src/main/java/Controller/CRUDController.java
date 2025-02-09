@@ -10,9 +10,10 @@ import java.sql.*;
 
 public class CRUDController {
     static CRUDController crudController;
-    UserDAO userDAO = new UserDAO();
+    UserDAO userDAO;
 
     private CRUDController() {
+        userDAO = new UserDAO();
 
     }
 
