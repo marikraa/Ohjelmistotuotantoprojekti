@@ -42,7 +42,7 @@ public class CRUDController {
 
         return null;
     }
-
+    //TODO tämä hoidetaan jo frontissa. Eli Session manageri tyhjentää current userin tiedot jolloin näyttö palautuu alku tilaan
     public boolean logOut(String username) {
         if (currentUser != null && currentUser.getUsername().equals(username)) {
             currentUser = null;
