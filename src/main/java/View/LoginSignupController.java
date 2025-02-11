@@ -4,7 +4,6 @@ import Controller.Controller;
 import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
 import java.io.File;
@@ -93,18 +92,9 @@ public class LoginSignupController {
     }
 
     @FXML
-    public void addPicture(MouseEvent mouseEvent) {
-        System.out.println("add picture");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
-        selectedFile = fileChooser.showOpenDialog(null);
-
-        if (selectedFile != null) {
-            Image image = new Image(selectedFile.toURI().toString());
-            profilePic.setImage(image);
-
-        }
-
+    public void addProfilePicture(MouseEvent mouseEvent) {
+        ImageAdder imageAdder = new ImageAdder();
+        profilePic.setImage(imageAdder.addPicture(mouseEvent));
 
     }
 

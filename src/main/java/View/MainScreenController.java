@@ -1,33 +1,50 @@
 package View;
 
 import Controller.Controller;
+import javafx.application.Platform;
+import javafx.scene.Parent;
 import Model.Note;
 import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainScreenController {
-    ;
+
+
     public ImageView profilePic;
     List<Note> notes = new ArrayList<>();
-    public Label notecounter;
-    public Label username;
+    public Label notecounterLabel;
+    public Label usernameLabel;
     public GridPane noteGrid;
-    Controller controller = Controller.getInstance();
+    IControllerForGUI controller = Controller.getInstance();
     User user = SessionManager.getCurrentUser();
+    ImageAdder imageAdder = new ImageAdder();
 
     public void initialize() {
-        int noteCount = SessionManager.getCurrentUser().getNotes().size();
-        username.setText(SessionManager.getCurrentUser().getUsername());
-        notecounter.setText("Notes: " + noteCount);
+        int noteCount = user.getNotes().size();
+        String username = user.getUsername();
+        if (usernameLabel != null) {
+            usernameLabel.setText(username);
+
+        }
+        if (notecounterLabel != null) {
+            notecounterLabel.setText("Notes: " + noteCount);
+        }
         profilePic.setImage(user.getProfilePicture());
 
 
@@ -58,6 +75,38 @@ public class MainScreenController {
 
     }
 
-}
 
+
+
+    @FXML
+    public void addProfilePicture(MouseEvent mouseEvent) {
+        Image selectedImage = imageAdder.addPicture(mouseEvent);
+        //set user profile picture to the image that user has selected
+        if (selectedImage != null) {
+            profilePic.setImage(selectedImage);
+
+        }
+    }
+    @FXML
+    public void editUser(MouseEvent mouseEvent) {try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
+        Stage editUserStage = new Stage();
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        editUserStage.setScene(scene);
+        editUserStage.show();
+        EditUserController controller = loader.getController();
+        //passing the stage to the controller
+        controller.setEditUserStage(editUserStage);
+
+
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+
+        //open edit user window
+
+    }
+
+}
 

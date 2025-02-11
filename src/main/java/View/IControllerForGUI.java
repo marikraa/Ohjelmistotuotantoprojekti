@@ -12,4 +12,8 @@ public interface IControllerForGUI {
     List<Note> addNote(String username, String title, String content);
 
     User signup(String username, String password, Image image);
+
+    Boolean updateUser(String text, String text1, Image profilePicture);
+
+    Boolean deleteUser(User user);
 }

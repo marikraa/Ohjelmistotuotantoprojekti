@@ -59,7 +59,7 @@
                 <Image url="@../images/defaultProfilePic.png" />
             </image>
         </ImageView>
-      <Button  layoutX="377.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#addPicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
+      <Button  layoutX="377.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#addProfilePicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

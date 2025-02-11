@@ -124,4 +124,20 @@ public class Controller implements IControllerForGUI {
         }
         return null;
     }
+//Updates user information to database
+    @Override
+    public Boolean updateUser(String text, String text1, Image profilePicture) {
+        Boolean success = true;
+
+        //TODO päivitä uuseri tietokantaan
+
+        return success;
+    }
+
+    @Override
+    public Boolean deleteUser(User user) {
+        //TODO poista käyttäjä tietokannasta
+        Boolean success = true;
+        return success;
+    }
 }

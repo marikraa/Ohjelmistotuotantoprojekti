@@ -15,16 +15,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="47.0" prefHeight="170.0" prefWidth="618.0" styleClass="widget">
          <children>
-            <Label fx:id="username" alignment="BOTTOM_LEFT" layoutX="14.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
-            <Label fx:id="notecounter" layoutX="14.0" layoutY="100.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
+            <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" layoutX="14.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
+            <Label fx:id="notecounterLabel" layoutX="14.0" layoutY="100.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
             <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="137.0" layoutX="408.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
-            <Button id="editProfile" layoutX="545.0" layoutY="4.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
+            <Button id="editProfile" onMouseClicked="#editUser" layoutX="582.0" layoutY="4.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="20.0"  pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/edit.png" />
                      </image>
