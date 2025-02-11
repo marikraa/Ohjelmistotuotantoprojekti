@@ -7,6 +7,7 @@ public class StartScreenController {
     //these methods switch the scene to the login or signup screen
     @FXML
     public void handleLogin(ActionEvent actionEvent) {
+        //switch to login screen
         SceneManager.switchScene("LoginScreen.fxml");
 
 
@@ -16,7 +17,7 @@ public class StartScreenController {
     public void handleSignup(ActionEvent actionEvent) {
         //switch to signup screen
         SceneManager.switchScene("SignupScreen.fxml");
-        //initialize user and add default profile picture
+
 
 
     }

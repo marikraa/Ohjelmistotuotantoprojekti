@@ -12,11 +12,11 @@ import java.util.Objects;
 
 import javafx.scene.image.Image;
 
-
+//login and signup controller is used to handle login and signup operations both fxml uses this controller
 public class LoginSignupController {
-    //create controller for CRUD operations
 
-    Controller controller = Controller.getInstance();
+
+    IControllerForGUI controller = Controller.getInstance();
 
     //create json parser
 
@@ -38,10 +38,9 @@ public class LoginSignupController {
         if (user == null) {
             ErrorPopup.showError("Login failed", "Username or password is incorrect");
         }
-        //if login succesfull set user to session manager and switch to main screen
+        //if login successful set user to session manager and switch to main screen
         else {
-            SessionManager.setCurrentUser(user);
-            SceneManager.switchScene("MainScreen.fxml");
+            openMainScreen(user);
         }
 
 
@@ -69,15 +68,14 @@ public class LoginSignupController {
             } else {
                 profPic = new Image(selectedFile.toURI().toString());
             }
-            User currentUser = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
-            if(currentUser == null){
+            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
+            if(user == null){
                 ErrorPopup.showError("Username already exists", usernameField.getText() + " is already taken");
             return;
             }
 
             //if signup succesfull set user to session manager and switch to main screen
-            SessionManager.setCurrentUser(currentUser);
-            SceneManager.switchScene("MainScreen.fxml");
+           openMainScreen(user);
 
 
         }
@@ -90,6 +88,10 @@ public class LoginSignupController {
         ImageAdder imageAdder = new ImageAdder();
         profilePic.setImage(imageAdder.addPicture(mouseEvent));
 
+    }
+    public void openMainScreen(User currentUser){
+        SessionManager.setCurrentUser(currentUser);
+        SceneManager.switchScene("MainScreen.fxml");
     }
 
 }

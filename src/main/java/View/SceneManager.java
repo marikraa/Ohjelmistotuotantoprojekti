@@ -22,7 +22,6 @@ public  class SceneManager {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-            // Odotetaan hetki, jotta ikkuna ehtii rekisteröityä
 
 
         } catch (IOException e) {

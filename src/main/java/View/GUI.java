@@ -12,8 +12,6 @@ public class GUI extends Application {
     public void start(Stage primaryStage) throws IOException {
      SceneManager.setStage(primaryStage);
         SceneManager.switchScene("StartScreen.fxml");
-
-
         primaryStage.setOnCloseRequest(evt -> {
             Platform.exit();
             System.exit(0);

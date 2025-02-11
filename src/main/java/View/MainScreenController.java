@@ -38,20 +38,14 @@ public class MainScreenController {
     public void initialize() {
         int noteCount = user.getNotes().size();
         String username = user.getUsername();
-        if (usernameLabel != null) {
-            usernameLabel.setText(username);
-
-        }
-        if (noteCounterLabel != null) {
-            noteCounterLabel.setText("Notes: " + noteCount);
-        }
+        usernameLabel.setText(username);
+        noteCounterLabel.setText("Notes: " + noteCount);
         profilePic.setImage(user.getProfilePicture());
-
-
     }
 
     @FXML
     public void logout(MouseEvent mouseEvent) {
+        //clear the current user and switch to the start screen
         SessionManager.clearUser();
         SceneManager.switchScene("StartScreen.fxml");
 
@@ -76,8 +70,6 @@ public class MainScreenController {
     }
 
 
-
-
     @FXML
     public void addProfilePicture(MouseEvent mouseEvent) {
         Image selectedImage = imageAdder.addPicture(mouseEvent);
@@ -87,24 +79,25 @@ public class MainScreenController {
 
         }
     }
+
     @FXML
-    public void editUser(MouseEvent mouseEvent) {try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
-        Stage editUserStage = new Stage();
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        editUserStage.setScene(scene);
-        editUserStage.show();
-        EditUserController controller = loader.getController();
-        //passing the stage to the controller
-        controller.setEditUserStage(editUserStage);
+    public void editUser(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
+            Stage editUserStage = new Stage();
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            editUserStage.setScene(scene);
+            editUserStage.show();
+            EditUserController controller = loader.getController();
+            //passing the stage to the controller
+            controller.setEditUserStage(editUserStage);
 
 
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        //open edit user window
 
     }
 
