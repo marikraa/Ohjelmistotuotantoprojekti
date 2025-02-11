@@ -6,35 +6,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="640.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginSignupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="422.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginSignupController">
    <children>
-      <Label layoutX="204.0" layoutY="99.0" styleClass="header" text="Notez wizard" />
-      <AnchorPane layoutX="34.0" layoutY="350.0" prefHeight="86.0" prefWidth="568.0">
+      <Label layoutX="95.0" layoutY="52.0" styleClass="header" text="Notez wizard" />
+      <AnchorPane layoutY="146.0" prefHeight="86.0" prefWidth="422.0">
          <children>
-            <Label layoutY="23.0" styleClass="normaltext" text="Username:" />
-            <AnchorPane layoutX="126.0" layoutY="5.0" prefHeight="74.0" prefWidth="402.0" styleClass="widget">
-               <children>
-                  <TextField fx:id="usernameField" prefHeight="74.0" prefWidth="402.0" promptText="Username" style="-fx-background-color: 0000;">
-                     <font>
-                        <Font size="17.0" />
-                     </font></TextField>
-               </children>
-            </AnchorPane>
+            <Label layoutX="14.0" layoutY="33.0" styleClass="normaltext" text="Username:" />
+            <TextField fx:id="usernameField" layoutX="87.0" layoutY="12.0" prefHeight="62.0" prefWidth="286.0" promptText="Username" styleClass="widget">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="33.0" layoutY="476.0" prefHeight="74.0" prefWidth="568.0">
+      <AnchorPane layoutY="252.0" prefHeight="74.0" prefWidth="422.0">
          <children>
-            <Label layoutY="17.0" styleClass="normaltext" text="Password:" />
-            <AnchorPane layoutX="127.0" prefHeight="74.0" prefWidth="382.0" styleClass="widget">
-               <children>
-                  <TextField fx:id="passwordField" prefHeight="74.0" prefWidth="402.0" promptText="Password" style="-fx-background-color: 0000;">
-                     <font>
-                        <Font size="17.0" />
-                     </font></TextField>
-               </children>
-            </AnchorPane>
+            <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
+            <TextField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password" styleClass="widget">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
-      <Button  layoutX="253.0" layoutY="631.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="61.0" prefWidth="133.0" styleClass="widget" text="Log in" />
+      <Button layoutX="144.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="54.0" prefWidth="134.0" styleClass="widget" text="Log in" />
    </children>
 </AnchorPane>
