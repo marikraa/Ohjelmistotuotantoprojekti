@@ -20,11 +20,11 @@
       <AnchorPane layoutX="10.0" layoutY="47.0" prefHeight="170.0" prefWidth="618.0" styleClass="widget">
          <children>
             <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" layoutX="14.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
-            <Label fx:id="notecounterLabel" layoutX="14.0" layoutY="100.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
+            <Label fx:id="noteCounterLabel" layoutX="14.0" layoutY="100.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
             <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="137.0" layoutX="408.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
-            <Button id="editProfile" onMouseClicked="#editUser" layoutX="582.0" layoutY="4.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
+            <Button id="editProfile" layoutX="582.0" layoutY="4.0" mnemonicParsing="false" onMouseClicked="#editUser" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="20.0"  pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/edit.png" />
                      </image>

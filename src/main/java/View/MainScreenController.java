@@ -27,8 +27,8 @@ public class MainScreenController {
 
 
     public ImageView profilePic;
+    public Label noteCounterLabel;
     List<Note> notes = new ArrayList<>();
-    public Label notecounterLabel;
     public Label usernameLabel;
     public GridPane noteGrid;
     IControllerForGUI controller = Controller.getInstance();
@@ -42,8 +42,8 @@ public class MainScreenController {
             usernameLabel.setText(username);
 
         }
-        if (notecounterLabel != null) {
-            notecounterLabel.setText("Notes: " + noteCount);
+        if (noteCounterLabel != null) {
+            noteCounterLabel.setText("Notes: " + noteCount);
         }
         profilePic.setImage(user.getProfilePicture());
 

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
+
 import java.io.File;
 import java.util.Objects;
 
@@ -30,21 +31,18 @@ public class LoginSignupController {
     ImageView profilePic;
 
 
-
-
     //try to login with given credentials and get user data if successful
     @FXML
     public void login(MouseEvent mouseEvent) {
-       User user = controller.login(usernameField.getText(), passwordField.getText());
+        User user = controller.login(usernameField.getText(), passwordField.getText());
         if (user == null) {
-            throw new Error("Wrong credentials");
+            ErrorPopup.showError("Login failed", "Username or password is incorrect");
         }
         //if login succesfull set user to session manager and switch to main screen
-        else{
+        else {
             SessionManager.setCurrentUser(user);
             SceneManager.switchScene("MainScreen.fxml");
         }
-
 
 
     }
@@ -54,36 +52,32 @@ public class LoginSignupController {
     public void signup(MouseEvent mouseEvent) {
         //check if fields are empty
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
-            throw new Error("Username or password is empty");
+            ErrorPopup.showError("Empty fields", "Please fill all fields");
         }
         //check if passwords match
         else if (!passwordField.getText().equals(passwordField2.getText())) {
-            throw new Error("Passwords do not match");
+            ErrorPopup.showError("Passwords do not match", "Please check passwords");
         }
 
-
+        //if fields are not empty and passwords match, try to signup
         else {
             Image profPic;
             //if user has not selected a profile picture, set default
-            if(selectedFile==null){
+            if (selectedFile == null) {
                 profPic = new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm());
 
-            }
-            else{
+            } else {
                 profPic = new Image(selectedFile.toURI().toString());
             }
-            //User user = new User(usernameField.getText(), passwordField.getText(), null);
-            User currentUser = controller.signup(usernameField.getText(),passwordField.getText(),profPic);
-            //if user has selected a profile picture, set it
-            /*if (selectedFile != null) {
-                user.setProfilePic(new Image(selectedFile.toURI().toString()));
-            }*/
+            User currentUser = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
+            if(currentUser == null){
+                ErrorPopup.showError("Username already exists", usernameField.getText() + " is already taken");
+            return;
+            }
 
-            //TODO:maybe try block here???
-
-                //if signup succesfull set user to session manager and switch to main screen
-                SessionManager.setCurrentUser(currentUser);
-                SceneManager.switchScene("MainScreen.fxml");
+            //if signup succesfull set user to session manager and switch to main screen
+            SessionManager.setCurrentUser(currentUser);
+            SceneManager.switchScene("MainScreen.fxml");
 
 
         }

@@ -13,7 +13,7 @@ public interface IControllerForGUI {
 
     User signup(String username, String password, Image image);
 
-    Boolean updateUser(String text, String text1, Image profilePicture);
+    Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture);
 
     Boolean deleteUser(User user);
 }

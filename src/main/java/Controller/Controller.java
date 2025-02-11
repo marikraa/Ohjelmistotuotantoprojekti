@@ -111,9 +111,8 @@ public class Controller implements IControllerForGUI {
     }
     @Override
     public User signup(String username, String password, Image image) {
-        // backEndCreateUser(username, password, image); tämä palauttaa user olion
 
-        // testiä varten tämä
+        //TODO TÄHÄN CHECK ETTÄ JOS USER ON KÄYTÖSSÄ PALAUTA NULL. NYT PÄÄSTÄÄ LÄPI SAMALLA NIMELLÄ
         User user = new User(username, password, image);
         try {
             userDAO.createUser(user);
@@ -126,7 +125,7 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public Boolean updateUser(String text, String text1, Image profilePicture) {
+    public Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture) {
         Boolean success = true;
 
         //TODO päivitä uuseri tietokantaan
