@@ -24,8 +24,7 @@ public class Controller implements IControllerForGUI {
         }
         return controller;
     }
-    //TODO tätä currentUser ei pakosti tarvita. Frontissa on tieto kirjautuneesta käyttäjästä
-    // tänne tulee vaan pyynnöt. Helpottaa jatkoa jos haluaa tehdä HTTP tyyliin
+    //TODO nämä 2 poistetaan ku on koodi valmis
     private User currentUser;
     List<String> notes;
 
@@ -35,6 +34,8 @@ public class Controller implements IControllerForGUI {
         try {
             User user = userDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(password)) {
+
+                //TODO current user poistetaan sit ku on koodi valmis ei tarvii
                 currentUser = user;
                 return user;
             }
@@ -45,69 +46,19 @@ public class Controller implements IControllerForGUI {
 
         return null;
     }
-    //TODO tämä hoidetaan jo frontissa. Eli Session manageri tyhjentää current userin tiedot jolloin näyttö palautuu alku tilaan
-    public boolean logOut(String username) {
-        if (currentUser != null && currentUser.getUsername().equals(username)) {
-            currentUser = null;
-            // tässä sit pitäs vaihtaa login fxml sivuun
-            return true;
-        }
-        return false;
-    }
 
-    /*
-    public boolean signup() {
-        // kuvan uppaus servulle??
-    public boolean signUp(String username, String password, Image profileImage) {
-        //tähän post pyyntö
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        // Luodaan HTTP POST -pyyntö
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://example.com/api/user"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
-                .build();
-
-        boolean success = false;
-
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-
-        try {
-            userDAO.createUser(user);
-            success = true;
-        } catch (SQLException e) {
-            System.err.println("Error registering user: " + e.getMessage());
-        }
-
-        // Lähetetään pyyntö ja saadaan vastaus
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        // Tulostetaan palvelimen vastaus
-        System.out.println("Response: " + response.body());
-
-        // toisessa päässä gson.fromJson(json, User.class); jolloin muuttaa jsonin User olioksi
-        User user = new User("username", "password", null);
-        return success;
-    }
-    */
     @Override
     public List<Note> addNote(String username,String title, String content) {
-        // lisää uuden noten userilla ja palauttaa listan kaikista noteista
-        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin notet
-        // tähän post pyyntö
+        // lisää uuden noten userille tietokantaan ja palauttaa listan kaikista noteista tietokannasta
+        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin note
         // palauttaa listan kaikista noteista
         //tee uusi note userille jonka username on username
-
-        if (currentUser != null) {
-            Note note = new Note(title, content);
+        //TODO tähän pitäs lisätä noten lisäys tietokantaan tämä on tällä hetkellä testi
+        Note note = new Note(title, content);
             currentUser.addNote(note);
             return currentUser.getNotes();
-        }
-        return Collections.emptyList();
+
+        //return Collections.emptyList();
     }
     @Override
     public User signup(String username, String password, Image image) {
