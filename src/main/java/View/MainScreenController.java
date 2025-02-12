@@ -83,6 +83,7 @@ public class MainScreenController {
     @FXML
     public void editUser(MouseEvent mouseEvent) {
         try {
+            System.out.println("asddasasd");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
             Stage editUserStage = new Stage();
             Parent root = loader.load();
