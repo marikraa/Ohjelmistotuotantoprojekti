@@ -1,18 +1,34 @@
 package Model;
 
+import jakarta.persistence.*;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "users")
 public class User {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
+
+    @Transient
     private Image profilePicture;
+
+    @Column(name = "profile_picture_url")
     private String profilePictureUrl;
+
+    @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
     public User() {
@@ -26,20 +42,11 @@ public class User {
         this.notes = new ArrayList<>();
     }
 
-    public User(Long id, String username, String password, String profilePictureUrl, Timestamp createdAt) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.profilePictureUrl = profilePictureUrl;
-        this.createdAt = createdAt;
-        this.notes = new ArrayList<>();
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -59,6 +66,14 @@ public class User {
         this.password = password;
     }
 
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Image image) {
+        this.profilePicture = image;
+    }
+
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }
@@ -67,12 +82,26 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public List<Note> getNotes() {
         return notes;
     }
 
     public void addNote(Note note) {
         notes.add(note);
+        note.setUser(this);
+    }
+
+    public void removeNote(Note note) {
+        notes.remove(note);
+        note.setUser(null);
     }
 
     public List<Note> sortNotes(String title) {
@@ -83,21 +112,5 @@ public class User {
             }
         }
         return sortedNotes;
-    }
-
-    public Image getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(Image image) {
-        this.profilePicture = image;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
     }
 }
