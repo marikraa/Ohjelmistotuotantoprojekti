@@ -34,7 +34,7 @@ public class Controller implements IControllerForGUI {
         User user = userDAO.getUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
 
-            //TODO current user poistetaan sit ku on koodi valmis ei tarvii
+            //TODO current user poistetaan sit ku on koodi valmis ei tarvii???? Mitä ei tarvii t. Liukkari
             currentUser = user;
             return user;
         }
@@ -44,22 +44,31 @@ public class Controller implements IControllerForGUI {
     }
 
     @Override
-    public List<Note> addNote(String username,String title, String content) {
-        // lisää uuden noten userille tietokantaan ja palauttaa listan kaikista noteista tietokannasta
-        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin note
-        // palauttaa listan kaikista noteista
-        //tee uusi note userille jonka username on username
-        //TODO tähän pitäs lisätä noten lisäys tietokantaan tämä on tällä hetkellä testi
-        Note note = new Note(title, content);
-            currentUser.addNote(note);
-            return currentUser.getNotes();
-
-        //return Collections.emptyList();
+    public List<Note> addNote(String username, String title, String content) {
+        try {
+            User user = userDAO.getUserByUsername(username);
+            if (user != null) {
+                Note note = new Note(title, content);
+                note.setUser(user);
+                user.addNote(note);
+                userDAO.updateUser(user);
+                return user.getNotes();
+            } else {
+                System.out.println("User not found: " + username);
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
+
     @Override
     public User signup(String username, String password, Image image) {
-
-        //TODO TÄHÄN CHECK ETTÄ JOS USER ON KÄYTÖSSÄ PALAUTA NULL. NYT PÄÄSTÄÄ LÄPI SAMALLA NIMELLÄ
+        User existingUser = userDAO.getUserByUsername(username);
+        if (existingUser != null) {
+            return null;
+        }
         User user = new User(username, password, image);
         userDAO.createUser(user);
         currentUser = user;
@@ -67,18 +76,34 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture) {
+    public Boolean updateUser(String oldUsername, String newUsername, String password, Image profilePicture) {
         Boolean success = true;
-
-        //TODO päivitä uuseri tietokantaan
-
+        try {
+            User user = userDAO.getUserByUsername(oldUsername);
+            if (user != null) {
+                user.setUsername(newUsername);
+                user.setPassword(password);
+                user.setProfilePicture(profilePicture);
+                userDAO.updateUser(user);
+            } else {
+                System.out.println("User not found: " + oldUsername);
+                success = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }
         return success;
     }
 
     @Override
     public Boolean deleteUser(User user) {
-        //TODO poista käyttäjä tietokannasta
-        Boolean success = true;
-        return success;
+        try {
+            userDAO.deleteUser(user.getId());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

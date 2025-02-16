@@ -54,8 +54,10 @@ public class UserDAO {
     public User getUserByUsername(String username) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
-            return em.find(User.class, username);
-        } catch(NoResultException e) {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+            query.setParameter("username", username);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }
