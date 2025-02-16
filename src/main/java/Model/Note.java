@@ -25,9 +25,6 @@ public class Note {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
@@ -37,6 +34,14 @@ public class Note {
     public Note(String title, String body) {
         this.title = title;
         this.body = body;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -51,7 +56,7 @@ public class Note {
         return title;
     }
 
-    public void setTitle() {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -69,14 +74,6 @@ public class Note {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Timestamp getUpdatedAt() {

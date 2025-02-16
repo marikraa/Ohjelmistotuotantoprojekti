@@ -31,16 +31,12 @@ public class Controller implements IControllerForGUI {
     @Override
     public User login(String username, String password) {
 
-        try {
-            User user = userDAO.getUserByUsername(username);
-            if (user != null && user.getPassword().equals(password)) {
+        User user = userDAO.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
 
-                //TODO current user poistetaan sit ku on koodi valmis ei tarvii
-                currentUser = user;
-                return user;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            //TODO current user poistetaan sit ku on koodi valmis ei tarvii
+            currentUser = user;
+            return user;
         }
 
 
@@ -65,14 +61,9 @@ public class Controller implements IControllerForGUI {
 
         //TODO TÄHÄN CHECK ETTÄ JOS USER ON KÄYTÖSSÄ PALAUTA NULL. NYT PÄÄSTÄÄ LÄPI SAMALLA NIMELLÄ
         User user = new User(username, password, image);
-        try {
-            userDAO.createUser(user);
-            currentUser = user;
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        userDAO.createUser(user);
+        currentUser = user;
+        return user;
     }
 //Updates user information to database
     @Override

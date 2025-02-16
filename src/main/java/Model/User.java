@@ -28,9 +28,6 @@ public class User {
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
     public User() {
         this.notes = new ArrayList<>();
     }
@@ -80,14 +77,6 @@ public class User {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
     }
 
     public List<Note> getNotes() {
