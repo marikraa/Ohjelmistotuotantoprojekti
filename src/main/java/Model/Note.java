@@ -19,25 +19,26 @@ public class Note {
     private User user;
     @Column(name = "title")
     private String title;
-    private String content;
+
     //private final String date;
     //private final Image image;
     private String dueDate;
     @Column(name = "body")
     private String body;
     @Column(name = "image_url")
-    private String imageUrl;
+    private String imageUrl=null;
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+    private String date;
+    private String time;
     public Note(){
 
     }
-    public Note(String title, String content, Image image, String dueDate) {
+    public Note(String title, String body, String imageUrl, String dueDate) {
         this.title = title;
-        this.content = content;
-        //this.date = LocalDate.now().toString();
-        //this.time = LocalTime.now().toString();
-        //this.image = image;
+        this.date = LocalDate.now().toString();
+        this.time = LocalTime.now().toString();
+        this.imageUrl = imageUrl;
         this.dueDate = dueDate;
         this.body = body;
     }
@@ -59,8 +60,8 @@ public class Note {
         return title;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImage() {
+        return imageUrl;
     }
 
     public String getDueDate() {
@@ -68,7 +69,7 @@ public class Note {
     }
 
     public String getContent() {
-        return content;
+        return body;
     }
 
     public String getDate() {

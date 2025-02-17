@@ -25,7 +25,7 @@ public class NoteNode {
         this.date = note.getDate();
         this.time = note.getTime();
         this.dueDate = note.getDueDate();
-        this.noteImage = note.getImage();
+        this.noteImage = new Image (note.getImageUrl());
 
     }
 

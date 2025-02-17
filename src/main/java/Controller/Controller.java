@@ -47,10 +47,16 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public List<Note> addNote(String username,String title, String content,Image image, String dueDate) {
+
+        //TODO: imagen uppaaminen johonkin palvelimelle ja sen urlin tallentaminen tietokantaan alempi on testiä varten että saa locaalisti toimimaan
+        String imageUrl = null;
+        if(image!=null){
+            imageUrl = image.getUrl();
+        }
         try {
             User user = userDAO.getUserByUsername(username);
             if (user != null) {
-                Note note = new Note(title, content, image, dueDate);
+                Note note = new Note(title, content, imageUrl, dueDate);
                 note.setUser(user);
                 user.addNote(note);
                 userDAO.updateUser(user);
