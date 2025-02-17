@@ -74,8 +74,6 @@ public class MainScreenController {
             addNoteStage.show();
             NoteAddController controller = loader.getController();
             controller.setStage(addNoteStage);
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

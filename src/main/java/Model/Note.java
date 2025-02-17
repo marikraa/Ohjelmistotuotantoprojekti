@@ -1,4 +1,5 @@
 package Model;
+
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
@@ -12,14 +13,18 @@ public class Note {
     private final String date;
     private final Image image;
     private String dueDate;
+    private static int nextId = 0;
+    private final int id;
 
-    public Note(String title, String content, Image image,String dueDate) {
+    public Note(String title, String content, Image image, String dueDate) {
         this.title = title;
         this.content = content;
         this.date = LocalDate.now().toString();
         this.time = LocalTime.now().toString();
         this.image = image;
         this.dueDate = dueDate;
+        this.id = nextId;
+        nextId++;
     }
 
 
@@ -34,6 +39,7 @@ public class Note {
     public String getDueDate() {
         return dueDate;
     }
+
     public String getContent() {
         return content;
     }
@@ -52,5 +58,9 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getId() {
+        return id;
     }
 }
