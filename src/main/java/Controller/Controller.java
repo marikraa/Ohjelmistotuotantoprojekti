@@ -6,6 +6,9 @@ import DataSource.UserDAO;
 
 import View.IControllerForGUI;
 import javafx.scene.image.Image;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.sql.*;
 
@@ -39,7 +42,7 @@ public class Controller implements IControllerForGUI {
     }
 
     @Override
-    public List<Note> addNote(String username,String title, String content,Image image, String dueDate) {
+    public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
         //TODO: imagen uppaaminen johonkin palvelimelle ja sen urlin tallentaminen tietokantaan alempi on testiä varten että saa locaalisti toimimaan
         String imageUrl = null;
         if(image!=null){
@@ -50,7 +53,7 @@ public class Controller implements IControllerForGUI {
         try {
             User user = userDAO.getUserByUsername(username);
                 if (user != null) {
-                    Note note = new Note(title, content, imageUrl, dueDate);
+                    Note note = new Note(title, content, imageUrl, notificationTime);
                     note.setUser(user);
                     user.addNote(note);
                     userDAO.updateUser(user);

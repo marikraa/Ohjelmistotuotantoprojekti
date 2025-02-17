@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import jakarta.persistence.*;
 @Entity
@@ -22,7 +23,7 @@ public class Note {
 
     //private final String date;
     //private final Image image;
-    private String dueDate;
+    private LocalDateTime notificationTime;
     @Column(name = "body")
     private String body;
     @Column(name = "image_url")
@@ -34,12 +35,12 @@ public class Note {
     public Note(){
 
     }
-    public Note(String title, String body, String imageUrl, String dueDate) {
+    public Note(String title, String body, String imageUrl, LocalDateTime notificationTime) {
         this.title = title;
         this.date = LocalDate.now().toString();
         this.time = LocalTime.now().toString();
         this.imageUrl = imageUrl;
-        this.dueDate = dueDate;
+        this.notificationTime = notificationTime;
         this.body = body;
     }
 
@@ -64,8 +65,8 @@ public class Note {
         return imageUrl;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public LocalDateTime getNotificationTime() {
+        return notificationTime;
     }
 
     public String getContent() {
