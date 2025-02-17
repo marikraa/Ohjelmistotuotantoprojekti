@@ -9,13 +9,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.time.LocalDateTime;
+
 public class NoteNode {
     private Note note;
     private String title;
     private String content;
     private String date;
     private String time;
-    private String dueDate;
+    private LocalDateTime notificationDate;
     private Image noteImage;
 
     public NoteNode(Note note) {
@@ -24,7 +26,7 @@ public class NoteNode {
         this.content = note.getContent();
         this.date = note.getDate();
         this.time = note.getTime();
-        this.dueDate = note.getNotificationTime();
+        this.notificationDate = note.getNotificationTime();
         this.noteImage = new Image (note.getImageUrl());
 
     }
@@ -90,8 +92,8 @@ public class NoteNode {
         this.time = time;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setNotificationDate(LocalDateTime notificationDate) {
+        this.notificationDate = notificationDate;
     }
 
     public void setImage(Image image) {
