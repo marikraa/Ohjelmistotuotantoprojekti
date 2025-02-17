@@ -41,4 +41,13 @@
 
 
 }
-
+.button{
+    -fx-cursor: hand;
+}
+.button:pressed {
+    -fx-scale-x: 1.1; /* Skaalataan vaakasuunnassa 20% suuremmaksi */
+    -fx-scale-y: 1.1; /* Skaalataan pystysuunnassa 20% suuremmaksi */
+}
+.button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.06);
+}
