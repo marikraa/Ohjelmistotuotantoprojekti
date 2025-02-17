@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import Model.Note;
 import Model.User;
@@ -10,12 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,8 +26,8 @@ import java.util.List;
 
 
 public class MainScreenController {
-
-
+    //TODO Tämä on se search field mihin kirjoitetaan hakusana
+    public TextField searchField;
     public ImageView profilePic;
     public Label noteCounterLabel;
     public ScrollPane noteArea;
@@ -45,7 +45,7 @@ public class MainScreenController {
         noteCounterLabel.setText("Notes: " + noteCount);
         profilePic.setImage(user.getProfilePicture());
         System.out.println("init");
-        drawNotes();
+        drawNotes("all",null);
 
 
     }
@@ -57,8 +57,13 @@ public class MainScreenController {
         SceneManager.switchScene("StartScreen.fxml");
 
     }
+    @FXML
+    public void sortNotes() {
+        //sort notes by the search field
+        String search = searchField.getText();
+        drawNotes("search",search);
 
-    public void sortNotes(MouseEvent actionEvent) {
+
     }
 
     @FXML
@@ -105,11 +110,15 @@ public class MainScreenController {
 
     }
 
-    public void drawNotes() {
+    public void drawNotes(String type,String search) {
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
         noteArea.setContent(noteGrid);
-        notes = user.getNotes();
+        if(type.equals("all")){
+            notes = user.getNotes();
+        }else{
+            notes = user.sortNotes(search);
+        }
         //set i for 1 because the first column is for the add note button
         int i = 1;
         int j = 0;

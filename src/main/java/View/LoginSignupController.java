@@ -42,8 +42,6 @@ public class LoginSignupController {
         else {
             openMainScreen(user);
         }
-
-
     }
 
 
