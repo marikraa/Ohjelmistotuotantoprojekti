@@ -6,51 +6,42 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "notes")
-import java.time.LocalTime;
-
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private final String time;
+    //private final String time;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @Column(name = "title")
     private String title;
     private String content;
-    private final String date;
-    private final Image image;
+    //private final String date;
+    //private final Image image;
     private String dueDate;
     @Column(name = "body")
     private String body;
+    @Column(name = "image_url")
+    private String imageUrl;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+    public Note(){
 
+    }
     public Note(String title, String content, Image image, String dueDate) {
-        @Column(name = "image_url")
-        private String imageUrl;
-
-        @Column(name = "updated_at")
-        private Timestamp updatedAt;
         this.title = title;
         this.content = content;
-        this.date = LocalDate.now().toString();
-        this.time = LocalTime.now().toString();
-        this.image = image;
+        //this.date = LocalDate.now().toString();
+        //this.time = LocalTime.now().toString();
+        //this.image = image;
         this.dueDate = dueDate;
-
-
         this.body = body;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -119,9 +110,7 @@ public class Note {
     public int getId() {
         return id;
     }
+
 }
 
-public void setUser(User user) {
-    this.user = user;
-}
-}
+
