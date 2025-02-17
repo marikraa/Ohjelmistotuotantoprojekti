@@ -30,15 +30,13 @@ public class Note {
     private String imageUrl=null;
     @Column(name = "updated_at")
     private Timestamp updatedAt;
-    private String date;
-    private String time;
+    private LocalDateTime dateTime;
     public Note(){
 
     }
     public Note(String title, String body, String imageUrl, LocalDateTime notificationTime) {
         this.title = title;
-        this.date = LocalDate.now().toString();
-        this.time = LocalTime.now().toString();
+        this.dateTime =  LocalDateTime.of(LocalDate.now(), LocalTime.now());
         this.imageUrl = imageUrl;
         this.notificationTime = notificationTime;
         this.body = body;
@@ -73,13 +71,10 @@ public class Note {
         return body;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return dateTime;
     }
 
-    public String getTime() {
-        return time;
-    }
 
     public void setTitle(String title) {
         this.title = title;

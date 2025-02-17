@@ -31,11 +31,9 @@ public class Controller implements IControllerForGUI {
 
         User user = userDAO.getUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-
+            System.out.println(user.getUsername());
             return user;
         }
-
-
         return null;
     }
 

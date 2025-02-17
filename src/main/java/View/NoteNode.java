@@ -24,8 +24,8 @@ public class NoteNode {
         this.note = note;
         this.title = note.getTitle();
         this.content = note.getContent();
-        this.date = note.getDate();
-        this.time = note.getTime();
+        this.date = note.getDate().getDayOfMonth()+"."+note.getDate().getMonthValue()+"."+note.getDate().getYear();
+        this.time = note.getDate().getHour()+":"+note.getDate().getMinute();
         this.notificationDate = note.getNotificationTime();
         this.noteImage = new Image (note.getImageUrl());
 
