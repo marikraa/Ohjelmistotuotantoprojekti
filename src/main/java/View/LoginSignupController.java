@@ -92,4 +92,7 @@ public class LoginSignupController {
         SceneManager.switchScene("MainScreen.fxml");
     }
 
+    public void openStartScreen(MouseEvent mouseEvent) {
+        SceneManager.switchScene("StartScreen.fxml");
+    }
 }

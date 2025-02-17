@@ -40,7 +40,7 @@ public class Controller implements IControllerForGUI {
     @Override
     public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
         //TODO: imagen uppaaminen johonkin palvelimelle ja sen urlin tallentaminen tietokantaan alempi on testiä varten että saa locaalisti toimimaan
-        String imageUrl = null;
+        String imageUrl = "";
         if(image!=null){
             imageUrl = image.getUrl();
         }

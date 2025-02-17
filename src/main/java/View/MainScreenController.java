@@ -111,32 +111,41 @@ public class MainScreenController {
     }
 
     public void drawNotes(String type,String search) {
+        int i;
+        int j;
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
         noteArea.setContent(noteGrid);
         if(type.equals("all")){
             notes = user.getNotes();
+            // Create button for adding a new note
+            Button addNoteButton = new Button("+");
+            addNoteButton.setId("addNoteButton");
+            addNoteButton.setPrefHeight(201.0);
+            addNoteButton.setPrefWidth(201.0);
+            addNoteButton.setMnemonicParsing(false);
+
+            // add style classes to the button
+            addNoteButton.getStyleClass().addAll("widget", "addNote");
+
+            // Set button action
+            addNoteButton.setOnMouseClicked(event -> addNote());
+            //add add note button to the grid
+            noteGrid.add(addNoteButton, 0, 0);
+            //set i for 1 because the first column is for the add note button
+            j = 0;
+            i = 1;
         }else{
+            //sort notes by the search field value
             notes = user.sortNotes(search);
+            j = 0;
+            i = 0;
         }
-        //set i for 1 because the first column is for the add note button
-        int i = 1;
-        int j = 0;
-        // Create button for adding a new note
-        Button addNoteButton = new Button("+");
-        addNoteButton.setId("addNoteButton");
-        addNoteButton.setPrefHeight(201.0);
-        addNoteButton.setPrefWidth(201.0);
-        addNoteButton.setMnemonicParsing(false);
 
-        // add style classes to the button
-        addNoteButton.getStyleClass().addAll("widget", "addNote");
 
-        // Set button action
-        addNoteButton.setOnMouseClicked(event -> addNote());
 
-        //add add note button to the grid
-        noteGrid.add(addNoteButton, 0, 0);
+
+
         //add notes to the grid
         for (Note note : notes) {
             NoteNode noteNode = new NoteNode(note);
