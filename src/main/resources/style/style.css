@@ -25,7 +25,7 @@
 .addNote {
 
     -fx-font-family: "CustomFont";
-    -fx-font-size: 150px;
+    -fx-font-size: 50px;
     -fx-text-fill: rgba(0, 0, 0, 0.44);
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface IControllerForGUI {
     User login(String username, String password);
 
-    List<Note> addNote(String username, String title, String content);
+    List<Note> addNote(String username, String title, String content,Image image, String dueDate);
 
     User signup(String username, String password, Image image);
 

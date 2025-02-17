@@ -2,7 +2,6 @@ package View;
 
 import Controller.Controller;
 import Model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -35,7 +34,7 @@ public class EditUserController {
 
     }
     // Stage setter
-    public void setEditUserStage(Stage stage) {
+    public void setStage(Stage stage) {
         this.editUserStage = stage;
     }
 

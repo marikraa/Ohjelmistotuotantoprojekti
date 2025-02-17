@@ -12,7 +12,7 @@ import java.sql.*;
 public class Controller implements IControllerForGUI {
     static Controller controller;
     UserDAO userDAO;
-
+    User currentUserTEST;
     private Controller() {
         userDAO = new UserDAO();
 
@@ -24,9 +24,6 @@ public class Controller implements IControllerForGUI {
         }
         return controller;
     }
-    //TODO nämä 2 poistetaan ku on koodi valmis
-    private User currentUser;
-    List<String> notes;
 
     @Override
     public User login(String username, String password) {
@@ -34,9 +31,7 @@ public class Controller implements IControllerForGUI {
         try {
             User user = userDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(password)) {
-
-                //TODO current user poistetaan sit ku on koodi valmis ei tarvii
-                currentUser = user;
+                currentUserTEST = user;
                 return user;
             }
         } catch (SQLException e) {
@@ -48,17 +43,23 @@ public class Controller implements IControllerForGUI {
     }
 
     @Override
-    public List<Note> addNote(String username,String title, String content) {
+    public List<Note> addNote(String username,String title, String content,Image image, String dueDate) {
         // lisää uuden noten userille tietokantaan ja palauttaa listan kaikista noteista tietokannasta
         // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin note
         // palauttaa listan kaikista noteista
         //tee uusi note userille jonka username on username
         //TODO tähän pitäs lisätä noten lisäys tietokantaan tämä on tällä hetkellä testi
-        Note note = new Note(title, content);
-            currentUser.addNote(note);
-            return currentUser.getNotes();
 
-        //return Collections.emptyList();
+        try{
+           User currentUserREAL = userDAO.getUserByUsername(username);
+            Note note = new Note(title, content, image, dueDate);
+            //TODO: tähän noten lisäys userille! alempi on testia varten eli userDAO.addNoteToUser(currentUser, note); tms
+            currentUserTEST.addNote(note);
+            return currentUserTEST.getNotes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
     @Override
     public User signup(String username, String password, Image image) {
@@ -67,7 +68,6 @@ public class Controller implements IControllerForGUI {
         User user = new User(username, password, image);
         try {
             userDAO.createUser(user);
-            currentUser = user;
             return user;
         } catch (SQLException e) {
             e.printStackTrace();

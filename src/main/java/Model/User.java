@@ -75,6 +75,10 @@ public class User {
         notes.add(note);
     }
 
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
     public List<Note> sortNotes(String title) {
         List<Note> sortedNotes = new ArrayList<>();
         for (Note note : notes) {

@@ -1,16 +1,25 @@
 package Model;
+import javafx.scene.image.Image;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Note {
 
+    private final String time;
     private String title;
     private String content;
-    private String date;
+    private final String date;
+    private final Image image;
+    private String dueDate;
 
-
-    public Note(String title, String content) {
+    public Note(String title, String content, Image image,String dueDate) {
         this.title = title;
         this.content = content;
         this.date = LocalDate.now().toString();
+        this.time = LocalTime.now().toString();
+        this.image = image;
+        this.dueDate = dueDate;
     }
 
 
@@ -18,12 +27,23 @@ public class Note {
         return title;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
     public String getContent() {
         return content;
     }
 
     public String getDate() {
         return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public void setTitle(String title) {

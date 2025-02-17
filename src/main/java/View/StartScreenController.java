@@ -11,14 +11,13 @@ public class StartScreenController {
         SceneManager.switchScene("LoginScreen.fxml");
 
 
+
     }
 
     @FXML
     public void handleSignup(ActionEvent actionEvent) {
         //switch to signup screen
         SceneManager.switchScene("SignupScreen.fxml");
-
-
 
     }
 }
