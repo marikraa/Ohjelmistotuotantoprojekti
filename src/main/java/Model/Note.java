@@ -1,13 +1,10 @@
 package Model;
 
-import java.sql.Timestamp;
-
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "notes")
 public class Note {
@@ -18,22 +15,28 @@ public class Note {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @Column(name = "title")
     private String title;
 
     //private final String date;
     //private final Image image;
-    private LocalDateTime notificationTime;
+
     @Column(name = "body")
     private String body;
-    @Column(name = "image_url")
-    private String imageUrl=null;
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-    private LocalDateTime dateTime;
-    public Note(){
 
+    @Column(name = "image_url")
+    private String imageUrl = null;
+
+    @Column(name = "created_at")
+    private LocalDateTime dateTime;
+
+    @Column(name = "notification_time")
+    private LocalDateTime notificationTime;
+
+    public Note(){
     }
+
     public Note(String title, String body, String imageUrl, LocalDateTime notificationTime) {
         this.title = title;
         this.dateTime =  LocalDateTime.of(LocalDate.now(), LocalTime.now());
@@ -42,6 +45,9 @@ public class Note {
         this.body = body;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -75,7 +81,6 @@ public class Note {
         return dateTime;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -96,18 +101,13 @@ public class Note {
         this.imageUrl = imageUrl;
     }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
-
-    public int getId() {
-        return id;
-    }
-
 }
 
 
