@@ -1,9 +1,11 @@
 package Model;
+
 import java.sql.Timestamp;
 
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import jakarta.persistence.*;
@@ -16,43 +18,33 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private final String time;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @Column(name = "title")
     private String title;
     private String content;
     private final String date;
     private final Image image;
     private String dueDate;
-    private static int nextId = 0;
-    private final int id;
-
     @Column(name = "body")
     private String body;
 
     public Note(String title, String content, Image image, String dueDate) {
-    @Column(name = "image_url")
-    private String imageUrl;
+        @Column(name = "image_url")
+        private String imageUrl;
 
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-
-    public Note() {
-    }
-
-    public Note(String title, String body) {
+        @Column(name = "updated_at")
+        private Timestamp updatedAt;
         this.title = title;
         this.content = content;
         this.date = LocalDate.now().toString();
         this.time = LocalTime.now().toString();
         this.image = image;
         this.dueDate = dueDate;
-        this.id = nextId;
-        nextId++;
+
+
         this.body = body;
     }
 
@@ -127,4 +119,9 @@ public class Note {
     public int getId() {
         return id;
     }
+}
+
+public void setUser(User user) {
+    this.user = user;
+}
 }
