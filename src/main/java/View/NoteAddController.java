@@ -39,12 +39,6 @@ public class NoteAddController {
         datePicker.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
-        if((int)minuteSpinner.getValue() < 10){
-            minuteSpinner.getEditor().setText("0"+minuteSpinner.getValue());
-        }
-        if((int)hourSpinner.getValue()<10){
-            hourSpinner.getEditor().setText("0"+hourSpinner.getValue());
-        }
     }
 
 
