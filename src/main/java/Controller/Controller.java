@@ -15,8 +15,6 @@ import java.sql.*;
 public class Controller implements IControllerForGUI {
     static Controller controller;
     UserDAO userDAO;
-    //TODO: remove this after testing: currentUserTEST
-    User currentUserTEST;
     private Controller() {
         userDAO = new UserDAO();
 
@@ -33,7 +31,7 @@ public class Controller implements IControllerForGUI {
 
         User user = userDAO.getUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            currentUserTEST = user;
+
             return user;
         }
 
@@ -74,9 +72,7 @@ public class Controller implements IControllerForGUI {
             return null;
         }
         User user = new User(username, password, image);
-
         userDAO.createUser(user);
-        currentUserTEST = user;
         return user;
     }
 //Updates user information to database

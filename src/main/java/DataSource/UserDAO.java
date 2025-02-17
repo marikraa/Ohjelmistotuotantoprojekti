@@ -56,7 +56,9 @@ public class UserDAO {
         try {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
             query.setParameter("username", username);
-            return query.getSingleResult();
+            User user =  query.getSingleResult();
+            System.out.println("Käyttäjä löytyi: " + user.getUsername()); // Varmista, että käyttäjä löytyi
+            return user;
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;
