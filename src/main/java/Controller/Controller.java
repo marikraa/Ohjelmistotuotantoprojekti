@@ -12,6 +12,7 @@ import java.sql.*;
 public class Controller implements IControllerForGUI {
     static Controller controller;
     UserDAO userDAO;
+    //TODO: remove this after testing: currentUserTEST
     User currentUserTEST;
     private Controller() {
         userDAO = new UserDAO();
@@ -24,21 +25,13 @@ public class Controller implements IControllerForGUI {
         }
         return controller;
     }
-    //TODO nämä 2 poistetaan ku on koodi valmis
-    private User currentUserTEST;
-    List<String> notes;
-
     @Override
     public User login(String username, String password) {
 
-        try {
-            User user = userDAO.getUserByUsername(username);
-            if (user != null && user.getPassword().equals(password)) {
-                currentUserTEST = user;
-                return user;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        User user = userDAO.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            currentUserTEST = user;
+            return user;
         }
 
 
@@ -47,24 +40,25 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public List<Note> addNote(String username,String title, String content,Image image, String dueDate) {
-
         //TODO: imagen uppaaminen johonkin palvelimelle ja sen urlin tallentaminen tietokantaan alempi on testiä varten että saa locaalisti toimimaan
         String imageUrl = null;
         if(image!=null){
             imageUrl = image.getUrl();
         }
+
+
         try {
             User user = userDAO.getUserByUsername(username);
-            if (user != null) {
-                Note note = new Note(title, content, imageUrl, dueDate);
-                note.setUser(user);
-                user.addNote(note);
-                userDAO.updateUser(user);
-                return user.getNotes();
-            } else {
-                System.out.println("User not found: " + username);
-                return Collections.emptyList();
-            }
+                if (user != null) {
+                    Note note = new Note(title, content, imageUrl, dueDate);
+                    note.setUser(user);
+                    user.addNote(note);
+                    userDAO.updateUser(user);
+                    return user.getNotes();
+                } else {
+                    System.out.println("User not found: " + username);
+                    return Collections.emptyList();
+                }
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -72,20 +66,15 @@ public class Controller implements IControllerForGUI {
     }
     @Override
     public User signup(String username, String password, Image image) {
-        try {
         User existingUser = userDAO.getUserByUsername(username);
         if (existingUser != null) {
             return null;
         }
         User user = new User(username, password, image);
 
-            userDAO.createUser(user);
-            currentUserTEST = user;
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        userDAO.createUser(user);
+        currentUserTEST = user;
+        return user;
     }
 //Updates user information to database
     @Override
