@@ -1,39 +1,39 @@
 package DataSource;
 
-import Model.User;
+import Model.Note;
 
 import jakarta.persistence.*;
 
-public class UserDAO {
-    public void createUser(User user) {
+public class NoteDAO {
+    public void createNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
-            em.persist(user);
+            em.persist(note);
             em.getTransaction().commit();
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void updateUser(User user) {
+    public void updateNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
-            em.merge(user);
+            em.merge(note);
             em.getTransaction().commit();
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void deleteUser(int id) {
+    public void deleteNote(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class, id);
-            if (user != null) {
-                em.remove(user);
+            Note note = em.find(Note.class, id);
+            if (note != null) {
+                em.remove(note);
             }
             em.getTransaction().commit();
         } catch(Exception e) {
@@ -41,23 +41,11 @@ public class UserDAO {
         }
     }
 
-    public User getUserById(int id) {
+    public Note getNoteById(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
-            return em.find(User.class, id);
+            return em.find(Note.class, id);
         } catch(NoResultException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public User getUserByUsername(String username) {
-        EntityManager em = DatabaseConnection.getConnection();
-        try {
-            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
-            query.setParameter("username", username);
-            return query.getSingleResult();
-        } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }

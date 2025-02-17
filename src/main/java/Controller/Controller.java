@@ -24,6 +24,9 @@ public class Controller implements IControllerForGUI {
         }
         return controller;
     }
+    //TODO nämä 2 poistetaan ku on koodi valmis
+    private User currentUserTEST;
+    List<String> notes;
 
     @Override
     public User login(String username, String password) {
@@ -44,30 +47,34 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public List<Note> addNote(String username,String title, String content,Image image, String dueDate) {
-        // lisää uuden noten userille tietokantaan ja palauttaa listan kaikista noteista tietokannasta
-        // pitää jotenkin tarkastaa että menee oikeelle userille notet ja palauttaa oikeen userin note
-        // palauttaa listan kaikista noteista
-        //tee uusi note userille jonka username on username
-        //TODO tähän pitäs lisätä noten lisäys tietokantaan tämä on tällä hetkellä testi
-
-        try{
-           User currentUserREAL = userDAO.getUserByUsername(username);
-            Note note = new Note(title, content, image, dueDate);
-            //TODO: tähän noten lisäys userille! alempi on testia varten eli userDAO.addNoteToUser(currentUser, note); tms
-            currentUserTEST.addNote(note);
-            return currentUserTEST.getNotes();
-        } catch (SQLException e) {
+        try {
+            User user = userDAO.getUserByUsername(username);
+            if (user != null) {
+                Note note = new Note(title, content, image, dueDate);
+                note.setUser(user);
+                user.addNote(note);
+                userDAO.updateUser(user);
+                return user.getNotes();
+            } else {
+                System.out.println("User not found: " + username);
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
     }
     @Override
     public User signup(String username, String password, Image image) {
-
-        //TODO TÄHÄN CHECK ETTÄ JOS USER ON KÄYTÖSSÄ PALAUTA NULL. NYT PÄÄSTÄÄ LÄPI SAMALLA NIMELLÄ
-        User user = new User(username, password, image);
         try {
+        User existingUser = userDAO.getUserByUsername(username);
+        if (existingUser != null) {
+            return null;
+        }
+        User user = new User(username, password, image);
+
             userDAO.createUser(user);
+            currentUserTEST = user;
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,18 +83,34 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture) {
+    public Boolean updateUser(String oldUsername, String newUsername, String password, Image profilePicture) {
         Boolean success = true;
-
-        //TODO päivitä uuseri tietokantaan
-
+        try {
+            User user = userDAO.getUserByUsername(oldUsername);
+            if (user != null) {
+                user.setUsername(newUsername);
+                user.setPassword(password);
+                user.setProfilePicture(profilePicture);
+                userDAO.updateUser(user);
+            } else {
+                System.out.println("User not found: " + oldUsername);
+                success = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }
         return success;
     }
 
     @Override
     public Boolean deleteUser(User user) {
-        //TODO poista käyttäjä tietokannasta
-        Boolean success = true;
-        return success;
+        try {
+            userDAO.deleteUser(user.getId());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -1,13 +1,22 @@
 package DataSource;
 
-import java.sql.*;
+import jakarta.persistence.*;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mariadb://localhost:3306/notes_app_db";
-    private static final String USER = "appuser";
-    private static final String PASSWORD = "password";
+    private static EntityManagerFactory emf = null;
+    private static EntityManager em = null;
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public static EntityManager getConnection() {
+        if (em == null) {
+            if (emf == null) {
+                try {
+                    emf = Persistence.createEntityManagerFactory("DBunit");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            em = emf.createEntityManager();
+        }
+        return em;
     }
 }
