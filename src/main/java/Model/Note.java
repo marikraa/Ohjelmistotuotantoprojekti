@@ -26,7 +26,7 @@ public class Note {
     private String body;
 
     @Column(name = "image_url")
-    private String imageUrl = null;
+    private String imageUrl;
 
     @Column(name = "created_at")
     private LocalDateTime dateTime;

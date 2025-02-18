@@ -121,12 +121,12 @@ public class MainScreenController {
             // Create button for adding a new note
             Button addNoteButton = new Button("+");
             addNoteButton.setId("addNoteButton");
-            addNoteButton.setPrefHeight(201.0);
-            addNoteButton.setPrefWidth(201.0);
+            addNoteButton.setPrefHeight(200.0);
+            addNoteButton.setPrefWidth(200.0);
             addNoteButton.setMnemonicParsing(false);
 
             // add style classes to the button
-            addNoteButton.getStyleClass().addAll("widget", "addNote");
+            addNoteButton.getStyleClass().addAll("note","addNote");
 
             // Set button action
             addNoteButton.setOnMouseClicked(event -> addNote());

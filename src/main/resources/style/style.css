@@ -1,12 +1,14 @@
 @font-face {
     font-family: "CustomFont";
     src: url("fonts/Poppins-Regular.ttf");
+
 }
 
 .widget {
     /*-fx-background-color: rgba(220, 166, 27, 0.06);*/ /* 50% läpinäkyvä tausta */
     -fx-background-radius: 10px;
-    -fx-background-color: rgba(0, 0, 0, 0.04)
+    /*-fx-background-color: rgba(0, 0, 0, 0.04)*/
+    -fx-background-color: rgb(39, 41, 44);
 ;
 
 
@@ -15,23 +17,26 @@
 .normaltext {
     -fx-font-family: "CustomFont";
     -fx-font-size: 14px;
+    -fx-text-fill: #a4a4a4;
+
 }
 .header {
+    -fx-text-fill: rgba(234, 127, 48, 0.75);
     -fx-font-family: "CustomFont";
     -fx-font-size: 40px;
 
 }
 
 .addNote {
-
     -fx-font-family: "CustomFont";
     -fx-font-size: 50px;
-    -fx-text-fill: rgba(0, 0, 0, 0.44);
+
 
 }
 
 .canvas {
-    -fx-background-color: rgb(153, 255, 204, 0.5);
+    /*-fx-background-color: rgb(153, 255, 204, 0.5);*/
+    -fx-background-color: rgb(44, 47, 51);
 
 
 }
@@ -41,13 +46,50 @@
 
 
 }
+.button,.text-field,.text-area{
+    -fx-text-fill: #a4a4a4;
+}
 .button{
     -fx-cursor: hand;
+
+
 }
 .button:pressed {
     -fx-scale-x: 1.1; /* Skaalataan vaakasuunnassa 20% suuremmaksi */
     -fx-scale-y: 1.1; /* Skaalataan pystysuunnassa 20% suuremmaksi */
 }
 .button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.06);
+    /*-fx-background-color: rgba(0, 0, 0, 0.06);*/
+    -fx-background-color: rgba(234, 127, 48, 0.75);
+}
+.scroll-pane{
+    -fx-background-color:transparent;
+    -fx-border-color: rgba(0, 0, 0, 0);;
+}
+
+.scroll-pane .viewport{
+    -fx-background-color:transparent;
+
+}
+.note{
+    /*-fx-background-color: rgba(220, 166, 27, 0.06);*/ /* 50% läpinäkyvä tausta */
+    -fx-background-radius: 10px;
+    /*-fx-background-color: rgba(0, 0, 0, 0.04)*/
+    -fx-background-color: rgb(39, 41, 44);
+
+}
+.note .label{
+    -fx-text-fill: #a4a4a4;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-text-fill: rgba(234, 127, 48, 0.75);
+}
+
+.scroll-bar .thumb {
+    -fx-text-fill: rgba(234, 127, 48, 0.75);
+}
+
+.scroll-bar .track {
+    -fx-text-fill: rgba(234, 127, 48, 0.75);
 }

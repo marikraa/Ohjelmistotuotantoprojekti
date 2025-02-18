@@ -32,9 +32,9 @@
          </children>
       </AnchorPane>
       <Button layoutX="144.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="54.0" prefWidth="134.0" styleClass="widget" text="Log in" />
-      <Button mnemonicParsing="false" onMouseClicked="#login" prefHeight="43.0" prefWidth="38.0" styleClass="widget">
+      <Button mnemonicParsing="false" onMouseClicked="#openStartScreen" prefHeight="43.0" prefWidth="38.0" styleClass="widget">
          <graphic>
-            <ImageView fitHeight="43.0" fitWidth="35.0" onMouseClicked="#openStartScreen" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="43.0" fitWidth="35.0"  pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/back.png" />
                </image>

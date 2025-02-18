@@ -47,6 +47,9 @@ public class NoteAddController {
         LocalDate selectedDate = datePicker.getValue();
         LocalTime selectedTime = LocalTime.of((int) hourSpinner.getValue(), (int) minuteSpinner.getValue());
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
+        if(selectedImage == null){
+            selectedImage = new Image("/images/placeholder.png");
+        }
 
         List<Note> notes = controller.addNote(user.getUsername(), titleField.getText(), noteContent.getText(), selectedImage, selectedDateTime);
         if (notes == null) {

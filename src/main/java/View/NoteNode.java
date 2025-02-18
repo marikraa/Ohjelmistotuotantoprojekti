@@ -27,16 +27,18 @@ public class NoteNode {
         this.date = note.getDate().getDayOfMonth()+"."+note.getDate().getMonthValue()+"."+note.getDate().getYear();
         this.time = note.getDate().getHour()+":"+note.getDate().getMinute();
         this.notificationDate = note.getNotificationTime();
-        this.noteImage = new Image (note.getImageUrl());
+        this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
 
     }
 
     public VBox createNoteNode() {
         // Luo VBox ja HBox rakenteet
         VBox vbox = new VBox();
-        vbox.setPrefHeight(201.0);
-        vbox.setPrefWidth(201.0);
 
+        vbox.setPrefHeight(200.0);
+        vbox.setPrefWidth(200.0);
+        vbox.setMaxWidth(200.0);
+        vbox.setMaxWidth(200.0);
         // Labelit (date, time, title)
         Label noteDate = new Label(date);
         noteDate.setFont(new Font(28));
@@ -63,13 +65,17 @@ public class NoteNode {
         noteImageView.setFitWidth(77.0);
         noteImageView.setPickOnBounds(true);
         noteImageView.setPreserveRatio(true);
-        noteImageView.setImage(noteImage);
+        if(noteImage!=null){
+            noteImageView.setImage(noteImage);
+        }
+
 
         hbox.getChildren().addAll(noteContent, noteImageView);
 
         // Lisää Labelit ja HBox VBoxiin
         vbox.getChildren().addAll(noteDate, noteTime, noteTitle, hbox);
-        vbox.getStyleClass().add("widget");
+
+        vbox.getStyleClass().add("note");
 
         // Luo Button ja lisää siihen VBox
         return vbox;

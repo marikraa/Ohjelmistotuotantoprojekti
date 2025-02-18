@@ -35,6 +35,7 @@ public class LoginSignupController {
     @FXML
     public void login(MouseEvent mouseEvent) {
         User user = controller.login(usernameField.getText(), passwordField.getText());
+
         if (user == null) {
             ErrorPopup.showError("Login failed", "Username or password is incorrect");
         }
@@ -47,6 +48,8 @@ public class LoginSignupController {
 
     @FXML
     public void signup(MouseEvent mouseEvent) {
+
+
         //check if fields are empty
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
             ErrorPopup.showError("Empty fields", "Please fill all fields");
@@ -67,13 +70,13 @@ public class LoginSignupController {
                 profPic = new Image(selectedFile.toURI().toString());
             }
             User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
-            if(user == null){
+            if (user == null) {
                 ErrorPopup.showError("Username already exists", usernameField.getText() + " is already taken");
-            return;
+                return;
             }
 
             //if signup succesfull set user to session manager and switch to main screen
-           openMainScreen(user);
+            openMainScreen(user);
 
 
         }
@@ -87,12 +90,14 @@ public class LoginSignupController {
         profilePic.setImage(imageAdder.addPicture(mouseEvent));
 
     }
-    public void openMainScreen(User currentUser){
+
+    public void openMainScreen(User currentUser) {
         SessionManager.setCurrentUser(currentUser);
         SceneManager.switchScene("MainScreen.fxml");
     }
 
-    public void openStartScreen(MouseEvent mouseEvent) {
+    @FXML
+    public void openStartScreen() {
         SceneManager.switchScene("StartScreen.fxml");
     }
 }
