@@ -1,7 +1,12 @@
-package View;
+package View.controllers;
 
 import Controller.Controller;
 import Model.User;
+import View.*;
+import View.managers.SceneManager;
+import View.managers.SessionManager;
+import View.utilies.ErrorPopup;
+import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;

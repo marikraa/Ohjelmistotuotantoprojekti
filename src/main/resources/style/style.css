@@ -55,12 +55,14 @@
 
 }
 .button:pressed {
-    -fx-scale-x: 1.1; /* Skaalataan vaakasuunnassa 20% suuremmaksi */
-    -fx-scale-y: 1.1; /* Skaalataan pystysuunnassa 20% suuremmaksi */
+    -fx-background-color: rgba(234, 127, 48, 0.75);
+
 }
 .button:hover {
     /*-fx-background-color: rgba(0, 0, 0, 0.06);*/
-    -fx-background-color: rgba(234, 127, 48, 0.75);
+    -fx-scale-x: 1.1; /* Skaalataan vaakasuunnassa 20% suuremmaksi */
+    -fx-scale-y: 1.1; /* Skaalataan pystysuunnassa 20% suuremmaksi */
+
 }
 .scroll-pane{
     -fx-background-color:transparent;

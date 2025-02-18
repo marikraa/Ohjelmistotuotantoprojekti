@@ -1,4 +1,4 @@
-package View;
+package View.utilies;
 
 import Model.Note;
 import javafx.geometry.Insets;

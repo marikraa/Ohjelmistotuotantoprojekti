@@ -1,7 +1,11 @@
-package View;
+package View.controllers;
 
 import Controller.Controller;
-import javafx.event.ActionEvent;
+import View.*;
+import View.managers.SceneManager;
+import View.managers.SessionManager;
+import View.utilies.ImageAdder;
+import View.utilies.NoteNode;
 import javafx.scene.Parent;
 import Model.Note;
 import Model.User;

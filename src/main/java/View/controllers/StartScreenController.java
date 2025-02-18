@@ -1,4 +1,5 @@
-package View;
+package View.controllers;
+import View.managers.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 

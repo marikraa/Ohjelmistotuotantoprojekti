@@ -1,8 +1,13 @@
-package View;
+package View.controllers;
 
 import Controller.Controller;
 import Model.Note;
 import Model.User;
+import View.*;
+import View.managers.SceneManager;
+import View.managers.SessionManager;
+import View.utilies.ErrorPopup;
+import View.utilies.ImageAdder;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

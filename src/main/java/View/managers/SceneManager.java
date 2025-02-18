@@ -1,4 +1,4 @@
-package View;
+package View.managers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,8 +26,9 @@ public class SceneManager {
             Rectangle2D screenBounds = Screen.getPrimary().getBounds();
             // Lasketaan keskipiste vaakasuunnassa
             double centerX = (screenBounds.getWidth() - scene.getWidth()) / 2;
+            double centerY = (screenBounds.getHeight() - scene.getHeight()) / 2;
             primaryStage.setScene(scene);
-            primaryStage.setY(10);
+            primaryStage.setY(centerY*0.6);
             primaryStage.setX(centerX*0.7);
             primaryStage.show();
 
