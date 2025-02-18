@@ -43,12 +43,15 @@ public class NoteNode {
         Label noteDate = new Label(date);
         noteDate.setFont(new Font(28));
         noteDate.setPadding(new Insets(3, 0, 3, 0));
+        noteDate.getStyleClass().addAll("bigtext","pink");
 
         Label noteTime = new Label(time);
         noteTime.setFont(new Font(18));
         noteTime.setPadding(new Insets(3, 0, 10, 0));
+        noteTime.getStyleClass().addAll("normaltext", "pink");
 
         Label noteTitle = new Label(title);
+        noteTitle.getStyleClass().addAll("bigtext");
 
         // HBox sisällä oleva Label ja ImageView
         HBox hbox = new HBox();
@@ -59,6 +62,7 @@ public class NoteNode {
         noteContent.setPrefHeight(97.0);
         noteContent.setPrefWidth(109.0);
         noteContent.setAlignment(javafx.geometry.Pos.TOP_LEFT);
+        noteContent.getStyleClass().add("smalltext");
 
         ImageView noteImageView = new ImageView();
         noteImageView.setFitHeight(96.0);

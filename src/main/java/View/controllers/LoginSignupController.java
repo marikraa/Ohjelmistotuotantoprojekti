@@ -8,6 +8,7 @@ import View.managers.SessionManager;
 import View.utilies.ErrorPopup;
 import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;

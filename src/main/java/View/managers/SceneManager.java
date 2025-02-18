@@ -22,7 +22,6 @@ public class SceneManager {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/GUI/" + fxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            // Haetaan näytön koko
             Rectangle2D screenBounds = Screen.getPrimary().getBounds();
             // Lasketaan keskipiste vaakasuunnassa
             double centerX = (screenBounds.getWidth() - scene.getWidth()) / 2;

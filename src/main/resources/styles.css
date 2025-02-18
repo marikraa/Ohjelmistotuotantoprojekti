@@ -1,7 +1,13 @@
 @font-face {
-    font-family: "CustomFont";
-    src: url("fonts/Poppins-Regular.ttf");
+    font-family: "Amatic SC";
+    src: url("/fonts/AmaticSC-Bold.ttf");
+    font-weight: bold;  /* Tämän fontin paino on bold */
+}
 
+@font-face {
+    font-family: "Amatic SC";
+    src: url("/fonts/AmaticSC-Regular.ttf");
+    font-weight: normal;  /* Tämän fontin paino on normaali */
 }
 
 .widget {
@@ -9,26 +15,47 @@
     -fx-background-radius: 10px;
     /*-fx-background-color: rgba(0, 0, 0, 0.04)*/
     -fx-background-color: rgb(39, 41, 44);
-;
 
+
+
+}
+.bigtext {
+    -fx-text-fill: #a4a4a4;
+    -fx-font-family: "Amatic SC";
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 
 }
 
 .normaltext {
-    -fx-font-family: "CustomFont";
-    -fx-font-size: 14px;
     -fx-text-fill: #a4a4a4;
+    -fx-font-family: "Amatic SC";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
 
 }
+
+.smalltext {
+    -fx-text-fill: #a4a4a4;
+    -fx-font-family: "Amatic SC";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+}
+
+
 .header {
-    -fx-text-fill: rgba(234, 127, 48, 0.75);
-    -fx-font-family: "CustomFont";
-    -fx-font-size: 40px;
+    -fx-font-family: "Amatic SC";
+    -fx-text-fill: #ea0e78;
+    -fx-font-size : 60px;
+    -fx-font-weight: normal;
+
+
 
 }
 
 .addNote {
-    -fx-font-family: "CustomFont";
+
     -fx-font-size: 50px;
 
 
@@ -55,7 +82,7 @@
 
 }
 .button:pressed {
-    -fx-background-color: rgba(234, 127, 48, 0.75);
+    -fx-background-color: #ea0e78;;
 
 }
 .button:hover {
@@ -80,9 +107,7 @@
     -fx-background-color: rgb(39, 41, 44);
 
 }
-.note .label{
-    -fx-text-fill: #a4a4a4;
-}
+
 
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-text-fill: rgba(234, 127, 48, 0.75);
@@ -95,3 +120,10 @@
 .scroll-bar .track {
     -fx-text-fill: rgba(234, 127, 48, 0.75);
 }
+
+
+
+.pink {
+    -fx-text-fill: #ea0e78;
+}
+
