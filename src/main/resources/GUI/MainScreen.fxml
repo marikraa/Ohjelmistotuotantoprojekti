@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="744.0" prefWidth="422.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="744.0" prefWidth="448.0" styleClass="canvas" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainScreenController">
    <children>
-      <AnchorPane layoutX="6.0" layoutY="62.0" prefHeight="170.0" prefWidth="407.0" styleClass="widget">
+      <AnchorPane layoutX="20.0" layoutY="59.0" prefHeight="170.0" prefWidth="407.0" styleClass="widget">
          <children>
             <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" layoutX="14.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
             <Label fx:id="noteCounterLabel" layoutX="14.0" layoutY="100.0" prefHeight="64.0" prefWidth="130.0" styleClass="normaltext" text="Label" />
@@ -28,7 +28,7 @@
                </graphic></Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="7.0" layoutY="243.0" prefHeight="79.0" prefWidth="407.0" styleClass="widget">
+      <AnchorPane layoutX="21.0" layoutY="243.0" prefHeight="79.0" prefWidth="407.0" styleClass="widget">
          <children>
             <TextField id="searchNote" layoutY="4.0" onAction="#sortNotes" prefHeight="71.0" prefWidth="344.0" promptText="Search note" style="-fx-background-color: 0000;">
                <font>
@@ -41,7 +41,7 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-      <ScrollPane fx:id="noteArea" hbarPolicy="NEVER" layoutY="333.0" prefHeight="418.0" prefWidth="422.0">
+      <ScrollPane fx:id="noteArea" hbarPolicy="NEVER" layoutX="13.0" layoutY="333.0" prefHeight="418.0" prefWidth="422.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -49,6 +49,6 @@
             <Insets right="100.0" top="100.0" />
          </opaqueInsets>
       </ScrollPane>
-      <Button layoutX="169.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="38.0" prefWidth="83.0" styleClass="widget" text="Log out" />
+      <Button layoutX="183.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="38.0" prefWidth="83.0" styleClass="widget" text="Log out" />
    </children>
 </AnchorPane>
