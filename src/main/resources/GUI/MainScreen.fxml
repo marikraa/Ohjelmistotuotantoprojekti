@@ -28,18 +28,22 @@
                </graphic></Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="21.0" layoutY="243.0" prefHeight="79.0" prefWidth="407.0" styleClass="widget">
+      <AnchorPane layoutX="21.0" layoutY="246.0" prefHeight="79.0" prefWidth="407.0" styleClass="widget">
          <children>
-            <TextField id="searchNote" layoutY="4.0" onAction="#sortNotes" prefHeight="71.0" prefWidth="344.0" styleClass="normaltext" promptText="Search Note" style="-fx-background-color: 0000;">
+            <TextField fx:id="searchField" layoutY="4.0" onAction="#sortNotes" prefHeight="71.0" prefWidth="344.0" promptText="Search Note" style="-fx-background-color: 0000;" styleClass="normaltext">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <ImageView id="searchButton" fitHeight="32.0" fitWidth="29.0" layoutX="366.0" layoutY="25.0" onMouseClicked="#sortNotes" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/search.png" />
-               </image>
-            </ImageView>
+            <Button layoutX="344.0" layoutY="8.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="57.0" styleClass="widget">
+               <graphic>
+                  <ImageView fx:id="searchButton" fitHeight="32.0" fitWidth="29.0" onMouseClicked="#sortNotes" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children></AnchorPane>
       <ScrollPane fx:id="noteArea" hbarPolicy="NEVER" layoutX="13.0" layoutY="333.0" prefHeight="418.0" prefWidth="422.0">
          <cursor>
@@ -49,6 +53,6 @@
             <Insets right="100.0" top="100.0" />
          </opaqueInsets>
       </ScrollPane>
-      <Button layoutX="183.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="38.0" prefWidth="83.0" styleClass="widget,smalltext,pink"  text="Log out" />
+      <Button layoutX="183.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="38.0" prefWidth="83.0" styleClass="widget,smalltext,pink" text="Log out" />
    </children>
 </AnchorPane>

@@ -65,7 +65,10 @@ public class MainScreenController {
     public void sortNotes() {
         //sort notes by the search field
         String search = searchField.getText();
-        drawNotes("search",search);
+        if(!search.equals("")){
+            drawNotes("search",search);
+        }
+
 
 
     }
@@ -145,9 +148,6 @@ public class MainScreenController {
             j = 0;
             i = 0;
         }
-
-
-
 
 
         //add notes to the grid
