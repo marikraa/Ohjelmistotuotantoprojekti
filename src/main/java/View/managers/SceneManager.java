@@ -1,8 +1,10 @@
 package View.managers;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -11,6 +13,10 @@ import java.io.IOException;
 
 public class SceneManager {
     public static Stage primaryStage;
+    @FXML
+    Font normal;
+    @FXML
+    Font bold;
 
     //set progrmas main stage at the start
     public static void setStage(Stage stage) {
@@ -26,6 +32,9 @@ public class SceneManager {
             // Lasketaan keskipiste vaakasuunnassa
             double centerX = (screenBounds.getWidth() - scene.getWidth()) / 2;
             double centerY = (screenBounds.getHeight() - scene.getHeight()) / 2;
+            Font normal = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Regular.ttf"),10);
+            Font bold = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Bold.ttf"),10);
+
             primaryStage.setScene(scene);
             primaryStage.setY(centerY*0.6);
             primaryStage.setX(centerX*0.7);
