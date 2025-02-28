@@ -30,7 +30,6 @@ import java.util.List;
 
 
 public class MainScreenController {
-    //TODO Tämä on se search field mihin kirjoitetaan hakusana
     public TextField searchField;
     public ImageView profilePic;
     public Label noteCounterLabel;
@@ -49,12 +48,11 @@ public class MainScreenController {
         noteCounterLabel.setText("Notes: " + noteCount);
         profilePic.setImage(user.getProfilePicture());
         System.out.println("init");
-        drawNotes("all",null);
+        drawNotes("all", null);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("")) {
-                drawNotes("all",null);
-            }
-          else{
+                drawNotes("all", null);
+            } else {
 
                 drawNotes("search", newValue);
             }
@@ -72,14 +70,14 @@ public class MainScreenController {
         SceneManager.switchScene("StartScreen.fxml");
 
     }
+
     @FXML
     public void sortNotes() {
         //sort notes by the search field
         String search = searchField.getText();
-        if(!search.equals("")){
-            drawNotes("search",search);
+        if (!search.equals("")) {
+            drawNotes("search", search);
         }
-
 
 
     }
@@ -108,7 +106,6 @@ public class MainScreenController {
     public void editUser(MouseEvent mouseEvent) {
         //open the edit user window as a modal
         try {
-            System.out.println("asddasasd");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
             Stage editUserStage = new Stage();
             editUserStage.initModality(Modality.APPLICATION_MODAL);
@@ -128,14 +125,14 @@ public class MainScreenController {
 
     }
 
-    public void drawNotes(String type,String search) {
+    public void drawNotes(String type, String search) {
         int i;
         int j;
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
         noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
         noteArea.setContent(noteGrid);
-        if(type.equals("all")){
+        if (type.equals("all")) {
             notes = user.getNotes();
             // Create button for adding a new note
             Button addNoteButton = new Button("+");
@@ -145,7 +142,7 @@ public class MainScreenController {
             addNoteButton.setMnemonicParsing(false);
 
             // add style classes to the button
-            addNoteButton.getStyleClass().addAll("note","addNote");
+            addNoteButton.getStyleClass().addAll("note", "addNote");
 
             // Set button action
             addNoteButton.setOnMouseClicked(event -> addNote());
@@ -154,16 +151,16 @@ public class MainScreenController {
             //set i for 1 because the first column is for the add note button
             j = 0;
             i = 1;
-        }else{
+        } else {
             //sort notes by the search field value
             notes = user.sortNotes(search);
-            if(notes.size()==0){
+            if (notes.size() == 0) {
                 ImageView notFound = new ImageView();
                 notFound.setFitHeight(400.0);
                 notFound.setFitWidth(400.0);
-                notFound.setImage(new Image("./images/NotFound2.png"));
+                notFound.setImage(new Image("./images/NotFound.png"));
                 notFound.getStyleClass().add("notFound");
-                noteGrid.add(notFound,0,0);
+                noteGrid.add(notFound, 0, 0);
                 return;
             }
             j = 0;
@@ -180,6 +177,10 @@ public class MainScreenController {
             noteButton.setGraphic(noteVBox);
             noteButton.setPrefHeight(200.0);
             noteButton.setPrefWidth(200.0);
+            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                openNoteView(note);
+
+            });
             noteGrid.add(noteButton, i, j);
             i++;
             if (i > 1) {
@@ -192,6 +193,25 @@ public class MainScreenController {
 
     }
 
+    //open the note view window as a modal when a note is clicked
+    public void openNoteView(Note note) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/FullNote.fxml"));
+            Stage noteViewStage = new Stage();
+            noteViewStage.initModality(Modality.APPLICATION_MODAL);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            noteViewStage.setScene(scene);
+            noteViewStage.show();
+            NoteViewController controller = loader.getController();
+            controller.setStage(noteViewStage);
+            controller.setNoteView(note);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
     @FXML
     public void addProfilePicture(MouseEvent mouseEvent) {
