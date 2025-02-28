@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.LoginSignupController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="422.0" styleClass="canvas" stylesheets="@../styles.css">
@@ -18,31 +19,25 @@
             <AnchorPane layoutY="311.0" prefHeight="86.0" prefWidth="422.0">
                <children>
                   <Label layoutX="14.0" layoutY="33.0" styleClass="normaltext" text="Username:" />
-                  <TextField fx:id="usernameField" layoutX="87.0" layoutY="12.0" prefHeight="62.0" prefWidth="286.0" promptText="Username" styleClass="widget">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
+                  <TextField fx:id="usernameField" layoutX="87.0" layoutY="12.0" prefHeight="62.0" prefWidth="286.0" promptText="Username" styleClass="widget,smalltext">
+
                   </TextField>
                </children>
             </AnchorPane>
             <AnchorPane layoutY="405.0" prefHeight="74.0" prefWidth="422.0">
                <children>
                   <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
-                  <TextField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,normaltext">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </TextField>
+                  <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
+
+                  </PasswordField>
                </children>
             </AnchorPane>
             <AnchorPane layoutY="493.0" prefHeight="74.0" prefWidth="422.0">
                <children>
                   <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
-                  <TextField fx:id="passwordField2" layoutX="83.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,normaltext">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </TextField>
+                  <PasswordField fx:id="passwordField2" layoutX="83.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,smalltext">
+
+                  </PasswordField>
                </children>
             </AnchorPane>
             <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="136.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">

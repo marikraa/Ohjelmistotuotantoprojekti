@@ -50,6 +50,17 @@ public class MainScreenController {
         profilePic.setImage(user.getProfilePicture());
         System.out.println("init");
         drawNotes("all",null);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("")) {
+                drawNotes("all",null);
+            }
+          else{
+
+                drawNotes("search", newValue);
+            }
+
+
+        });
 
 
     }
@@ -122,6 +133,7 @@ public class MainScreenController {
         int j;
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
+        noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
         noteArea.setContent(noteGrid);
         if(type.equals("all")){
             notes = user.getNotes();
@@ -145,6 +157,14 @@ public class MainScreenController {
         }else{
             //sort notes by the search field value
             notes = user.sortNotes(search);
+            if(notes.size()==0){
+                ImageView notFound = new ImageView();
+                notFound.setFitHeight(400.0);
+                notFound.setFitWidth(400.0);
+                notFound.setImage(new Image("./images/NotFound.png"));
+                noteGrid.add(notFound,0,0);
+                return;
+            }
             j = 0;
             i = 0;
         }
@@ -152,9 +172,14 @@ public class MainScreenController {
 
         //add notes to the grid
         for (Note note : notes) {
+            Button noteButton = new Button();
             NoteNode noteNode = new NoteNode(note);
             VBox noteVBox = noteNode.createNoteNode();
-            noteGrid.add(noteVBox, i, j);
+            noteButton.getStyleClass().addAll("note");
+            noteButton.setGraphic(noteVBox);
+            noteButton.setPrefHeight(200.0);
+            noteButton.setPrefWidth(200.0);
+            noteGrid.add(noteButton, i, j);
             i++;
             if (i > 1) {
                 i = 0;

@@ -5,10 +5,9 @@ import Model.User;
 import View.*;
 import View.managers.SceneManager;
 import View.managers.SessionManager;
-import View.utilies.ErrorPopup;
+import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
@@ -43,7 +42,7 @@ public class LoginSignupController {
         User user = controller.login(usernameField.getText(), passwordField.getText());
 
         if (user == null) {
-            ErrorPopup.showError("Login failed", "Username or password is incorrect");
+            PopupWindow.showError("Login failed", "Username or password is incorrect");
         }
         //if login successful set user to session manager and switch to main screen
         else {
@@ -58,11 +57,11 @@ public class LoginSignupController {
 
         //check if fields are empty
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
-            ErrorPopup.showError("Empty fields", "Please fill all fields");
+            PopupWindow.showError("Empty fields", "Please fill all fields");
         }
         //check if passwords match
         else if (!passwordField.getText().equals(passwordField2.getText())) {
-            ErrorPopup.showError("Passwords do not match", "Please check passwords");
+            PopupWindow.showError("Passwords do not match", "Please check passwords");
         }
 
         //if fields are not empty and passwords match, try to signup
@@ -77,7 +76,7 @@ public class LoginSignupController {
             }
             User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
             if (user == null) {
-                ErrorPopup.showError("Username already exists", usernameField.getText() + " is already taken");
+                PopupWindow.showError("Username already exists", usernameField.getText() + " is already taken");
                 return;
             }
 

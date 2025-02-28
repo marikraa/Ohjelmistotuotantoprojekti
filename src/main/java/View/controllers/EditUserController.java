@@ -5,9 +5,10 @@ import Model.User;
 import View.*;
 import View.managers.SceneManager;
 import View.managers.SessionManager;
-import View.utilies.ErrorPopup;
+import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,9 +18,9 @@ import javafx.stage.Stage;
 
 public class EditUserController {
 
-    public TextField oldPasswordField;
     public TextField editUsernameField;
-    public TextField newPasswordField;
+    public PasswordField oldPasswordField;
+    public PasswordField newPasswordField;
     IControllerForGUI controller = Controller.getInstance();
 
 
@@ -36,6 +37,8 @@ public class EditUserController {
         System.out.println("Edit user");
         editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
         profilePic.setImage(SessionManager.getCurrentUser().getProfilePicture());
+        newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
+        oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
 
     }
     // Stage setter
@@ -46,20 +49,28 @@ public class EditUserController {
 
     // Delete user method
     public void deleteUser(MouseEvent mouseEvent) {
-        Boolean isDeleted = controller.deleteUser(user);
-        if (isDeleted) {
-            System.out.println("User deleted");
-            editUserStage.close();
-            SessionManager.clearUser();
-            SceneManager.switchScene("StartScreen.fxml");
+        //ask for confirmation before deleting user
+        if(PopupWindow.askForConfirmation("Delete user", "Are you sure you want to delete your account?"))
+        {   //if user confirms, delete user
+            Boolean isDeleted = controller.deleteUser(user);
+            //check if user is deleted from database
+            if (isDeleted) {
+                System.out.println("User deleted");
+                editUserStage.close();
+                SessionManager.clearUser();
+                SceneManager.switchScene("StartScreen.fxml");
+            }
+
         }
     }
 
 
 
+    // Update user method
+    public void updateUser() {
 
-    public void updateUser(MouseEvent mouseEvent) {
         System.out.println("Update user");
+        //get user input
         String oldUsername = user.getUsername();
         String newUsername = editUsernameField.getText();
         String newPassword = newPasswordField.getText();
@@ -80,7 +91,7 @@ public class EditUserController {
 
         }
         else{
-            ErrorPopup.showError( "Wrong password","Old password is incorrect");
+            PopupWindow.showError( "Wrong password","Old password is incorrect");
             return;
         }
 

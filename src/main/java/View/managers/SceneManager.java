@@ -32,12 +32,12 @@ public class SceneManager {
             // Lasketaan keskipiste vaakasuunnassa
             double centerX = (screenBounds.getWidth() - scene.getWidth()) / 2;
             double centerY = (screenBounds.getHeight() - scene.getHeight()) / 2;
-            Font normal = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Regular.ttf"),10);
-            Font bold = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Bold.ttf"),10);
-
+            // Font normal = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Regular.ttf"),10);
+            //Font bold = Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/AmaticSC-Bold.ttf"),10);
+            //Font normal =Font.loadFont(SceneManager.class.getResourceAsStream("/fonts/MadimiOne-Regular.ttf"),10);
             primaryStage.setScene(scene);
-            primaryStage.setY(centerY*0.6);
-            primaryStage.setX(centerX*0.7);
+            primaryStage.setY(centerY * 0.6);
+            primaryStage.setX(centerX * 0.7);
             primaryStage.show();
 
 

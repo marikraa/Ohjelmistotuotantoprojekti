@@ -10,7 +10,7 @@
 }
 .bigtext {
     -fx-text-fill: #a4a4a4;
-    -fx-font-family: "Amatic SC";
+    -fx-font-family: "Madimi One";
     -fx-font-size: 30px;
     -fx-font-weight: bold;
 
@@ -18,23 +18,23 @@
 
 .normaltext {
     -fx-text-fill: #a4a4a4;
-    -fx-font-family: "Amatic SC";
-    -fx-font-size: 25px;
+    -fx-font-family: "Madimi One";
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
 
 }
 
 .smalltext {
     -fx-text-fill: #a4a4a4;
-    -fx-font-family: "Amatic SC";
-    -fx-font-size: 20px;
+    -fx-font-family: "Madimi One";
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
 
 }
 
 
 .header {
-    -fx-font-family: "Amatic SC";
+    -fx-font-family: "Madimi One";
     -fx-text-fill: #ea0e78;
     -fx-font-size : 60px;
     -fx-font-weight: normal;

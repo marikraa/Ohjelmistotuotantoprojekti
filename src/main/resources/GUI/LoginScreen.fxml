@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.LoginSignupController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="422.0" styleClass="canvas" stylesheets="@../styles.css">
@@ -17,7 +18,7 @@
             <Label fx:id="header" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="52.0" prefHeight="17.0" prefWidth="422.0" styleClass="header" text="Notez wizard" />
             <AnchorPane layoutY="146.0" prefHeight="86.0" prefWidth="422.0">
                <children>
-                  <Label layoutX="14.0" layoutY="33.0" styleClass="normaltext" text="Username:" />
+                  <Label layoutX="14.0" layoutY="33.0" styleClass="smalltext" text="Username:" />
                   <TextField fx:id="usernameField" layoutX="87.0" layoutY="12.0" prefHeight="62.0" prefWidth="286.0" promptText="Username Here" styleClass="widget,smalltext">
                      <font>
                         <Font size="17.0" />
@@ -27,12 +28,12 @@
             </AnchorPane>
             <AnchorPane layoutY="252.0" prefHeight="74.0" prefWidth="422.0">
                <children>
-                  <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
-                  <TextField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
+                  <Label layoutX="14.0" layoutY="27.0" styleClass="smalltext" text="Password:" />
+                  <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </TextField>
+                  </PasswordField>
                </children>
             </AnchorPane>
             <Button layoutX="144.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="54.0" prefWidth="134.0" styleClass="widget,normaltext" text="Log in" />

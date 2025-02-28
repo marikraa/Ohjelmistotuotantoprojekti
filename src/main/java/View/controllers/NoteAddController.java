@@ -6,7 +6,7 @@ import Model.User;
 import View.*;
 import View.managers.SceneManager;
 import View.managers.SessionManager;
-import View.utilies.ErrorPopup;
+import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -58,7 +58,7 @@ public class NoteAddController {
 
         List<Note> notes = controller.addNote(user.getUsername(), titleField.getText(), noteContent.getText(), selectedImage, selectedDateTime);
         if (notes == null) {
-            ErrorPopup.showError("Error", "Note could not be added");
+            PopupWindow.showError("Error", "Note could not be added");
         } else {
             user.setNotes(notes);
             noteStage.close();
