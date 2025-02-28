@@ -116,3 +116,7 @@
     -fx-text-fill: #ea0e78;
 }
 
+.notFound{
+    -fx-opacity: 0.1;
+}
+

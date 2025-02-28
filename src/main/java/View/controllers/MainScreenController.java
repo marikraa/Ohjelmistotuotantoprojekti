@@ -161,7 +161,8 @@ public class MainScreenController {
                 ImageView notFound = new ImageView();
                 notFound.setFitHeight(400.0);
                 notFound.setFitWidth(400.0);
-                notFound.setImage(new Image("./images/NotFound.png"));
+                notFound.setImage(new Image("./images/NotFound2.png"));
+                notFound.getStyleClass().add("notFound");
                 noteGrid.add(notFound,0,0);
                 return;
             }
