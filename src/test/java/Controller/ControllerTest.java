@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,17 +56,37 @@ class ControllerTest {
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
 
         controller.signup("testUser", "password", null);
-        List<Note> notes = controller.addNote("testUser", "title", "content");
+        String imageUrl = "http://example.com/image.jpg";
+        LocalDateTime notificationTime = LocalDateTime.now();
+        List<Note> notes = controller.addNote("testUser", "title", "content", null, notificationTime);
         assertNotNull(notes);
         assertFalse(notes.isEmpty());
         assertEquals("title", notes.get(0).getTitle());
     }
 
     @Test
+    void addNoteWithImage() {
+        User mockUser = new User("testUser", "password", null);
+        when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
+
+        controller.signup("testUser", "password", null);
+        Image image = mock(Image.class);
+        when(image.getUrl()).thenReturn("http://example.com/image.jpg");
+        LocalDateTime notificationTime = LocalDateTime.now();
+        List<Note> notes = controller.addNote("testUser", "title", "content", image, notificationTime);
+        assertNotNull(notes);
+        assertFalse(notes.isEmpty());
+        assertEquals("title", notes.get(0).getTitle());
+        assertEquals("http://example.com/image.jpg", notes.get(0).getImageUrl());
+    }
+
+    @Test
     void addNoteUserNotFound() {
         when(userDAO.getUserByUsername("unknownUser")).thenReturn(null);
 
-        List<Note> notes = controller.addNote("unknownUser", "title", "content");
+        String imageUrl = "http://example.com/image.jpg";
+        LocalDateTime notificationTime = LocalDateTime.now();
+        List<Note> notes = controller.addNote("unknownUser", "title", "content", null, notificationTime);
         assertNotNull(notes);
         assertTrue(notes.isEmpty());
     }
@@ -121,7 +142,9 @@ class ControllerTest {
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
         doThrow(new RuntimeException()).when(userDAO).updateUser(any(User.class));
 
-        List<Note> notes = controller.addNote("testUser", "title", "content");
+        String imageUrl = "http://example.com/image.jpg";
+        LocalDateTime notificationTime = LocalDateTime.now();
+        List<Note> notes = controller.addNote("testUser", "title", "content", null, notificationTime);
         assertNotNull(notes);
         assertTrue(notes.isEmpty());
     }

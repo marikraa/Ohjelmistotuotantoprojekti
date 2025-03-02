@@ -69,6 +69,9 @@ public class Note {
         return imageUrl;
     }
 
+    public void setNotificationTime(LocalDateTime notificationTime) {
+        this.notificationTime = notificationTime;
+    }
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }

@@ -3,33 +3,25 @@ package Model;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class UserTest extends ApplicationTest {
 
     private User user;
     private Note note;
 
-    @BeforeAll
-    static void initJFX() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(() -> {
-        });
-        latch.await(1, TimeUnit.SECONDS);
-    }
-
     @BeforeEach
     void setUp() {
         user = new User("testUser", "password", null);
-        note = new Note("title", "body");
+        note = new Note("title", "body", "http://example.com/image.jpg", LocalDateTime.now());
         user.addNote(note);
     }
 
@@ -38,6 +30,7 @@ class UserTest {
         user = null;
         note = null;
     }
+
     @Test
     void testDefaultConstructor() {
         User defaultUser = new User();
@@ -45,6 +38,7 @@ class UserTest {
         assertNotNull(defaultUser.getNotes());
         assertTrue(defaultUser.getNotes().isEmpty());
     }
+
     @Test
     void getId() {
         user.setId(1);
@@ -80,20 +74,6 @@ class UserTest {
     }
 
     @Test
-    void getProfilePicture() {
-        Image image = new Image("http://example.com/image.jpg");
-        user.setProfilePicture(image);
-        assertEquals(image, user.getProfilePicture());
-    }
-
-    @Test
-    void setProfilePicture() {
-        Image image = new Image("http://newexample.com/image.jpg");
-        user.setProfilePicture(image);
-        assertEquals(image, user.getProfilePicture());
-    }
-
-    @Test
     void getProfilePictureUrl() {
         user.setProfilePictureUrl("http://example.com/image.jpg");
         assertEquals("http://example.com/image.jpg", user.getProfilePictureUrl());
@@ -115,7 +95,7 @@ class UserTest {
 
     @Test
     void addNote() {
-        Note newNote = new Note("newTitle", "newBody");
+        Note newNote = new Note("newTitle", "newBody", "http://example.com/image.jpg", LocalDateTime.now());
         user.addNote(newNote);
         assertTrue(user.getNotes().contains(newNote));
     }
@@ -128,7 +108,7 @@ class UserTest {
 
     @Test
     void sortNotes() {
-        Note newNote = new Note("title", "newBody");
+        Note newNote = new Note("title", "newBody", "http://example.com/image.jpg", LocalDateTime.now());
         user.addNote(newNote);
         List<Note> sortedNotes = user.sortNotes("title");
         assertEquals(2, sortedNotes.size());
@@ -138,11 +118,31 @@ class UserTest {
 
     @Test
     void sortNotesTitleNotMatch() {
-        Note newNote = new Note("differentTitle", "newBody");
+        Note newNote = new Note("differentTitle", "newBody", "http://example.com/image.jpg", LocalDateTime.now());
         user.addNote(newNote);
         List<Note> sortedNotes = user.sortNotes("title");
         assertEquals(1, sortedNotes.size());
         assertTrue(sortedNotes.contains(note));
         assertFalse(sortedNotes.contains(newNote));
+    }
+
+    @Test
+    void getProfilePicture() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            Image profilePicture = new Image("http://example.com/image.jpg");
+            user.setProfilePicture(profilePicture);
+            assertEquals(profilePicture, user.getProfilePicture());
+            latch.countDown();
+        });
+        latch.await();
+    }
+
+    @Test
+    void setNotes() {
+        Note newNote = new Note("newTitle", "newBody", "http://example.com/image.jpg", LocalDateTime.now());
+        List<Note> notes = List.of(note, newNote);
+        user.setNotes(notes);
+        assertEquals(notes, user.getNotes());
     }
 }
