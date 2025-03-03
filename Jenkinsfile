@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Publish Coverage Report') {
             steps {
-                jacoco()
+                jacoco execPattern: '**/target/jacoco.exec'
             }
         }
         stage('Build Docker Image') {
