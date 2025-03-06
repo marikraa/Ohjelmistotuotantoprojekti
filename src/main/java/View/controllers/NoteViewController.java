@@ -1,6 +1,5 @@
 package View.controllers;
 
-import Controller.Controller;
 import Model.Note;
 import View.IControllerForGUI;
 import javafx.scene.control.*;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class NoteViewController {
+public class NoteViewController implements UiInterface {
     public ImageView noteImage;
     public TextArea noteContent;
     public DatePicker dateSelector;
@@ -22,10 +21,16 @@ public class NoteViewController {
     public TextField noteTitleField;
     public Label noteTitle;
     public CheckBox editCheckbox;
-    IControllerForGUI controller = Controller.getInstance();
+    IControllerForGUI controller;
+
     Stage stage;
     Note currentNote;
     Note oldNote;
+
+    @Override
+    public void setController(IControllerForGUI controller) {
+        this.controller = controller;
+    }
 
     public void initialize() {
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
@@ -53,16 +58,17 @@ public class NoteViewController {
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
         currentNote.setNotificationTime(selectedDateTime);
 
-        if(!controller.updateNote(currentNote)){
+        if (!controller.updateNote(currentNote)) {
             //if update fails, revert to old note
             currentNote = oldNote;
         }
         stage.close();
 
+
     }
 
-
-    public void setNoteView(Note note) {
+    @Override
+    public void setNoteToEdit(Note note) {
         this.currentNote = note;
         noteImage.setImage(new Image(currentNote.getImage()));
         noteContent.setText(currentNote.getContent());
@@ -74,12 +80,11 @@ public class NoteViewController {
     }
 
     public void setStage(Stage stage) {
-       this.stage = stage;
+        this.stage = stage;
     }
 
     public void addNoteImage(MouseEvent mouseEvent) {
     }
-
 
 
     public void enableEditing() {

@@ -13,19 +13,13 @@ import java.util.*;
 import java.sql.*;
 
 public class Controller implements IControllerForGUI {
-    static Controller controller;
+    //static Controller controller;
     UserDAO userDAO;
-    private Controller() {
+    public Controller() {
         userDAO = new UserDAO();
 
     }
 
-    public static Controller getInstance() {
-        if (controller == null) {
-            controller = new Controller();
-        }
-        return controller;
-    }
     @Override
     public User login(String username, String password) {
 
