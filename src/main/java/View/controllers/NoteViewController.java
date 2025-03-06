@@ -73,6 +73,10 @@ public class NoteViewController implements UiInterface {
         noteImage.setImage(new Image(currentNote.getImage()));
         noteContent.setText(currentNote.getContent());
         noteTitleField.setText(currentNote.getTitle());
+        if(currentNote.getTitle().isEmpty())
+            noteTitle.setText("-No title-");
+        else
+        noteTitle.setText(note.getTitle());
         dateSelector.setValue(currentNote.getDate().toLocalDate());
         hourSpinner.getValueFactory().setValue(currentNote.getDate().getHour());
         minuteSpinner.getValueFactory().setValue(currentNote.getDate().getMinute());
