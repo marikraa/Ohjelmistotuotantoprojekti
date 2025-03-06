@@ -29,7 +29,6 @@ public class NoteAddController {
     public ImageView noteImage;
     public TextArea noteContent;
     private Stage noteStage;
-    DatePicker datePicker;
     Image selectedImage;
     User user;
 
@@ -37,11 +36,11 @@ public class NoteAddController {
         imageAdder = new ImageAdder();
         controller = Controller.getInstance();
         user = SessionManager.getCurrentUser();
-        datePicker = new DatePicker();
+        dateSelector = new DatePicker();
     }
 
     public void initialize() {
-        datePicker.setValue(LocalDate.now());
+        dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
     }
@@ -49,7 +48,7 @@ public class NoteAddController {
 
     //this is method is called when the user clicks the add note button
     public void addNote(MouseEvent mouseEvent) {
-        LocalDate selectedDate = datePicker.getValue();
+        LocalDate selectedDate = dateSelector.getValue();
         LocalTime selectedTime = LocalTime.of((int) hourSpinner.getValue(), (int) minuteSpinner.getValue());
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
         if(selectedImage == null){

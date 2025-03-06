@@ -18,4 +18,6 @@ public interface IControllerForGUI {
     Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture);
 
     Boolean deleteUser(User user);
+
+    boolean updateNote(Note currentNote);
 }

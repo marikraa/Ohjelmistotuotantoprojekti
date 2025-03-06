@@ -200,12 +200,12 @@ public class MainScreenController {
             Stage noteViewStage = new Stage();
             noteViewStage.initModality(Modality.APPLICATION_MODAL);
             Parent root = loader.load();
+            NoteViewController controller = loader.getController();
             Scene scene = new Scene(root);
             noteViewStage.setScene(scene);
-            noteViewStage.show();
-            NoteViewController controller = loader.getController();
             controller.setStage(noteViewStage);
             controller.setNoteView(note);
+            noteViewStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

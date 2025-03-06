@@ -105,4 +105,11 @@ public class Controller implements IControllerForGUI {
             return false;
         }
     }
+
+    @Override
+    public boolean updateNote(Note currentNote) {
+        //TODO: implement note update päivittä
+       // jos update onnistuu palauta true, muuten false
+        return false;
+    }
 }
