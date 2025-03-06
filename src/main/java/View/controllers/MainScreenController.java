@@ -19,6 +19,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,7 +47,7 @@ public class MainScreenController implements UiInterface {
 
 
     @Override
-    public void setController(IControllerForGUI controller){
+    public void setController(IControllerForGUI controller) {
         this.controller = controller;
     }
 
@@ -122,23 +124,14 @@ public class MainScreenController implements UiInterface {
         int j;
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
+        GridPane.setHgrow(noteGrid, Priority.ALWAYS);
+        GridPane.setVgrow(noteGrid, Priority.ALWAYS);
+
         noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
         noteArea.setContent(noteGrid);
         if (type.equals("all")) {
             notes = user.getNotes();
-            // Create button for adding a new note
-            Button addNoteButton = new Button("+");
-            addNoteButton.setId("addNoteButton");
-            addNoteButton.setPrefHeight(200.0);
-            addNoteButton.setPrefWidth(200.0);
-            addNoteButton.setMnemonicParsing(false);
-
-            // add style classes to the button
-            addNoteButton.getStyleClass().addAll("note", "addNote");
-
-            // Set button action
-            addNoteButton.setOnMouseClicked(event -> addNote());
-            //add add note button to the grid
+            Button addNoteButton = createAddButton();
             noteGrid.add(addNoteButton, 0, 0);
             //set i for 1 because the first column is for the add note button
             j = 0;
@@ -148,27 +141,20 @@ public class MainScreenController implements UiInterface {
             notes = user.sortNotes(search);
             if (notes.size() == 0) {
                 ImageView notFound = new ImageView();
-                notFound.setFitHeight(400.0);
-                notFound.setFitWidth(400.0);
                 notFound.setImage(new Image("./images/NotFound.png"));
+                notFound.setFitHeight(400);
+                notFound.setFitWidth(400);
                 notFound.getStyleClass().add("notFound");
-                noteGrid.add(notFound, 0, 0);
+                noteArea.setContent(notFound);
                 return;
             }
             j = 0;
             i = 0;
         }
 
-
         //add notes to the grid
         for (Note note : notes) {
-            Button noteButton = new Button();
-            NoteNode noteNode = new NoteNode(note);
-            VBox noteVBox = noteNode.createNoteNode();
-            noteButton.getStyleClass().addAll("note");
-            noteButton.setGraphic(noteVBox);
-            noteButton.setPrefHeight(200.0);
-            noteButton.setPrefWidth(200.0);
+           Button noteButton=  createNoteButton(note);
             noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 openNoteView(note);
 
@@ -185,12 +171,40 @@ public class MainScreenController implements UiInterface {
 
     }
 
+    public Button createAddButton() {
+        // Create button for adding a new note
+        Button addNoteButton = new Button("+");
+        addNoteButton.setId("addNoteButton");
+        addNoteButton.setPrefSize(200.0, 200.0);
+        addNoteButton.setMnemonicParsing(false);
+
+        // add style classes to the button
+        addNoteButton.getStyleClass().addAll("note", "addNote");
+
+        // Set button action
+        addNoteButton.setOnMouseClicked(event -> addNote());
+        //add add note button to the grid
+        return addNoteButton;
+    }
     //open the note view window as a modal when a note is clicked
 
     public void openNoteView(Note note) {
         SceneManager.openModal("FullNote.fxml", note);
 
     }
+
+
+    public Button createNoteButton(Note note){
+        Button noteButton = new Button();
+        NoteNode noteNode = new NoteNode(note);
+        VBox noteVBox = noteNode.createNoteNode();
+        noteButton.getStyleClass().addAll("note");
+        noteButton.setGraphic(noteVBox);
+        noteButton.setPrefSize(200, 200);
+        //noteButton.setPrefWidth(200.0)
+        return noteButton;
+    }
+
     @FXML
     public void addProfilePicture(MouseEvent mouseEvent) {
         Image selectedImage = imageAdder.addPicture(mouseEvent);
@@ -211,7 +225,7 @@ public class MainScreenController implements UiInterface {
 
     @Override
     public void setStage(Stage stage) {
-       this.stage =stage;
+        this.stage = stage;
     }
 
 }

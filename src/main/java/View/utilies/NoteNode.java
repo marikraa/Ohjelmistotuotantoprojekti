@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -36,10 +37,8 @@ public class NoteNode {
         // Luo VBox ja HBox rakenteet
         VBox vbox = new VBox();
 
-        vbox.setPrefHeight(195.0);
-        vbox.setPrefWidth(195.0);
-        vbox.setMaxWidth(195.0);
-        vbox.setMaxWidth(195.0);
+
+
         // Labelit (date, time, title)
         Label noteDate = new Label(date);
         noteDate.setFont(new Font(28));
@@ -59,17 +58,19 @@ public class NoteNode {
         hbox.setPrefHeight(170.0);
         hbox.setPrefWidth(170.0);
 
+
         Label noteContent = new Label(content);
         noteContent.setPrefHeight(97.0);
         noteContent.setPrefWidth(109.0);
+
         noteContent.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         noteContent.getStyleClass().add("smalltext");
 
         ImageView noteImageView = new ImageView();
+        noteImageView.setPreserveRatio(true);
         noteImageView.setFitHeight(96.0);
         noteImageView.setFitWidth(77.0);
         noteImageView.setPickOnBounds(true);
-        noteImageView.setPreserveRatio(true);
         if(noteImage!=null){
             noteImageView.setImage(noteImage);
         }
@@ -81,7 +82,7 @@ public class NoteNode {
         vbox.getChildren().addAll(noteDate, noteTime, noteTitle, hbox);
 
         vbox.getStyleClass().add("note");
-        VBox.setVgrow(vbox, Priority.NEVER);
+
 
         // Luo Button ja lisää siihen VBox
         return vbox;
