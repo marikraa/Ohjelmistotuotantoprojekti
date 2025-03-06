@@ -18,7 +18,7 @@
             <Label alignment="CENTER" contentDisplay="CENTER" layoutY="23.0" prefHeight="17.0" prefWidth="422.0" text="Notez wizard" />
             <AnchorPane layoutY="311.0" prefHeight="86.0" prefWidth="422.0">
                <children>
-                  <Label layoutX="14.0" layoutY="33.0" styleClass="normaltext" text="Username:" />
+                  <Label layoutX="14.0" layoutY="33.0" styleClass="smalltext" text="Username:" />
                   <TextField fx:id="usernameField" layoutX="87.0" layoutY="12.0" prefHeight="62.0" prefWidth="286.0" promptText="Username" styleClass="widget,smalltext">
 
                   </TextField>
@@ -26,7 +26,7 @@
             </AnchorPane>
             <AnchorPane layoutY="405.0" prefHeight="74.0" prefWidth="422.0">
                <children>
-                  <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
+                  <Label layoutX="14.0" layoutY="27.0" styleClass="smalltext" text="Password:" />
                   <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
 
                   </PasswordField>
@@ -34,7 +34,7 @@
             </AnchorPane>
             <AnchorPane layoutY="493.0" prefHeight="74.0" prefWidth="422.0">
                <children>
-                  <Label layoutX="14.0" layoutY="27.0" styleClass="normaltext" text="Password:" />
+                  <Label layoutX="14.0" layoutY="27.0" styleClass="smalltext" text="Password:" />
                   <PasswordField fx:id="passwordField2" layoutX="83.0" layoutY="6.0" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,smalltext">
 
                   </PasswordField>

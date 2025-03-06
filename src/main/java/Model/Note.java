@@ -75,6 +75,9 @@ public class Note {
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
+    public void setNotificationTime(LocalDateTime notificationTime) {
+        this.notificationTime = notificationTime;
+    }
 
     public String getContent() {
         return body;
@@ -111,6 +114,8 @@ public class Note {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+
 }
 
 
