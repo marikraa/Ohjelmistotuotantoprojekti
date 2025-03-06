@@ -1,6 +1,5 @@
 package View.controllers;
 
-import Controller.Controller;
 import Model.Note;
 import Model.User;
 import View.*;
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public class NoteAddController {
+public class NoteAddController implements UiInterface {
     public DatePicker dateSelector;
     public Spinner hourSpinner;
     public Spinner minuteSpinner;
@@ -32,9 +31,19 @@ public class NoteAddController {
     Image selectedImage;
     User user;
 
+
+
+    //set backend controller
+    @Override
+    public void setController(IControllerForGUI controller) {
+        this.controller = controller;
+    }
+
     public NoteAddController() {
         imageAdder = new ImageAdder();
-        controller = Controller.getInstance();
+        //controller = Controller.getInstance();
+        this.controller = controller;
+
         user = SessionManager.getCurrentUser();
         dateSelector = new DatePicker();
     }
@@ -83,5 +92,10 @@ public class NoteAddController {
     public void setStage(Stage addNoteStage) {
         this.noteStage = addNoteStage;
 
+    }
+
+    @Override
+    public void setNoteToEdit(Note note) {
+        //not used in this controller
     }
 }

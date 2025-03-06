@@ -1,6 +1,6 @@
 package View.controllers;
 
-import Controller.Controller;
+import Model.Note;
 import Model.User;
 import View.*;
 import View.managers.SceneManager;
@@ -16,12 +16,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
-public class EditUserController {
-
+public class EditUserController implements UiInterface {
     public TextField editUsernameField;
+
     public PasswordField oldPasswordField;
     public PasswordField newPasswordField;
-    IControllerForGUI controller = Controller.getInstance();
+    private IControllerForGUI controller;
 
 
     public ImageView profilePic;
@@ -31,9 +31,18 @@ public class EditUserController {
     private Image selectedImage;
     private User user = SessionManager.getCurrentUser();
 
+    //set backend controller
+    @Override
+    public void setController(IControllerForGUI controller) {
+        this.controller = controller;
+    }
+
+    public void setStage(Stage stage) {
+        this.editUserStage = stage;
+    }
 
     //User edit window
-    public void initialize(){
+    public void initialize() {
         System.out.println("Edit user");
         editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
         profilePic.setImage(SessionManager.getCurrentUser().getProfilePicture());
@@ -41,17 +50,12 @@ public class EditUserController {
         oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
 
     }
-    // Stage setter
-    public void setStage(Stage stage) {
-        this.editUserStage = stage;
-    }
 
 
     // Delete user method
     public void deleteUser(MouseEvent mouseEvent) {
         //ask for confirmation before deleting user
-        if(PopupWindow.askForConfirmation("Delete user", "Are you sure you want to delete your account?"))
-        {   //if user confirms, delete user
+        if (PopupWindow.askForConfirmation("Delete user", "Are you sure you want to delete your account?")) {   //if user confirms, delete user
             Boolean isDeleted = controller.deleteUser(user);
             //check if user is deleted from database
             if (isDeleted) {
@@ -65,7 +69,6 @@ public class EditUserController {
     }
 
 
-
     // Update user method
     public void updateUser() {
 
@@ -76,27 +79,26 @@ public class EditUserController {
         String newPassword = newPasswordField.getText();
         String oldPassword = oldPasswordField.getText();
         Image newProfilePicture = user.getProfilePicture();
-        if(selectedImage != null){
+        if (selectedImage != null) {
             newProfilePicture = selectedImage;
         }
 
         //if old password is correct, update password
-        if(oldPassword.equals(user.getPassword())){
+        if (oldPassword.equals(user.getPassword())) {
             System.out.println("Old password is correct");
             //if new password is same as old password, keep old password
-            if(oldPassword.equals(newPassword)){
+            if (oldPassword.equals(newPassword)) {
                 System.out.println("New password is same as old password");
                 newPassword = oldPassword;
             }
 
-        }
-        else{
-            PopupWindow.showError( "Wrong password","Old password is incorrect");
+        } else {
+            PopupWindow.showError("Wrong password", "Old password is incorrect");
             return;
         }
 
 
-        Boolean isUpdated = controller.updateUser(oldUsername,newUsername, newPassword, newProfilePicture);
+        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture);
 
 
         if (isUpdated) {
@@ -124,4 +126,8 @@ public class EditUserController {
     }
 
 
+    @Override
+    public void setNoteToEdit(Note note) {
+        //not used in this controller
+    }
 }

@@ -1,6 +1,6 @@
 package View.controllers;
 
-import Controller.Controller;
+import Model.Note;
 import Model.User;
 import View.*;
 import View.managers.SceneManager;
@@ -16,12 +16,15 @@ import java.io.File;
 import java.util.Objects;
 
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 //login and signup controller is used to handle login and signup operations both fxml uses this controller
-public class LoginSignupController {
+public class LoginSignupController implements UiInterface {
+    private IControllerForGUI controller;
+    Stage stage;
 
 
-    IControllerForGUI controller = Controller.getInstance();
+    // IControllerForGUI controller = Controller.getInstance();
 
     //create json parser
 
@@ -34,9 +37,21 @@ public class LoginSignupController {
     TextField passwordField2;
     @FXML
     ImageView profilePic;
+    //set backend controller
+    @Override
+    public void setController(IControllerForGUI controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage=stage;
+
+    }
 
 
     //try to login with given credentials and get user data if successful
+
     @FXML
     public void login(MouseEvent mouseEvent) {
         User user = controller.login(usernameField.getText(), passwordField.getText());
@@ -49,7 +64,6 @@ public class LoginSignupController {
             openMainScreen(user);
         }
     }
-
 
     @FXML
     public void signup(MouseEvent mouseEvent) {
@@ -104,5 +118,10 @@ public class LoginSignupController {
     @FXML
     public void openStartScreen() {
         SceneManager.switchScene("StartScreen.fxml");
+    }
+
+    @Override
+    public void setNoteToEdit(Note note) {
+        //not used in this controller
     }
 }

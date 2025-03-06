@@ -1,6 +1,5 @@
 package View.controllers;
 
-import Controller.Controller;
 import View.*;
 import View.managers.SceneManager;
 import View.managers.SessionManager;
@@ -29,17 +28,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainScreenController {
+public class MainScreenController implements UiInterface {
+    private IControllerForGUI controller;
     public TextField searchField;
     public ImageView profilePic;
     public Label noteCounterLabel;
     public ScrollPane noteArea;
+    Stage stage;
     List<Note> notes = new ArrayList<>();
     @FXML
     public Label usernameLabel;
-    IControllerForGUI controller = Controller.getInstance();
+    //IControllerForGUI controller = Controller.getInstance();
+
     User user = SessionManager.getCurrentUser();
     ImageAdder imageAdder = new ImageAdder();
+
+
+    @Override
+    public void setController(IControllerForGUI controller){
+        this.controller = controller;
+    }
 
     public void initialize() {
         int noteCount = user.getNotes().size();
@@ -85,7 +93,9 @@ public class MainScreenController {
     @FXML
     public void addNote() {
         //open the add note window as a modal
-        try {
+        SceneManager.openModal("NoteAdd.fxml", null);
+        /*try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/NoteAdd.fxml"));
             Stage addNoteStage = new Stage();
             addNoteStage.initModality(Modality.APPLICATION_MODAL);
@@ -93,36 +103,18 @@ public class MainScreenController {
             Scene scene = new Scene(root);
             addNoteStage.setScene(scene);
             addNoteStage.show();
-            NoteAddController controller = loader.getController();
-            controller.setStage(addNoteStage);
+            NoteAddController noteAddController = loader.getController();
+            noteAddController.setStage(addNoteStage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+*/
     }
 
 
     @FXML
     public void editUser(MouseEvent mouseEvent) {
-        //open the edit user window as a modal
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/EditUser.fxml"));
-            Stage editUserStage = new Stage();
-            editUserStage.initModality(Modality.APPLICATION_MODAL);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            editUserStage.setScene(scene);
-            editUserStage.show();
-            EditUserController controller = loader.getController();
-            //passing the stage to the controller
-            controller.setStage(editUserStage);
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        SceneManager.openModal("EditUser.fxml", null);
     }
 
     public void drawNotes(String type, String search) {
@@ -194,25 +186,11 @@ public class MainScreenController {
     }
 
     //open the note view window as a modal when a note is clicked
-    public void openNoteView(Note note) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/FullNote.fxml"));
-            Stage noteViewStage = new Stage();
-            noteViewStage.initModality(Modality.APPLICATION_MODAL);
-            Parent root = loader.load();
-            NoteViewController controller = loader.getController();
-            Scene scene = new Scene(root);
-            noteViewStage.setScene(scene);
-            controller.setStage(noteViewStage);
-            controller.setNoteView(note);
-            noteViewStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
+    public void openNoteView(Note note) {
+        SceneManager.openModal("FullNote.fxml", note);
 
     }
-
     @FXML
     public void addProfilePicture(MouseEvent mouseEvent) {
         Image selectedImage = imageAdder.addPicture(mouseEvent);
@@ -225,5 +203,16 @@ public class MainScreenController {
 
     public void addNoteImage(MouseEvent mouseEvent) {
     }
+
+    @Override
+    public void setNoteToEdit(Note note) {
+        //not used in this class
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+       this.stage =stage;
+    }
+
 }
 
