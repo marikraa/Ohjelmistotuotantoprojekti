@@ -71,7 +71,7 @@ public class NoteAddController implements UiInterface {
             user.setNotes(notes);
             noteStage.close();
             //refresh main screen
-            SceneManager.switchScene("MainScreen.fxml");
+            SceneManager.switchScene("MainScreen_vanha.fxml");
         }
         ;
 
