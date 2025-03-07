@@ -1,5 +1,6 @@
 package Controller;
 
+import DataSource.NoteDAO;
 import Model.Note;
 import Model.User;
 import DataSource.UserDAO;
@@ -8,16 +9,16 @@ import View.IControllerForGUI;
 import javafx.scene.image.Image;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
-import java.sql.*;
 
 public class Controller implements IControllerForGUI {
     //static Controller controller;
     UserDAO userDAO;
+    NoteDAO noteDAO;
+
     public Controller() {
         userDAO = new UserDAO();
-
+        noteDAO = new NoteDAO();
     }
 
     @Override
@@ -57,6 +58,7 @@ public class Controller implements IControllerForGUI {
             return Collections.emptyList();
         }
     }
+
     @Override
     public User signup(String username, String password, Image image) {
         User existingUser = userDAO.getUserByUsername(username);
@@ -69,8 +71,7 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public Boolean updateUser(String oldUsername, String newUsername, String password, Image profilePicture) {
-        Boolean success = true;
+    public boolean updateUser(String oldUsername, String newUsername, String password, Image profilePicture) {
         try {
             User user = userDAO.getUserByUsername(oldUsername);
             if (user != null) {
@@ -78,19 +79,19 @@ public class Controller implements IControllerForGUI {
                 user.setPassword(password);
                 user.setProfilePicture(profilePicture);
                 userDAO.updateUser(user);
+                return true;
             } else {
                 System.out.println("User not found: " + oldUsername);
-                success = false;
+                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            success = false;
+             return false;
         }
-        return success;
     }
 
     @Override
-    public Boolean deleteUser(User user) {
+    public boolean deleteUser(User user) {
         try {
             userDAO.deleteUser(user.getId());
             return true;
@@ -102,8 +103,32 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public boolean updateNote(Note currentNote) {
-        //TODO: implement note update päivittä
-       // jos update onnistuu palauta true, muuten false
-        return false;
+        try {
+            Note existingNote = noteDAO.getNoteById(currentNote.getId());
+            if (existingNote != null) {
+                existingNote.setTitle(currentNote.getTitle());
+                existingNote.setBody(currentNote.getBody());
+                existingNote.setImageUrl(currentNote.getImageUrl());
+                existingNote.setNotificationTime(currentNote.getNotificationTime());
+                noteDAO.updateNote(existingNote);
+                return true;
+            } else {
+                System.out.println("Note not found: " + currentNote.getId());
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteNote(Note note) {
+        try {
+            return noteDAO.deleteNote(note.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

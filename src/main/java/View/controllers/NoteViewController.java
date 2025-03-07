@@ -46,7 +46,11 @@ public class NoteViewController implements UiInterface {
 
 
     public void deleteNote() {
-        //controller.deleteNote();
+        if (!controller.deleteNote(currentNote)) {
+            System.err.println("Failed to delete note");
+        } else {
+            stage.close();
+        }
     }
 
     public void updateNote() {

@@ -15,9 +15,11 @@ public interface IControllerForGUI {
 
     User signup(String username, String password, Image image);
 
-    Boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture);
+    boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture);
 
-    Boolean deleteUser(User user);
+    boolean deleteUser(User user);
 
     boolean updateNote(Note currentNote);
+
+    boolean deleteNote(Note note);
 }
