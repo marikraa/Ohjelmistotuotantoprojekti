@@ -138,3 +138,6 @@
     -fx-text-fill: rgba(245, 109, 6);
 
 }
+.hidden {
+    -fx-opacity: 0;
+}

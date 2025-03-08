@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER" spacing="5.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.MainScreenController">
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="431.0">
@@ -54,7 +53,10 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="207.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets right="10.0" />
+                           </VBox.margin></ImageView>
                      </children>
                   </VBox>
                </children>

@@ -33,6 +33,8 @@ public class Note {
 
     @Column(name = "notification_time")
     private LocalDateTime notificationTime;
+    @Column(name = "notification_shown")
+    private Boolean notificationShown;
 
     public Note(){
     }
@@ -43,6 +45,9 @@ public class Note {
         this.imageUrl = imageUrl;
         this.notificationTime = notificationTime;
         this.body = body;
+       notificationShown = false;
+
+
     }
 
     public int getId() {
@@ -65,10 +70,13 @@ public class Note {
         return title;
     }
 
+    public String getImage() {
+        return imageUrl;
+    }
+
     public void setNotificationTime(LocalDateTime notificationTime) {
         this.notificationTime = notificationTime;
     }
-
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
@@ -108,4 +116,11 @@ public class Note {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+    public Boolean notificationShownProperty() {
+        return notificationShown;
+    }
+
+
 }
+
+
