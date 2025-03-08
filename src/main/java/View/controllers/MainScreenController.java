@@ -109,8 +109,7 @@ public class MainScreenController implements UiInterface {
         int j;
         //Create a gridpane for the notes
         GridPane noteGrid = new GridPane(10, 10);
-        GridPane.setHgrow(noteGrid, Priority.ALWAYS);
-        GridPane.setVgrow(noteGrid, Priority.ALWAYS);
+
 
         noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
         noteArea.setContent(noteGrid);

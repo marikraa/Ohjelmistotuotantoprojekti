@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import jakarta.persistence.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 @Entity
 @Table(name = "notes")
@@ -33,6 +35,8 @@ public class Note {
 
     @Column(name = "notification_time")
     private LocalDateTime notificationTime;
+    @Column(name = "notification_shown")
+    private Boolean notificationShown;
 
     public Note(){
     }
@@ -43,6 +47,9 @@ public class Note {
         this.imageUrl = imageUrl;
         this.notificationTime = notificationTime;
         this.body = body;
+       notificationShown = false;
+
+
     }
 
     public int getId() {
@@ -111,6 +118,9 @@ public class Note {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+    public Boolean notificationShownProperty() {
+        return notificationShown;
     }
 
 

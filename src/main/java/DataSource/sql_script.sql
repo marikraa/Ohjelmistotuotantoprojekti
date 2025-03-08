@@ -18,6 +18,7 @@ CREATE TABLE notes (
     image_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notification_time TIMESTAMP,
+    notification_shown BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 

@@ -22,11 +22,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
-    @Transient
-    private Image profilePicture;
+    /*@Transient
+    private Image profilePicture;*/
 
     @Column(name = "profile_picture_url")
-    private String profilePictureUrl;
+    private String profilePictureUrl="src/main/resources/images/defaultProfilePic.png";
 
     public User() {
         this.notes = new ArrayList<>();
@@ -35,7 +35,7 @@ public class User {
     public User(String username, String password, Image image) {
         this.username = username;
         this.password = password;
-        this.profilePicture = image;
+        this.profilePictureUrl = image.getUrl();
         this.notes = new ArrayList<>();
     }
 
@@ -64,11 +64,12 @@ public class User {
     }
 
     public Image getProfilePicture() {
+        Image profilePicture = new Image(profilePictureUrl);
         return profilePicture;
     }
 
     public void setProfilePicture(Image image) {
-        this.profilePicture = image;
+        this.profilePictureUrl = image.getUrl();
     }
 
     public String getProfilePictureUrl() {
