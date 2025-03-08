@@ -65,13 +65,10 @@ public class Note {
         return title;
     }
 
-    public String getImage() {
-        return imageUrl;
-    }
-
     public void setNotificationTime(LocalDateTime notificationTime) {
         this.notificationTime = notificationTime;
     }
+
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
@@ -111,8 +108,4 @@ public class Note {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-
-
 }
-
-

@@ -56,7 +56,7 @@ public class MainScreenController implements UiInterface {
         String username = user.getUsername();
         usernameLabel.setText(username);
         noteCounterLabel.setText("Notes: " + noteCount);
-        profilePic.setImage(user.getProfilePicture());
+        profilePic.setImage(new Image(user.getProfilePictureUrl()));
         System.out.println("Main init");
         drawNotes("all", null);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {

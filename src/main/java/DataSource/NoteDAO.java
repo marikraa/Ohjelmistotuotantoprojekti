@@ -34,12 +34,11 @@ public class NoteDAO {
             Note note = em.find(Note.class, id);
             if (note != null) {
                 em.remove(note);
-                em.flush(); // Ensure changes are flushed to the database
+                em.flush();
                 em.getTransaction().commit();
-                System.out.println("Note with ID " + id + " deleted successfully.");
                 return true;
             } else {
-                System.out.println("Note with ID " + id + " not found.");
+                System.out.println("Note not found.");
                 em.getTransaction().rollback();
                 return false;
             }

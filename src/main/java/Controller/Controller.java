@@ -1,13 +1,15 @@
 package Controller;
 
-import DataSource.NoteDAO;
 import Model.Note;
 import Model.User;
 import DataSource.UserDAO;
+import DataSource.NoteDAO;
+import DataSource.ImageHandling;
 
 import View.IControllerForGUI;
 import javafx.scene.image.Image;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -15,10 +17,12 @@ public class Controller implements IControllerForGUI {
     //static Controller controller;
     UserDAO userDAO;
     NoteDAO noteDAO;
+    ImageHandling imageHandling;
 
     public Controller() {
         userDAO = new UserDAO();
         noteDAO = new NoteDAO();
+        imageHandling = new ImageHandling();
     }
 
     @Override
@@ -34,12 +38,16 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
-        //TODO: imagen uppaaminen johonkin palvelimelle ja sen urlin tallentaminen tietokantaan alempi on testiä varten että saa locaalisti toimimaan
         String imageUrl = "";
-        if(image!=null){
+        if (image != null) {
             imageUrl = image.getUrl();
+            try {
+                String imageJSON = imageHandling.uploadImage(image);
+                imageUrl = imageHandling.parseImageUrl(imageJSON);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
 
         try {
             User user = userDAO.getUserByUsername(username);
@@ -61,23 +69,45 @@ public class Controller implements IControllerForGUI {
 
     @Override
     public User signup(String username, String password, Image image) {
+        String imageUrl = "";
+        if (image != null) {
+            imageUrl = image.getUrl();
+            try {
+                String imageJSON = imageHandling.uploadImage(image);
+                imageUrl = imageHandling.parseImageUrl(imageJSON);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         User existingUser = userDAO.getUserByUsername(username);
         if (existingUser != null) {
             return null;
         }
-        User user = new User(username, password, image);
+        User user = new User(username, password, imageUrl);
         userDAO.createUser(user);
         return user;
     }
 //Updates user information to database
     @Override
-    public boolean updateUser(String oldUsername, String newUsername, String password, Image profilePicture) {
+    public boolean updateUser(String oldUsername, String newUsername, String password, Image image) {
+        String imageUrl = "";
+        if (image != null) {
+            imageUrl = image.getUrl();
+            try {
+                String imageJSON = imageHandling.uploadImage(image);
+                imageUrl = imageHandling.parseImageUrl(imageJSON);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             User user = userDAO.getUserByUsername(oldUsername);
             if (user != null) {
                 user.setUsername(newUsername);
                 user.setPassword(password);
-                user.setProfilePicture(profilePicture);
+                user.setProfilePictureUrl(imageUrl);
                 userDAO.updateUser(user);
                 return true;
             } else {
@@ -93,7 +123,7 @@ public class Controller implements IControllerForGUI {
     @Override
     public boolean deleteUser(User user) {
         try {
-            userDAO.deleteUser(user.getId());
+             userDAO.deleteUser(user.getId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

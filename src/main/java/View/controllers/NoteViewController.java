@@ -93,7 +93,7 @@ public class NoteViewController implements UiInterface {
     @Override
     public void setNoteToEdit(Note note) {
         this.currentNote = note;
-        noteImage.setImage(new Image(currentNote.getImage()));
+        noteImage.setImage(new Image(currentNote.getImageUrl()));
         noteContent.setText(currentNote.getContent());
         noteTitleField.setText(currentNote.getTitle());
         if (currentNote.getTitle().isEmpty())

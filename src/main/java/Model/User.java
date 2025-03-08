@@ -1,10 +1,8 @@
 package Model;
 
 import jakarta.persistence.*;
-import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "users")
@@ -22,9 +20,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
-    @Transient
-    private Image profilePicture;
-
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
@@ -32,10 +27,10 @@ public class User {
         this.notes = new ArrayList<>();
     }
 
-    public User(String username, String password, Image image) {
+    public User(String username, String password, String imageUrl) {
         this.username = username;
         this.password = password;
-        this.profilePicture = image;
+        this.profilePictureUrl = imageUrl;
         this.notes = new ArrayList<>();
     }
 
@@ -61,14 +56,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Image getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(Image image) {
-        this.profilePicture = image;
     }
 
     public String getProfilePictureUrl() {

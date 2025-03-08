@@ -45,7 +45,7 @@ public class EditUserController implements UiInterface {
     public void initialize() {
         System.out.println("Edit user");
         editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
-        profilePic.setImage(SessionManager.getCurrentUser().getProfilePicture());
+        profilePic.setImage(new Image(user.getProfilePictureUrl()));
         newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
         oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
 
@@ -78,7 +78,7 @@ public class EditUserController implements UiInterface {
         String newUsername = editUsernameField.getText();
         String newPassword = newPasswordField.getText();
         String oldPassword = oldPasswordField.getText();
-        Image newProfilePicture = user.getProfilePicture();
+        Image newProfilePicture = new Image(user.getProfilePictureUrl());
         if (selectedImage != null) {
             newProfilePicture = selectedImage;
         }
@@ -105,7 +105,7 @@ public class EditUserController implements UiInterface {
             //if database is updated, update user object
             user.setUsername(newUsername);
             user.setPassword(newPassword);
-            user.setProfilePicture(newProfilePicture);
+            user.setProfilePictureUrl(newProfilePicture.getUrl());
             System.out.println("User updated");
             editUserStage.close();
             //refresh main screen
