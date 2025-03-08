@@ -2,6 +2,10 @@ package View.controllers;
 
 import Model.Note;
 import View.IControllerForGUI;
+import View.managers.SceneManager;
+import View.managers.SessionManager;
+import View.utilies.PopupWindow;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +37,11 @@ public class NoteViewController implements UiInterface {
     }
 
     public void initialize() {
+        noteImage.setOnMouseEntered(event -> {
+            noteImage.setCursor(Cursor.HAND);
+            Tooltip tooltip = new Tooltip("Click to open big image!");
+            Tooltip.install(noteImage, tooltip);
+        });
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         editCheckbox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -46,10 +55,18 @@ public class NoteViewController implements UiInterface {
 
 
     public void deleteNote() {
-        if (!controller.deleteNote(currentNote)) {
-            System.err.println("Failed to delete note");
-        } else {
-            stage.close();
+        if (PopupWindow.askForConfirmation("Deleting note", "Are you sure you want to delete this note?")
+        ) {
+            if (!controller.deleteNote(currentNote)) {
+                System.err.println("Failed to delete note");
+            } else {
+                SessionManager.getCurrentUser().removeNote(currentNote);
+                SceneManager.switchScene("MainScreen.fxml");
+                stage.close();
+
+            }
+
+
         }
     }
 
@@ -57,6 +74,7 @@ public class NoteViewController implements UiInterface {
         oldNote = currentNote;
         currentNote.setTitle(noteTitleField.getText());
         currentNote.setBody(noteContent.getText());
+        currentNote.setImageUrl(noteImage.getImage().getUrl());
         LocalDate selectedDate = dateSelector.getValue();
         LocalTime selectedTime = LocalTime.of((int) hourSpinner.getValue(), (int) minuteSpinner.getValue());
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
@@ -66,6 +84,7 @@ public class NoteViewController implements UiInterface {
             //if update fails, revert to old note
             currentNote = oldNote;
         }
+        SceneManager.switchScene("MainScreen.fxml");
         stage.close();
 
 
@@ -77,10 +96,10 @@ public class NoteViewController implements UiInterface {
         noteImage.setImage(new Image(currentNote.getImage()));
         noteContent.setText(currentNote.getContent());
         noteTitleField.setText(currentNote.getTitle());
-        if(currentNote.getTitle().isEmpty())
+        if (currentNote.getTitle().isEmpty())
             noteTitle.setText("-No title-");
         else
-        noteTitle.setText(note.getTitle());
+            noteTitle.setText(note.getTitle());
         dateSelector.setValue(currentNote.getDate().toLocalDate());
         hourSpinner.getValueFactory().setValue(currentNote.getDate().getHour());
         minuteSpinner.getValueFactory().setValue(currentNote.getDate().getMinute());
@@ -108,5 +127,9 @@ public class NoteViewController implements UiInterface {
         dateSelector.setDisable(true);
         hourSpinner.setDisable(true);
 
+    }
+
+    public void openImage(MouseEvent mouseEvent) {
+        PopupWindow.showImage(noteImage.getImage());
     }
 }

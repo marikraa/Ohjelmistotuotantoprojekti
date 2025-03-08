@@ -27,6 +27,11 @@ public class StartScreenController implements UiInterface {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    @Override
+    public void initialize() {
+
+    }
     //these methods switch the scene to the login or signup screen
 
     @FXML

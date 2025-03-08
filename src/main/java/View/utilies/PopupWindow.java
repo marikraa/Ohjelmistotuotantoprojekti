@@ -1,7 +1,15 @@
 package View.utilies;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 import java.util.Optional;
 
@@ -22,6 +30,23 @@ public class PopupWindow {
         alert.setContentText(message);
         Optional<ButtonType> buttonType = alert.showAndWait();
         return buttonType.isPresent() && buttonType.get().equals(ButtonType.OK);
+    }
+
+    public static void showImage(Image image) {
+    // this shows the image in a new window
+        ImageView view = new ImageView(image);
+        view.setPreserveRatio(true);
+        Stage imageStage = new Stage();
+        imageStage.setTitle("Image Preview");
+        ScrollPane root = new ScrollPane(view);
+        root.setFitToWidth(true);
+        root.setFitToHeight(true);
+        root.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        Scene scene = new Scene(root, 800, 800);
+        imageStage.setScene(scene);
+        imageStage.setResizable(true);
+        imageStage.show();
     }
 }
 

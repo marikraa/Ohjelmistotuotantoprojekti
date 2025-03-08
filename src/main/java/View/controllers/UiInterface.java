@@ -8,4 +8,6 @@ public interface UiInterface {
     void setController(IControllerForGUI controller);
     void setNoteToEdit(Note note);
     void setStage(Stage stage);
+
+    void initialize();
 }

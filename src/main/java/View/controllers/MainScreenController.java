@@ -57,7 +57,7 @@ public class MainScreenController implements UiInterface {
         usernameLabel.setText(username);
         noteCounterLabel.setText("Notes: " + noteCount);
         profilePic.setImage(user.getProfilePicture());
-        System.out.println("init");
+        System.out.println("Main init");
         drawNotes("all", null);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("")) {
@@ -96,21 +96,7 @@ public class MainScreenController implements UiInterface {
     public void addNote() {
         //open the add note window as a modal
         SceneManager.openModal("NoteAdd.fxml", null);
-        /*try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/NoteAdd.fxml"));
-            Stage addNoteStage = new Stage();
-            addNoteStage.initModality(Modality.APPLICATION_MODAL);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            addNoteStage.setScene(scene);
-            addNoteStage.show();
-            NoteAddController noteAddController = loader.getController();
-            noteAddController.setStage(addNoteStage);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-*/
     }
 
 
@@ -118,7 +104,6 @@ public class MainScreenController implements UiInterface {
     public void editUser(MouseEvent mouseEvent) {
         SceneManager.openModal("EditUser.fxml", null);
     }
-
     public void drawNotes(String type, String search) {
         int i;
         int j;

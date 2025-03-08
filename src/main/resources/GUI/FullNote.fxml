@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -10,40 +11,93 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="855.0" prefWidth="432.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
+
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
    <children>
-      <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="178.0" layoutX="116.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="432.0" styleClass="header" text="Note" />
+      <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="267.0" onMouseClicked="#openImage" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
-         </cursor></ImageView>
-      <Button id="editProfile" layoutX="280.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#addNoteImage" prefHeight="25.0" prefWidth="105.0" styleClass="widget" text="Change image" />
-      <Button layoutX="25.0" layoutY="754.0" mnemonicParsing="false" onMouseClicked="#updateNote" prefHeight="64.0" prefWidth="172.0" styleClass="widget" text="Edit" />
-      <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="29.0" prefHeight="81.0" prefWidth="432.0" styleClass="header" text="Note" />
-      <TextArea fx:id="noteContent" layoutX="25.0" layoutY="428.0" prefHeight="200.0" prefWidth="382.0" styleClass="widget" />
-      <DatePicker fx:id="dateSelector" layoutX="29.0" layoutY="674.0" promptText="Date" styleClass="selector" />
-      <Label layoutX="29.0" layoutY="650.0" text="Notification date" />
-      <Spinner fx:id="hourSpinner" editable="true" layoutX="227.0" layoutY="674.0" prefHeight="25.0" prefWidth="75.0" styleClass="selector" />
-      <Spinner fx:id="minuteSpinner" editable="true" layoutX="302.0" layoutY="674.0" prefHeight="25.0" prefWidth="75.0" styleClass="selector" />
-      <Label layoutX="227.0" layoutY="650.0" text="Time" />
-      <Button layoutX="240.0" layoutY="754.0" mnemonicParsing="false" onMouseClicked="#deleteNote" prefHeight="64.0" prefWidth="172.0" text="Delete">
+         </cursor>
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addNoteImage" prefHeight="31.0" prefWidth="130.0" text="Change image">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
          <styleClass>
             <String fx:value="widget" />
-            <String fx:value="delete" />
+            <String fx:value="smalltext" />
          </styleClass>
       </Button>
-      <CheckBox fx:id="editCheckbox" layoutX="29.0" layoutY="325.0" mnemonicParsing="false"  styleClass="smalltext" text="Edit Note" />
-      <HBox layoutX="25.0" layoutY="359.0" prefHeight="64.0" prefWidth="150.0">
+      <HBox alignment="CENTER" prefHeight="64.0" prefWidth="150.0">
          <children>
-            <TextField fx:id="noteTitleField" alignment="CENTER" prefHeight="100.0" prefWidth="202.0" promptText="Title For Note" styleClass="widget">
+            <TextField fx:id="noteTitleField" alignment="CENTER" prefHeight="100.0" prefWidth="202.0" promptText="Title For Note">
                <font>
                   <Font size="17.0" />
                </font>
+               <styleClass>
+                  <String fx:value="widget" />
+                  <String fx:value="smalltext" />
+               </styleClass>
             </TextField>
          </children>
       </HBox>
+      <HBox prefHeight="25.0" prefWidth="432.0">
+         <children>
+            <CheckBox fx:id="editCheckbox" mnemonicParsing="false" prefHeight="15.0" prefWidth="78.0" styleClass="extrasmalltext" text="Edit Note">
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+      </HBox>
+      <TextArea fx:id="noteContent" prefHeight="200.0" prefWidth="382.0" styleClass="widget" />
+      <Label prefHeight="25.0" prefWidth="115.0" text="Notification time">
+         <styleClass>
+            <String fx:value="pink" />
+            <String fx:value="smalltext" />
+         </styleClass>
+      </Label>
+      <DatePicker fx:id="dateSelector" promptText="Date" styleClass="selector" />
+      <HBox alignment="CENTER" prefHeight="29.0" prefWidth="432.0">
+         <children>
+            <Spinner fx:id="hourSpinner" editable="true" prefHeight="25.0" prefWidth="75.0" styleClass="selector" />
+            <Spinner fx:id="minuteSpinner" editable="true" prefHeight="25.0" prefWidth="75.0" styleClass="selector" />
+         </children>
+      </HBox>
+      <Label text="Notification date" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#updateNote" prefHeight="64.0" prefWidth="172.0" text="Edit">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="widget" />
+                  <String fx:value="smalltext" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#deleteNote" prefHeight="64.0" prefWidth="172.0" text="Delete">
+               <styleClass>
+                  <String fx:value="widget" />
+                  <String fx:value="smalltext" />
+                  <String fx:value="delete" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

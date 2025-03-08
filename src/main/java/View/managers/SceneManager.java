@@ -19,6 +19,7 @@ import java.io.IOException;
 public class SceneManager {
     private static Stage primaryStage;
     private static Scene modalStage;
+    private static UiInterface primaryUiController;
     private static final IControllerForGUI controller = new Controller();
 
     //set progrmas main stage at the start
@@ -34,13 +35,13 @@ public class SceneManager {
 
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/GUI/" + fxmlFile));
             Parent root = loader.load();
-            UiInterface uiController = loader.getController();
+            primaryUiController = loader.getController();
             //set THE backend controller for the UI controller
-            uiController.setController(controller);
+            primaryUiController.setController(controller);
             Scene scene = new Scene(root);
             Rectangle2D screenBounds = Screen.getPrimary().getBounds();
             primaryStage.setScene(scene);
-            uiController.setStage(primaryStage);
+            primaryUiController.setStage(primaryStage);
             primaryStage.show();
 
         } catch (IOException e) {
@@ -55,15 +56,15 @@ public class SceneManager {
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             Parent root = loader.load();
-            UiInterface uiController = loader.getController();
+            UiInterface modalUiController = loader.getController();
             Scene scene = new Scene(root);
-            uiController.setController(controller);
+            modalUiController.setController(controller);
             modalStage.setScene(scene);
-            uiController.setStage(modalStage);
+            modalUiController.setStage(modalStage);
+                if (note != null) {
+                    modalUiController.setNoteToEdit(note);
+                }
             modalStage.show();
-            if (note != null) {
-                uiController.setNoteToEdit(note);
-            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
