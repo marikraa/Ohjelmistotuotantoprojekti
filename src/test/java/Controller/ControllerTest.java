@@ -1,5 +1,6 @@
 package Controller;
 
+import DataSource.NoteDAO;
 import Model.Note;
 import Model.User;
 import DataSource.UserDAO;
@@ -18,23 +19,20 @@ class ControllerTest {
 
     private Controller controller;
     private UserDAO userDAO;
+    private NoteDAO noteDAO;
 
     @BeforeEach
     void setUp() {
         userDAO = mock(UserDAO.class);
-        controller = Controller.getInstance();
+        noteDAO = mock(NoteDAO.class);
+        controller = new Controller();
         controller.userDAO = userDAO;
+        controller.noteDAO = noteDAO;
     }
 
     @AfterEach
     void tearDown() {
         controller = null;
-    }
-
-    @Test
-    void getInstance() {
-        Controller instance = Controller.getInstance();
-        assertNotNull(instance);
     }
 
     @Test
@@ -166,5 +164,16 @@ class ControllerTest {
 
         User user = controller.login("testUser", "wrongPassword");
         assertNull(user);
+    }
+
+    @Test
+    void deleteNote() {
+        Note mockNote = new Note();
+        mockNote.setId(1);
+        when(noteDAO.deleteNote(1)).thenReturn(true);
+
+        boolean success = controller.deleteNote(mockNote);
+        assertTrue(success);
+        verify(noteDAO, times(1)).deleteNote(1);
     }
 }

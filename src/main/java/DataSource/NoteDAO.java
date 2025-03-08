@@ -27,17 +27,26 @@ public class NoteDAO {
         }
     }
 
-    public void deleteNote(int id) {
+    public boolean deleteNote(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
             Note note = em.find(Note.class, id);
             if (note != null) {
                 em.remove(note);
+                em.flush(); // Ensure changes are flushed to the database
+                em.getTransaction().commit();
+                System.out.println("Note with ID " + id + " deleted successfully.");
+                return true;
+            } else {
+                System.out.println("Note with ID " + id + " not found.");
+                em.getTransaction().rollback();
+                return false;
             }
-            em.getTransaction().commit();
         } catch(Exception e) {
             e.printStackTrace();
+            em.getTransaction().rollback();
+            return false;
         }
     }
 

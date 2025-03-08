@@ -52,6 +52,7 @@ public class NoteAddController implements UiInterface {
         dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+
     }
 
 
@@ -98,4 +99,8 @@ public class NoteAddController implements UiInterface {
     public void setNoteToEdit(Note note) {
         //not used in this controller
     }
+
+
+
+
 }

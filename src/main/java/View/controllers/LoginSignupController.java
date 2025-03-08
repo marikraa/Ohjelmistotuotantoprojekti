@@ -49,6 +49,11 @@ public class LoginSignupController implements UiInterface {
 
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
 
     //try to login with given credentials and get user data if successful
 
