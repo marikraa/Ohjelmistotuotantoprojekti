@@ -1,3 +1,4 @@
+
 package Controller;
 
 import DataSource.NoteDAO;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,8 +59,8 @@ class ControllerTest {
     void addNote() {
         User mockUser = new User("testUser", "password", null);
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
+        when(userDAO.updateUser(mockUser)).thenReturn(true);
 
-        controller.signup("testUser", "password", null);
         LocalDateTime notificationTime = LocalDateTime.now();
         List<Note> notes = controller.addNote("testUser", "title", "content", null, notificationTime);
         assertNotNull(notes);
@@ -70,8 +72,8 @@ class ControllerTest {
     void addNoteWithImage() throws IOException {
         User mockUser = new User("testUser", "password", null);
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
+        when(userDAO.updateUser(mockUser)).thenReturn(true);
 
-        controller.signup("testUser", "password", null);
         Image image = new Image(getClass().getResourceAsStream("/images/defaultProfilePic.png"));
         when(imageHandling.uploadImage(image)).thenReturn("{\"url\":\"http://example.com/image.jpg\"}");
         when(imageHandling.parseImageUrl("{\"url\":\"http://example.com/image.jpg\"}")).thenReturn("http://example.com/image.jpg");
@@ -87,8 +89,8 @@ class ControllerTest {
     void addNoteWithImageIOException() throws IOException {
         User mockUser = new User("testUser", "password", null);
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
+        when(userDAO.updateUser(mockUser)).thenReturn(true);
 
-        controller.signup("testUser", "password", null);
         Image image = new Image(getClass().getResourceAsStream("/images/defaultProfilePic.png"));
         when(imageHandling.uploadImage(image)).thenThrow(new IOException("Test IOException"));
         LocalDateTime notificationTime = LocalDateTime.now();
@@ -109,6 +111,9 @@ class ControllerTest {
 
     @Test
     void signup() {
+        when(userDAO.getUserByUsername("newUser")).thenReturn(null);
+        when(userDAO.createUser(any(User.class))).thenReturn(true);
+
         User user = controller.signup("newUser", "password", null);
         assertNotNull(user);
         assertEquals("newUser", user.getUsername());
@@ -122,6 +127,8 @@ class ControllerTest {
     void signupWithImageIOException() throws IOException {
         Image image = new Image(getClass().getResourceAsStream("/images/defaultProfilePic.png"));
         when(imageHandling.uploadImage(image)).thenThrow(new IOException("Test IOException"));
+        when(userDAO.getUserByUsername("newUser")).thenReturn(null);
+        when(userDAO.createUser(any(User.class))).thenReturn(true);
 
         User user = controller.signup("newUser", "password", image);
 
@@ -134,8 +141,8 @@ class ControllerTest {
     void updateUser() {
         User mockUser = new User("oldUser", "password", null);
         when(userDAO.getUserByUsername("oldUser")).thenReturn(mockUser);
+        when(userDAO.updateUser(mockUser)).thenReturn(true);
 
-        controller.signup("oldUser", "password", null);
         Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", null);
         assertTrue(success);
     }
@@ -144,6 +151,7 @@ class ControllerTest {
     void updateUserWithImageIOException() throws IOException {
         User mockUser = new User("oldUser", "password", null);
         when(userDAO.getUserByUsername("oldUser")).thenReturn(mockUser);
+        when(userDAO.updateUser(mockUser)).thenReturn(true);
 
         Image image = new Image(getClass().getResourceAsStream("/images/defaultProfilePic.png"));
         when(imageHandling.uploadImage(image)).thenThrow(new IOException("Test IOException"));
@@ -164,7 +172,9 @@ class ControllerTest {
 
     @Test
     void deleteUser() {
-        User user = controller.signup("deleteUser", "password", null);
+        User user = new User("deleteUser", "password", null);
+        when(userDAO.deleteUser(user.getId())).thenReturn(true);
+
         Boolean success = controller.deleteUser(user);
         assertTrue(success);
     }
@@ -235,6 +245,7 @@ class ControllerTest {
         Note mockNote = new Note();
         mockNote.setId(1);
         when(noteDAO.getNoteById(1)).thenReturn(mockNote);
+        when(noteDAO.updateNote(mockNote)).thenReturn(true);
 
         Boolean success = controller.updateNote(mockNote);
         assertTrue(success);
