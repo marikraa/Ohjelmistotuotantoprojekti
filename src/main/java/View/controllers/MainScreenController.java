@@ -41,7 +41,7 @@ public class MainScreenController implements UiInterface {
     @FXML
     public Label usernameLabel;
     //IControllerForGUI controller = Controller.getInstance();
-
+    GridPane noteGrid;
     User user = SessionManager.getCurrentUser();
     ImageAdder imageAdder = new ImageAdder();
 
@@ -58,16 +58,23 @@ public class MainScreenController implements UiInterface {
         noteCounterLabel.setText("Notes: " + noteCount);
         profilePic.setImage(new Image(user.getProfilePictureUrl()));
         System.out.println("Main init");
-        drawNotes("all", null);
+        drawNotes();
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("")) {
-                drawNotes("all", null);
+            if (newValue.isEmpty()) {
+                drawNotes();
             } else {
+                String search = newValue.toLowerCase(); // Muutetaan pieniksi kirjaimiksi
+                List<Note> filteredNotes = new ArrayList<>();
 
-                drawNotes("search", newValue);
+                for (Note note : user.getNotes()) {
+                    String title = note.getTitle().toLowerCase();
+                    if (isSubsequence(search, title)) { // Tarkistetaan järjestys
+                        filteredNotes.add(note);
+                    }
+                }
+
+                drawFilteredNotes(filteredNotes);
             }
-
-
         });
 
 
@@ -81,16 +88,6 @@ public class MainScreenController implements UiInterface {
 
     }
 
-    @FXML
-    public void sortNotes() {
-        //sort notes by the search field
-        String search = searchField.getText();
-        if (!search.equals("")) {
-            drawNotes("search", search);
-        }
-
-
-    }
 
     @FXML
     public void addNote() {
@@ -104,41 +101,26 @@ public class MainScreenController implements UiInterface {
     public void editUser(MouseEvent mouseEvent) {
         SceneManager.openModal("EditUser.fxml", null);
     }
-    public void drawNotes(String type, String search) {
+
+    //this method is used to draw the notes that are in the user's note list
+    public void drawNotes() {
         int i;
         int j;
         //Create a gridpane for the notes
-        GridPane noteGrid = new GridPane(10, 10);
-
-
+        noteGrid = new GridPane(10, 10);
         noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
         noteArea.setContent(noteGrid);
-        if (type.equals("all")) {
-            notes = user.getNotes();
-            Button addNoteButton = createAddButton();
-            noteGrid.add(addNoteButton, 0, 0);
-            //set i for 1 because the first column is for the add note button
-            j = 0;
-            i = 1;
-        } else {
-            //sort notes by the search field value
-            notes = user.sortNotes(search);
-            if (notes.size() == 0) {
-                ImageView notFound = new ImageView();
-                notFound.setImage(new Image("./images/NotFound.png"));
-                notFound.setFitHeight(400);
-                notFound.setFitWidth(400);
-                notFound.getStyleClass().add("notFound");
-                noteArea.setContent(notFound);
-                return;
-            }
-            j = 0;
-            i = 0;
-        }
+        notes = user.getNotes();
+        Button addNoteButton = createAddButton();
+        noteGrid.add(addNoteButton, 0, 0);
+        //set i for 1 because the first column is for the add note button
+        j = 0;
+        i = 1;
+
 
         //add notes to the grid
         for (Note note : notes) {
-           Button noteButton=  createNoteButton(note);
+            Button noteButton = createNoteButton(note);
             noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 openNoteView(note);
 
@@ -153,6 +135,34 @@ public class MainScreenController implements UiInterface {
         }
 
 
+    }
+
+    //this method is used to draw the notes that match the search query
+    private void drawFilteredNotes(List<Note> notes) {
+        if (notes.isEmpty()) {
+            ImageView notFound = new ImageView(new Image("./images/NotFound.png"));
+            notFound.setFitHeight(400);
+            notFound.setFitWidth(400);
+            notFound.getStyleClass().add("notFound");
+            noteArea.setContent(notFound);
+            return;
+        }
+
+        noteGrid = new GridPane(10, 10);
+        noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
+        noteArea.setContent(noteGrid);
+
+        int i = 0, j = 0;
+        for (Note note : notes) {
+            Button noteButton = createNoteButton(note);
+            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
+            noteGrid.add(noteButton, i, j);
+            i++;
+            if (i > 1) {
+                i = 0;
+                j++;
+            }
+        }
     }
 
     public Button createAddButton() {
@@ -178,7 +188,7 @@ public class MainScreenController implements UiInterface {
     }
 
 
-    public Button createNoteButton(Note note){
+    public Button createNoteButton(Note note) {
         Button noteButton = new Button();
         NoteNode noteNode = new NoteNode(note);
         VBox noteVBox = noteNode.createNoteNode();
@@ -212,5 +222,17 @@ public class MainScreenController implements UiInterface {
         this.stage = stage;
     }
 
+    private boolean isSubsequence(String search, String text) {
+        int searchIndex = 0, textIndex = 0;
+
+        while (textIndex < text.length() && searchIndex < search.length()) {
+            if (search.charAt(searchIndex) == text.charAt(textIndex)) {
+                searchIndex++;
+            }
+            textIndex++;
+        }
+
+        return searchIndex == search.length(); // Kaikki haetut kirjaimet löytyivät järjestyksessä
+    }
 }
 

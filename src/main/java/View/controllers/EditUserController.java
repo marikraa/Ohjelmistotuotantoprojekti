@@ -109,7 +109,7 @@ public class EditUserController implements UiInterface {
             System.out.println("User updated");
             editUserStage.close();
             //refresh main screen
-            SceneManager.switchScene("MainScreen_vanha.fxml");
+            SceneManager.switchScene("MainScreen.fxml");
         }
 
 
