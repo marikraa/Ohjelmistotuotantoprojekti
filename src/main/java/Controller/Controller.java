@@ -55,7 +55,9 @@ public class Controller implements IControllerForGUI {
                     Note note = new Note(title, content, imageUrl, notificationTime);
                     note.setUser(user);
                     user.addNote(note);
-                    userDAO.updateUser(user);
+                    if (!userDAO.updateUser(user)){
+                        return Collections.emptyList();
+                    }
                     return user.getNotes();
                 } else {
                     System.out.println("User not found: " + username);
@@ -84,7 +86,9 @@ public class Controller implements IControllerForGUI {
             return null;
         }
         User user = new User(username, password, imageUrl);
-        userDAO.createUser(user);
+        if (!userDAO.createUser(user)) {
+            return null;
+        }
         return user;
     }
 //Updates user information to database
@@ -107,11 +111,10 @@ public class Controller implements IControllerForGUI {
                 user.setUsername(newUsername);
                 user.setPassword(password);
                 user.setProfilePictureUrl(imageUrl);
-                userDAO.updateUser(user);
-                return true;
+                return userDAO.updateUser(user);
             } else {
                 System.out.println("User not found: " + oldUsername);
-                 return false;
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,8 +125,7 @@ public class Controller implements IControllerForGUI {
     @Override
     public boolean deleteUser(User user) {
         try {
-             userDAO.deleteUser(user.getId());
-            return true;
+            return userDAO.deleteUser(user.getId());
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -139,8 +141,7 @@ public class Controller implements IControllerForGUI {
                 existingNote.setBody(currentNote.getBody());
                 existingNote.setImageUrl(currentNote.getImageUrl());
                 existingNote.setNotificationTime(currentNote.getNotificationTime());
-                noteDAO.updateNote(existingNote);
-                return true;
+                return noteDAO.updateNote(existingNote);
             } else {
                 System.out.println("Note not found: " + currentNote.getId());
                 return false;
