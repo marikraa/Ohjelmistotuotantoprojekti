@@ -117,6 +117,10 @@ public class Note {
     public Boolean notificationShownProperty() {
         return notificationShown;
     }
+    public void setNotificationShown(Boolean notificationShown) {
+        this.notificationShown = notificationShown;
+    }
+
 
 
 }

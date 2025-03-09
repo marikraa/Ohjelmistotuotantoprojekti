@@ -132,7 +132,7 @@ class UserTest extends ApplicationTest {
         Platform.runLater(() -> {
             Image profilePicture = new Image("http://example.com/image.jpg");
             user.setProfilePicture(profilePicture);
-            assertEquals(profilePicture, user.getProfilePicture());
+            assertEquals(profilePicture.getUrl(), user.getProfilePicture().getUrl());
             latch.countDown();
         });
         latch.await();
