@@ -2,6 +2,7 @@ package DataSource;
 
 import Model.Note;
 
+import Model.User;
 import jakarta.persistence.*;
 
 public class NoteDAO {
@@ -33,7 +34,11 @@ public class NoteDAO {
             em.getTransaction().begin();
             Note note = em.find(Note.class, id);
             if (note != null) {
-                em.remove(note);
+                User user = note.getUser();
+                if (user != null) {
+                    user.getNotes().remove(note);
+                    em.merge(user);}
+                //em.remove(note);
                 em.flush();
                 em.getTransaction().commit();
                 System.out.println("Note deleted."+ note.getId());
