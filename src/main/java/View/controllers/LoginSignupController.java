@@ -152,27 +152,8 @@ public class LoginSignupController implements UiInterface {
     public void setNoteToEdit(Note note) {
         //not used in this controller
     }
-    // Simuloi latausta asettamalla ProgressIndicatorin arvo
-    private void simulateLoading(ProgressIndicator progressIndicator) {
-        // Simuloidaan latausprosessi (tässä esimerkissä 5 sekuntia)
-        new Thread(() -> {
-            try {
-                // Aseta progressindikaattori "indeterminate" tilaan, eli pyörimään
-                this.progressIndicator.setProgress(-1.0);  // Tämä tekee siitä pyörivän (indeterminate)
 
-                // Voit myös asettaa progress-arvon (esim. 0-1)
-                for (double progress = 0.0; progress <= 1.0; progress += 0.1) {
-                    Thread.sleep(10000);  // Simuloi aikaa
-                    final double p = progress;  // Final-muuttuja käyttöliittymän säilyttämiseksi
 
-                    // Päivitä käyttöliittymä JavaFX-säikeessä
-                    javafx.application.Platform.runLater(() -> this.progressIndicator.setProgress(p));
-                }
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
 
 }
