@@ -71,7 +71,6 @@ public class Controller implements IControllerForGUI {
     public User signup(String username, String password, Image image) {
         String imageUrl = "";
         if (image != null) {
-            imageUrl = image.getUrl();
             try {
                 String imageJSON = imageHandling.uploadImage(image);
                 imageUrl = imageHandling.parseImageUrl(imageJSON);

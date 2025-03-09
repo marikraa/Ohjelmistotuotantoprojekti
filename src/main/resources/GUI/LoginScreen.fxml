@@ -17,7 +17,7 @@
          <children>
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#openStartScreen" prefHeight="43.0" prefWidth="38.0" styleClass="widget">
                <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/back.png" />
                      </image>

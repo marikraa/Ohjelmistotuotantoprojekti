@@ -24,11 +24,7 @@ public class LoginSignupController implements UiInterface {
     Stage stage;
 
 
-    // IControllerForGUI controller = Controller.getInstance();
-
-    //create json parser
-
-    File selectedFile;
+    Image selectedImage;
     @FXML
     TextField usernameField;
     @FXML
@@ -36,7 +32,7 @@ public class LoginSignupController implements UiInterface {
     @FXML
     TextField passwordField2;
     @FXML
-    ImageView profilePic;
+    ImageView profilePicView;
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
@@ -73,7 +69,6 @@ public class LoginSignupController implements UiInterface {
     @FXML
     public void signup(MouseEvent mouseEvent) {
 
-
         //check if fields are empty
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
             PopupWindow.showError("Empty fields", "Please fill all fields");
@@ -87,11 +82,11 @@ public class LoginSignupController implements UiInterface {
         else {
             Image profPic;
             //if user has not selected a profile picture, set default
-            if (selectedFile == null) {
+            if (selectedImage == null) {
                 profPic = new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm());
 
             } else {
-                profPic = new Image(selectedFile.toURI().toString());
+                profPic = selectedImage;
             }
             User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
             if (user == null) {
@@ -109,9 +104,11 @@ public class LoginSignupController implements UiInterface {
     }
 
     @FXML
-    public void addProfilePicture(MouseEvent mouseEvent) {
+    public void addProfilePicture(MouseEvent mouseEvent) {//when user clicks add image button open file chooser
         ImageAdder imageAdder = new ImageAdder();
-        profilePic.setImage(imageAdder.addPicture(mouseEvent));
+        selectedImage =imageAdder.addPicture(mouseEvent);
+        profilePicView.setImage(selectedImage);
+
 
     }
 

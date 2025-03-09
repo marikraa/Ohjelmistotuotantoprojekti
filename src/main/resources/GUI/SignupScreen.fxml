@@ -17,7 +17,7 @@
          <children>
             <Button mnemonicParsing="false" onMouseClicked="#openStartScreen" prefHeight="43.0" prefWidth="38.0" styleClass="widget">
                <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/back.png" />
                      </image>
@@ -41,7 +41,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/defaultProfilePic.png" />
             </image>

@@ -22,20 +22,19 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
-    @Transient
-    private Image profilePicture;
+
 
     @Column(name = "profile_picture_url")
-    private String profilePictureUrl="src/main/resources/images/defaultProfilePic.png";
+    private String profilePictureUrl;
 
     public User() {
         this.notes = new ArrayList<>();
     }
 
-    public User(String username, String password, Image image) {
+    public User(String username, String password, String imageurl) {
         this.username = username;
         this.password = password;
-        this.profilePictureUrl = image.getUrl();
+        this.profilePictureUrl = imageurl;
         this.notes = new ArrayList<>();
     }
 
