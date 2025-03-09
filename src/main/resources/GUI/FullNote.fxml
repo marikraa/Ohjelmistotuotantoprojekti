@@ -18,7 +18,7 @@
 
 <VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
    <children>
-      <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="432.0" styleClass="header" text="Note" />
+      <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="432.0" styleClass="bigtext" text="Note" />
       <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="267.0" onMouseClicked="#openImage" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
