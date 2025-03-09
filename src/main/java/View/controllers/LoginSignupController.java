@@ -7,19 +7,24 @@ import View.managers.SceneManager;
 import View.managers.SessionManager;
 import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
 
-import java.io.File;
 import java.util.Objects;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 //login and signup controller is used to handle login and signup operations both fxml uses this controller
 public class LoginSignupController implements UiInterface {
+    public VBox container;
     private IControllerForGUI controller;
     Stage stage;
 
@@ -33,6 +38,7 @@ public class LoginSignupController implements UiInterface {
     TextField passwordField2;
     @FXML
     ImageView profilePicView;
+    ProgressIndicator progressIndicator;
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
@@ -48,59 +54,79 @@ public class LoginSignupController implements UiInterface {
     @Override
     public void initialize() {
 
+
     }
 
 
     //try to login with given credentials and get user data if successful
 
     @FXML
-    public void login(MouseEvent mouseEvent) {
-        User user = controller.login(usernameField.getText(), passwordField.getText());
-
-        if (user == null) {
-            PopupWindow.showError("Login failed", "Username or password is incorrect");
-        }
-        //if login successful set user to session manager and switch to main screen
-        else {
-            openMainScreen(user);
-        }
+    public void login() {
+        showLoadingIndicator();
+        new Thread(() -> {
+            User user = controller.login(usernameField.getText(), passwordField.getText());
+            Platform.runLater(() -> {
+                hideLoadingIndicator();
+                if (user == null) {
+                    PopupWindow.showError("Login failed", "Username or password is incorrect");
+                } else {
+                    openMainScreen(user);
+                }
+            });
+        }).start();
     }
 
     @FXML
-    public void signup(MouseEvent mouseEvent) {
-
-        //check if fields are empty
-        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
-            PopupWindow.showError("Empty fields", "Please fill all fields");
-        }
-        //check if passwords match
-        else if (!passwordField.getText().equals(passwordField2.getText())) {
-            PopupWindow.showError("Passwords do not match", "Please check passwords");
-        }
-
-        //if fields are not empty and passwords match, try to signup
-        else {
-            Image profPic;
-            //if user has not selected a profile picture, set default
-            if (selectedImage == null) {
-                profPic = new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm());
-
-            } else {
-                profPic = selectedImage;
-            }
-            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
-            if (user == null) {
-                PopupWindow.showError("Username already exists", usernameField.getText() + " is already taken");
+    public void signup() {
+        showLoadingIndicator();
+        new Thread(() -> {
+            if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
+                Platform.runLater(() -> {
+                    hideLoadingIndicator();
+                    PopupWindow.showError("Empty fields", "Please fill all fields");
+                });
                 return;
             }
 
-            //if signup succesfull set user to session manager and switch to main screen
-            openMainScreen(user);
+            if (!passwordField.getText().equals(passwordField2.getText())) {
+                Platform.runLater(() -> {
+                    hideLoadingIndicator();
+                    PopupWindow.showError("Passwords do not match", "Please check passwords");
+                });
+                return;
+            }
 
+            Image profPic = (selectedImage == null)
+                    ? new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm())
+                    : selectedImage;
 
+            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
+            Platform.runLater(() -> {
+                hideLoadingIndicator();
+                if (user == null) {
+                    PopupWindow.showError("Username already exists", usernameField.getText() + " is already taken");
+                } else {
+                    openMainScreen(user);
+                }
+            });
+        }).start();
+    }
+    private void showLoadingIndicator() {
+        if (progressIndicator == null) {
+            progressIndicator = new ProgressIndicator();
+            progressIndicator.setPrefSize(40, 40);
         }
 
+        container.getChildren().removeIf(node -> node instanceof VBox); // Poistaa aiemmat indikaattorit
+        Label loadingLabel = new Label("Loading...");
+        loadingLabel.getStyleClass().addAll("smalltext");
+        VBox vbox = new VBox( loadingLabel, progressIndicator);
+        vbox.setAlignment(Pos.CENTER);
+        container.getChildren().add(vbox);
+    }
 
+    private void hideLoadingIndicator() {
+        container.getChildren().removeIf(node -> node instanceof VBox); // Poistaa latausindikaattorin
     }
 
     @FXML
@@ -126,4 +152,27 @@ public class LoginSignupController implements UiInterface {
     public void setNoteToEdit(Note note) {
         //not used in this controller
     }
+    // Simuloi latausta asettamalla ProgressIndicatorin arvo
+    private void simulateLoading(ProgressIndicator progressIndicator) {
+        // Simuloidaan latausprosessi (tässä esimerkissä 5 sekuntia)
+        new Thread(() -> {
+            try {
+                // Aseta progressindikaattori "indeterminate" tilaan, eli pyörimään
+                this.progressIndicator.setProgress(-1.0);  // Tämä tekee siitä pyörivän (indeterminate)
+
+                // Voit myös asettaa progress-arvon (esim. 0-1)
+                for (double progress = 0.0; progress <= 1.0; progress += 0.1) {
+                    Thread.sleep(10000);  // Simuloi aikaa
+                    final double p = progress;  // Final-muuttuja käyttöliittymän säilyttämiseksi
+
+                    // Päivitä käyttöliittymä JavaFX-säikeessä
+                    javafx.application.Platform.runLater(() -> this.progressIndicator.setProgress(p));
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
 }

@@ -37,12 +37,11 @@ public class MainScreenController implements UiInterface {
     public Label noteCounterLabel;
     public ScrollPane noteArea;
     Stage stage;
-    List<Note> notes = new ArrayList<>();
+    User user = SessionManager.getCurrentUser();
     @FXML
     public Label usernameLabel;
-    //IControllerForGUI controller = Controller.getInstance();
+    //IControllerForG UI controller = Controller.getInstance();
     GridPane noteGrid;
-    User user = SessionManager.getCurrentUser();
     ImageAdder imageAdder = new ImageAdder();
 
 
@@ -102,44 +101,38 @@ public class MainScreenController implements UiInterface {
         SceneManager.openModal("EditUser.fxml", null);
     }
 
-    //this method is used to draw the notes that are in the user's note list
     public void drawNotes() {
-        int i;
-        int j;
-        //Create a gridpane for the notes
-        noteGrid = new GridPane(10, 10);
-        noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
-        noteArea.setContent(noteGrid);
-        notes = user.getNotes();
+        if (noteGrid == null) {
+            noteGrid = new GridPane(10, 10);
+            noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
+            noteArea.setContent(noteGrid);
+        } else {
+            noteGrid.getChildren().clear(); // Tyhjennä vanha sisältö
+        }
+
+
         Button addNoteButton = createAddButton();
         noteGrid.add(addNoteButton, 0, 0);
-        //set i for 1 because the first column is for the add note button
-        j = 0;
-        i = 1;
 
-
-        //add notes to the grid
-        for (Note note : notes) {
+        int i = 1, j = 0;
+        for (Note note : user.getNotes()) {
             Button noteButton = createNoteButton(note);
-            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                openNoteView(note);
+            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
 
-            });
             noteGrid.add(noteButton, i, j);
             i++;
             if (i > 1) {
                 i = 0;
                 j++;
             }
-
         }
-
-
     }
 
     //this method is used to draw the notes that match the search query
-    private void drawFilteredNotes(List<Note> notes) {
-        if (notes.isEmpty()) {
+    private void drawFilteredNotes(List<Note> filteredNotes) {
+        noteGrid.getChildren().clear();
+
+        if (filteredNotes.isEmpty()) {
             ImageView notFound = new ImageView(new Image("./images/NotFound.png"));
             notFound.setFitHeight(400);
             notFound.setFitWidth(400);
@@ -148,14 +141,11 @@ public class MainScreenController implements UiInterface {
             return;
         }
 
-        noteGrid = new GridPane(10, 10);
-        noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
-        noteArea.setContent(noteGrid);
-
         int i = 0, j = 0;
-        for (Note note : notes) {
+        for (Note note : filteredNotes) {
             Button noteButton = createNoteButton(note);
             noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
+
             noteGrid.add(noteButton, i, j);
             i++;
             if (i > 1) {
