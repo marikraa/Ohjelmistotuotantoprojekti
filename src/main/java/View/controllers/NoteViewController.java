@@ -4,6 +4,7 @@ import Model.Note;
 import View.IControllerForGUI;
 import View.managers.SceneManager;
 import View.managers.SessionManager;
+import View.utilies.ImageAdder;
 import View.utilies.PopupWindow;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -25,6 +26,7 @@ public class NoteViewController implements UiInterface {
     public TextField noteTitleField;
     public Label noteTitle;
     public CheckBox editCheckbox;
+    public Button editProfilePic;
     IControllerForGUI controller;
 
     Stage stage;
@@ -42,6 +44,7 @@ public class NoteViewController implements UiInterface {
             Tooltip tooltip = new Tooltip("Click to open big image!");
             Tooltip.install(noteImage, tooltip);
         });
+
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         editCheckbox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -111,6 +114,11 @@ public class NoteViewController implements UiInterface {
     }
 
     public void addNoteImage(MouseEvent mouseEvent) {
+        ImageAdder imageAdder = new ImageAdder();
+        Image selectedImage = imageAdder.addPicture(mouseEvent);
+        if (selectedImage != null) {
+            noteImage.setImage(selectedImage);
+        }
     }
 
 
@@ -119,6 +127,9 @@ public class NoteViewController implements UiInterface {
         noteTitleField.setEditable(true);
         dateSelector.setDisable(false);
         hourSpinner.setDisable(false);
+        minuteSpinner.setDisable(false);
+        editProfilePic.setOnMouseClicked(event -> {addNoteImage(event);});
+
     }
 
     public void disableEditing() {
@@ -126,6 +137,8 @@ public class NoteViewController implements UiInterface {
         noteTitleField.setEditable(false);
         dateSelector.setDisable(true);
         hourSpinner.setDisable(true);
+        minuteSpinner.setDisable(true);
+        editProfilePic.setOnMouseClicked(event -> {});
 
     }
 

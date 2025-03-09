@@ -27,7 +27,7 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </ImageView>
-      <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addNoteImage" prefHeight="31.0" prefWidth="130.0" text="Change image">
+      <Button fx:id="editProfilePic" mnemonicParsing="false"  prefHeight="31.0" prefWidth="130.0" text="Change image">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>

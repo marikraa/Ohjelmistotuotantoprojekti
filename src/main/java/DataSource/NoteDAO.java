@@ -36,6 +36,7 @@ public class NoteDAO {
                 em.remove(note);
                 em.flush();
                 em.getTransaction().commit();
+                System.out.println("Note deleted."+ note.getId());
                 return true;
             } else {
                 System.out.println("Note not found.");
@@ -52,6 +53,7 @@ public class NoteDAO {
     public Note getNoteById(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
+
             return em.find(Note.class, id);
         } catch(NoResultException e) {
             e.printStackTrace();
