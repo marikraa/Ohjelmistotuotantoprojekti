@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.LoginSignupController">
+<VBox fx:id="container" alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.LoginSignupController">
    <children>
       <HBox prefHeight="43.0" prefWidth="422.0">
          <children>
@@ -74,7 +74,7 @@
       <HBox alignment="CENTER">
          <children>
             <Label styleClass="smalltext" text="Password:" />
-            <PasswordField fx:id="passwordField2" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,smalltext">
+            <PasswordField fx:id="passwordField2" onAction="#signup" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,smalltext">
 
                   </PasswordField>
          </children>
