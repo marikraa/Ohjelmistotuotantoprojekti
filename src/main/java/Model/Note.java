@@ -19,8 +19,6 @@ public class Note {
     @Column(name = "title")
     private String title;
 
-    //private final String date;
-    //private final Image image;
 
     @Column(name = "body")
     private String body;

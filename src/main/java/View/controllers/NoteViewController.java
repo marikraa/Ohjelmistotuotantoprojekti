@@ -63,7 +63,7 @@ public class NoteViewController implements UiInterface {
             if (!controller.deleteNote(currentNote)) {
                 System.err.println("Failed to delete note");
             } else {
-                SessionManager.getCurrentUser().removeNote(currentNote);
+                SessionManager.getCurrentUser().removeNote(currentNote);//remove from local storage
                 SceneManager.switchScene("MainScreen.fxml");
                 stage.close();
 
