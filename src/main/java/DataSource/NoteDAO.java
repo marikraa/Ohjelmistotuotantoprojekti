@@ -6,25 +6,29 @@ import Model.User;
 import jakarta.persistence.*;
 
 public class NoteDAO {
-    public void createNote(Note note) {
+    public boolean createNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
             em.persist(note);
             em.getTransaction().commit();
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateNote(Note note) {
+    public boolean updateNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
             em.merge(note);
             em.getTransaction().commit();
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

@@ -5,29 +5,33 @@ import Model.User;
 import jakarta.persistence.*;
 
 public class UserDAO {
-    public void createUser(User user) {
+    public boolean createUser(User user) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void deleteUser(int id) {
+    public boolean deleteUser(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             em.getTransaction().begin();
@@ -36,8 +40,10 @@ public class UserDAO {
                 em.remove(user);
             }
             em.getTransaction().commit();
+            return true;
         } catch(Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
