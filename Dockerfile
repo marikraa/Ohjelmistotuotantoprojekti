@@ -9,6 +9,6 @@ COPY pom.xml /app/
 
 COPY . /app
 
-RUN mvn package
+# RUN mvn package
 
 # CMD ["java", "-jar", "target/ohjelmistotuotanto.jar"]
