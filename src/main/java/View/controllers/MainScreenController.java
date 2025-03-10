@@ -5,6 +5,7 @@ import View.managers.SceneManager;
 import View.managers.SessionManager;
 import View.utilies.ImageAdder;
 import View.utilies.NoteNode;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import Model.Note;
 import Model.User;
@@ -43,6 +44,7 @@ public class MainScreenController implements UiInterface {
     //IControllerForG UI controller = Controller.getInstance();
     GridPane noteGrid;
     ImageAdder imageAdder = new ImageAdder();
+    List<Note> filteredNotes = new ArrayList<>();
 
 
     @Override
@@ -59,12 +61,12 @@ public class MainScreenController implements UiInterface {
         System.out.println("Main init");
         drawNotes();
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
             if (newValue.isEmpty()) {
                 drawNotes();
             } else {
                 String search = newValue.toLowerCase(); // Muutetaan pieniksi kirjaimiksi
-                List<Note> filteredNotes = new ArrayList<>();
-
+                filteredNotes.clear();
                 for (Note note : user.getNotes()) {
                     String title = note.getTitle().toLowerCase();
                     if (isSubsequence(search, title)) { // Tarkistetaan järjestys
@@ -74,7 +76,7 @@ public class MainScreenController implements UiInterface {
 
                 drawFilteredNotes(filteredNotes);
             }
-        });
+        });});
 
 
     }
