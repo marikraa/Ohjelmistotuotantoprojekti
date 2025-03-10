@@ -41,6 +41,13 @@ pipeline {
                 jacoco()
             }
         }
+        stage('Build') {
+            steps {
+                // Run mvn clean install
+                bat 'mvn clean install' // For Windows agents
+                // sh 'mvn clean install' // Uncomment if on a Linux agent
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
