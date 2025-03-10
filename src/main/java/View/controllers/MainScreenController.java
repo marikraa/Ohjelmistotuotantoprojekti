@@ -139,7 +139,8 @@ public class MainScreenController implements UiInterface {
             notFound.setFitHeight(400);
             notFound.setFitWidth(400);
             notFound.getStyleClass().add("notFound");
-            noteArea.setContent(notFound);
+            noteGrid.getChildren().clear();
+            noteGrid.getChildren().add(notFound);
             return;
         }
 
@@ -147,7 +148,6 @@ public class MainScreenController implements UiInterface {
         for (Note note : filteredNotes) {
             Button noteButton = createNoteButton(note);
             noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
-
             noteGrid.add(noteButton, i, j);
             i++;
             if (i > 1) {
