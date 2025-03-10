@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/marikraa/Ohjelmistotuotantoprojekti.git'
+                git branch: 'main', url: 'https://github.com/marikraa/Ohjelmistotuotantoprojekti.git'
             }
         }
         stage('Run Tests') {
