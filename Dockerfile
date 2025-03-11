@@ -1,14 +1,30 @@
+# Use a lightweight OpenJDK 17 version
+FROM openjdk:17-jdk-slim
 
-FROM maven:latest
+# Update package list and install necessary libraries (GUI support)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgtk-3-0 \
+    libasound2 \
+    && rm -rf /var/lib/apt/lists/*
 
+# Download and extract JavaFX SDK
+RUN apt-get update && apt-get install -y wget unzip && \
+    wget https://download2.gluonhq.com/openjfx/17.0.2/openjfx-17.0.2_linux-x64_bin-sdk.zip && \
+    unzip openjfx-17.0.2_linux-x64_bin-sdk.zip -d /opt && \
+    rm openjfx-17.0.2_linux-x64_bin-sdk.zip
 
+# Set JavaFX environment variables
+ENV PATH_TO_FX=/opt/javafx-sdk-17.0.2/lib
+ENV JAVA_TOOL_OPTIONS="--module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml"
+
+# Create directory for the application
 WORKDIR /app
 
-COPY pom.xml /app/
+# Copy the JAR file
+COPY target/ohjelmistotuotanto.jar my-javafx-app.jar
 
+# Set environment variables (if needed)
+ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 $JAVA_TOOL_OPTIONS"
 
-COPY . /app
-
-# RUN mvn package
-
-# CMD ["java", "-jar", "target/ohjelmistotuotanto.jar"]
+# Run the application
+CMD ["java", "-jar", "my-javafx-app.jar"]
