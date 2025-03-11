@@ -1,5 +1,5 @@
-# Use a lightweight OpenJDK 17 version
-FROM openjdk:17-jdk-slim
+# Use a lightweight OpenJDK 21 version
+FROM openjdk:21-jdk-slim
 
 # Update package list and install necessary libraries (GUI support)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -10,13 +10,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and extract JavaFX SDK
-RUN wget https://download2.gluonhq.com/openjfx/17.0.2/openjfx-17.0.2_linux-x64_bin-sdk.zip && \
-    unzip openjfx-17.0.2_linux-x64_bin-sdk.zip -d /opt && \
-    rm openjfx-17.0.2_linux-x64_bin-sdk.zip
+RUN wget https://download2.gluonhq.com/openjfx/21.0.0/openjfx-21.0.0_linux-x64_bin-sdk.zip && \
+    unzip openjfx-21.0.0_linux-x64_bin-sdk.zip -d /opt && \
+    rm openjfx-21.0.0_linux-x64_bin-sdk.zip
 
 # Set JavaFX environment variables
-ENV PATH_TO_FX=/opt/javafx-sdk-17.0.2/lib
-ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml"
+ENV PATH_TO_FX=/opt/javafx-sdk-21.0.0/lib
+ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 --add-modules=javafx.controls,javafx.fxml"
 
 # Create directory for the application
 WORKDIR /app
@@ -25,4 +25,4 @@ WORKDIR /app
 COPY target/ohjelmistotuotanto.jar my-javafx-app.jar
 
 # Run the application
-CMD ["java", "-jar", "my-javafx-app.jar"]
+CMD ["java", "--module-path", "/opt/javafx-sdk-21.0.0/lib", "-jar", "my-javafx-app.jar"]
