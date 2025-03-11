@@ -143,3 +143,6 @@
 .hidden {
     -fx-opacity: 0;
 }
+.black{
+    -fx-text-fill: #212121;
+}
