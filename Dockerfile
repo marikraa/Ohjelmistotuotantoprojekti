@@ -29,8 +29,8 @@ COPY src /app/src
 # Build the application
 RUN mvn clean package dependency:copy-dependencies
 
-# Set the password for x11vnc
-RUN x11vnc -storepasswd yourpassword /root/.vnc/passwd
+# Create the .vnc directory and set the password for x11vnc
+RUN mkdir -p /root/.vnc && x11vnc -storepasswd yourpassword /root/.vnc/passwd
 
 # Expose VNC port for remote access
 EXPOSE 5900
