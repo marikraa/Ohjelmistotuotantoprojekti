@@ -32,4 +32,4 @@ RUN mvn clean package dependency:copy-dependencies
 EXPOSE 5900
 
 # Run xvfb and x11vnc in the background, then start your JavaFX application
-CMD ["bash", "-c", "xvfb-run -n 99 -s '-screen 0 1024x768x24' x11vnc -create -forever & java --module-path /app/target/lib --add-modules javafx.controls,javafx.fxml -jar target/ohjelmistotuotanto.jar"]
+CMD ["bash", "-c", "xvfb-run -n 99 -s '-screen 0 1024x768x24' x11vnc -create -forever -display :99 & sleep 2 && java --module-path /app/target/lib --add-modules javafx.controls,javafx.fxml -jar target/ohjelmistotuotanto.jar"]
