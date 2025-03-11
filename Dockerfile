@@ -14,6 +14,11 @@ RUN apt-get update && apt-get install -y \
     x11-apps \
     && rm -rf /var/lib/apt/lists/*
 
+# Install OpenJFX dependencies
+RUN apt-get update && apt-get install -y \
+    openjfx \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory
 WORKDIR /app
 
@@ -24,4 +29,4 @@ COPY target/ohjelmistotuotanto.jar /app/ohjelmistotuotanto.jar
 ENV DISPLAY=host.docker.internal:0.0
 
 # Run the JavaFX application
-ENTRYPOINT ["java", "-jar", "/app/ohjelmistotuotanto.jar"]
+ENTRYPOINT ["java", "--module-path", "/usr/share/openjfx/lib", "--add-modules", "javafx.controls,javafx.fxml", "-jar", "/app/ohjelmistotuotanto.jar"]
