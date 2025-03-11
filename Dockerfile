@@ -3,6 +3,7 @@ FROM openjdk:21-jdk-slim
 
 # Update package list and install necessary libraries (GUI support)
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    maven \
     libgtk-3-0 \
     libasound2 \
     libxext6 \
