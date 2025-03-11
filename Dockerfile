@@ -5,8 +5,17 @@ FROM openjdk:21-jdk-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgtk-3-0 \
     libasound2 \
-    maven \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
+    libxxf86vm1 \
+    libgl1-mesa-glx \
+    libgl1-mesa-dri \
+    x11-xserver-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for JavaFX
+ENV _JAVA_OPTIONS="-Dprism.order=sw -Dprism.verbose=true"
 
 # Create directory for the application
 WORKDIR /app
