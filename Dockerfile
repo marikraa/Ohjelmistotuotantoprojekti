@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and extract JavaFX SDK
-RUN wget https://download2.gluonhq.com/openjfx/21.0.0/openjfx-21.0.0_linux-x64_bin-sdk.zip && \
-    unzip openjfx-21.0.0_linux-x64_bin-sdk.zip -d /opt && \
-    rm openjfx-21.0.0_linux-x64_bin-sdk.zip
+RUN wget https://download2.gluonhq.com/openjfx/21.0.0/javafx-sdk-21.0.0-linux.zip && \
+    unzip javafx-sdk-21.0.0-linux.zip -d /opt && \
+    rm javafx-sdk-21.0.0-linux.zip
 
 # Set JavaFX environment variables
 ENV PATH_TO_FX=/opt/javafx-sdk-21.0.0/lib
