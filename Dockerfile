@@ -15,8 +15,8 @@ WORKDIR /app
 COPY pom.xml /app/
 COPY src /app/src
 
-# Build the application
-RUN mvn clean package
+# Build the application and dependencies
+RUN mvn clean package dependency:copy-dependencies
 
 # Run the application
 CMD ["java", "--module-path", "/app/target/lib", "--add-modules", "javafx.controls,javafx.fxml", "-jar", "target/ohjelmistotuotanto.jar"]
