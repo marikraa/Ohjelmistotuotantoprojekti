@@ -45,20 +45,29 @@ Ensure you have the following installed:
    ```sh
    mvn clean install
    ```
-   
+
 3. **Run the database creation script**
-    ```
+   ```
     ├── src/main/java/
     │   ├── DataSource
     │   │   ├── sql_script.sql
    ```
-   
-4. **Run the application from main**
+
+4. **Download the font**
+- Find the following ttf-file from your files, right-click on it, and select _Install_
+
+    ```
+     ├── src/main/resources/
+     │   ├── fonts
+     │   │   ├── MadimiOne-Regular.ttf
+    ```
+
+5. **Run the application from main**
    ```
     ├── src/main/java/
     │   ├── View
     │   │   ├── Main.java
-    ```
+   ```
 
 ---
 
