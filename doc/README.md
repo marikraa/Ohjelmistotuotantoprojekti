@@ -62,9 +62,13 @@ Ensure you have the following installed:
 
 ---
 
+## Entity-Relationship Diagram of the Database
+
+![Database ER diagram](Database_ER.png)
+
+---
+
 ## Contributors
 - [Maria Aalto](https://github.com/marikraa)
 - [Suphitcha Pitkänen](https://github.com/liukkari)
 - [Ville Schulz](https://github.com/VilleSchulz)
-
----
