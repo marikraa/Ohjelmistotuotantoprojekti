@@ -63,6 +63,7 @@ Ensure you have the following installed:
     ```
 
 5. **Run the application from main**
+
    ```
     ├── src/main/java/
     │   ├── View
