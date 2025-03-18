@@ -127,4 +127,11 @@ class NoteTest {
     void getDate() {
         assertNotNull(note.getDate());
     }
+
+    @Test
+    void notificationShownProperty() {
+        assertFalse(note.notificationShownProperty());
+        note.setNotificationShown(true);
+        assertTrue(note.notificationShownProperty());
+    }
 }
