@@ -47,18 +47,26 @@ Ensure you have the following installed:
    ```
    
 3. **Run the database creation script**
-    ```
+   ```
     ├── src/main/java/
     │   ├── DataSource
     │   │   ├── sql_script.sql
    ```
+
+4. **Download the font**
+- Right click on the file and select Install
+   ```
+    ├── src/main/resources/
+    │   ├── fonts
+    │   │   ├── MadimiOne-Regular.ttf
+   ```
    
-4. **Run the application from main**
+6. **Run the application from main**
    ```
     ├── src/main/java/
     │   ├── View
     │   │   ├── Main.java
-    ```
+   ```
 
 ---
 
