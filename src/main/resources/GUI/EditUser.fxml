@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.EditUserController">
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.EditUserController">
    <children>
       <Label alignment="CENTER" prefHeight="81.0" prefWidth="640.0" styleClass="header" text="Edit user" />
       <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addProfilePicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
@@ -67,15 +67,25 @@
             </PasswordField>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onMouseClicked="#updateUser" prefHeight="64.0" prefWidth="172.0" styleClass="widget,accept" text="SAVE CHANGES">
+      <Button mnemonicParsing="false" onMouseClicked="#updateUser" prefHeight="64.0" prefWidth="172.0" text="Save changes">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
+         <styleClass>
+            <String fx:value="widget" />
+            <String fx:value="smalltext" />
+            <String fx:value="accept" />
+         </styleClass>
       </Button>
-      <Button mnemonicParsing="false" onMouseClicked="#deleteUser" prefHeight="64.0" prefWidth="172.0" styleClass="widget,delete" text="DELETE ACCOUNT">
+      <Button mnemonicParsing="false" onMouseClicked="#deleteUser" prefHeight="64.0" prefWidth="172.0" text="Delete account">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
-         </VBox.margin></Button>
+         </VBox.margin>
+         <styleClass>
+            <String fx:value="widget" />
+            <String fx:value="smalltext" />
+            <String fx:value="delete" />
+         </styleClass></Button>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
