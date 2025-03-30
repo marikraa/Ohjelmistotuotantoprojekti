@@ -10,13 +10,16 @@ import View.utilies.ImageAdder;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -25,20 +28,29 @@ import javafx.stage.Stage;
 //login and signup controller is used to handle login and signup operations both fxml uses this controller
 public class LoginSignupController implements UiInterface {
     public VBox container;
-    private IControllerForGUI controller;
-    Stage stage;
-
-
+    public Button signUpButton;
+    public Label passwordLabel;
+    public Label usernameLabel;
+    public Label loginHeader;
+    public Label signUpHeader;
+    public Button loginButton;
     Image selectedImage;
     @FXML
     TextField usernameField;
     @FXML
     TextField passwordField;
     @FXML
-    TextField passwordField2;
-    @FXML
     ImageView profilePicView;
     ProgressIndicator progressIndicator;
+
+
+    private IControllerForGUI controller;
+    Stage stage;
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
+
+
+
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
@@ -53,7 +65,19 @@ public class LoginSignupController implements UiInterface {
 
     @Override
     public void initialize() {
+        if(signUpButton!=null){
+            signUpButton.setText(rb.getString("signup"));
+            signUpHeader.setText(rb.getString("signup"));
+        }
+        if(loginHeader!=null){
+            loginHeader.setText(rb.getString("login"));
+            loginButton.setText(rb.getString("login"));
 
+        }
+        passwordLabel.setText(rb.getString("password"));
+        usernameLabel.setText(rb.getString("username"));
+        passwordField.setText(rb.getString("newPassword"));
+        usernameField.setText(rb.getString("newUsername"));
 
     }
 
@@ -80,7 +104,7 @@ public class LoginSignupController implements UiInterface {
     public void signup() {
         showLoadingIndicator();
         new Thread(() -> {
-            if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || passwordField2.getText().isEmpty()) {
+            if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
                 Platform.runLater(() -> {
                     hideLoadingIndicator();
                     PopupWindow.showError("Empty fields", "Please fill all fields");
@@ -88,13 +112,6 @@ public class LoginSignupController implements UiInterface {
                 return;
             }
 
-            if (!passwordField.getText().equals(passwordField2.getText())) {
-                Platform.runLater(() -> {
-                    hideLoadingIndicator();
-                    PopupWindow.showError("Passwords do not match", "Please check passwords");
-                });
-                return;
-            }
 
             Image profPic = (selectedImage == null)
                     ? new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm())

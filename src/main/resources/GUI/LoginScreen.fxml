@@ -29,10 +29,10 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <Label fx:id="header" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0" styleClass="header" text="Login" />
+      <Label fx:id="loginHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0" styleClass="header" text="Login" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label styleClass="smalltext" text="Username:" />
+            <Label styleClass="smalltext" text="Username:" fx:id="usernameLabel" />
             <TextField fx:id="usernameField" prefHeight="62.0" prefWidth="286.0" promptText="Username Here" styleClass="widget,smalltext">
                <font>
                   <Font size="17.0" />
@@ -42,7 +42,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label styleClass="smalltext" text="Password:" />
+            <Label styleClass="smalltext" text="Password:" fx:id="passwordLabel"/>
             <PasswordField fx:id="passwordField" onAction="#login" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
                <font>
                   <Font size="17.0" />
@@ -50,7 +50,7 @@
             </PasswordField>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onMouseClicked="#login" prefHeight="54.0" prefWidth="134.0" styleClass="widget,normaltext" text="Log in">
+      <Button mnemonicParsing="false" onMouseClicked="#login" prefHeight="54.0" prefWidth="134.0" styleClass="widget,normaltext" text="Log in" fx:id="loginButton">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>

@@ -26,7 +26,7 @@
             </Button>
          </children>
       </HBox>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0" text="Register">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0" text="Register" fx:id="signUpHeader">
          <styleClass>
             <String fx:value="header" />
             <String fx:value="pink" />
@@ -51,8 +51,8 @@
         </ImageView>
       <HBox alignment="CENTER">
          <children>
-            <Label styleClass="smalltext" text="Username:" />
-            <TextField fx:id="usernameField" prefHeight="62.0" prefWidth="286.0" promptText="Username" styleClass="widget,smalltext">
+            <Label styleClass="smalltext" text="Username:" fx:id="usernameLabel" />
+            <TextField fx:id="usernameField" prefHeight="62.0" prefWidth="286.0" promptText="Username here" styleClass="widget,smalltext">
 
                   </TextField>
          </children>
@@ -62,8 +62,8 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label styleClass="smalltext" text="Password:" />
-            <PasswordField fx:id="passwordField" prefHeight="62.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
+            <Label styleClass="smalltext" text="Password:" fx:id="passwordLabel"/>
+            <PasswordField fx:id="passwordField" prefHeight="62.0" prefWidth="286.0" promptText="Password here" styleClass="widget,smalltext">
 
                   </PasswordField>
          </children>
@@ -71,18 +71,8 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <Label styleClass="smalltext" text="Password:" />
-            <PasswordField fx:id="passwordField2" onAction="#signup" prefHeight="62.0" prefWidth="286.0" promptText="Re-enter Password Here" styleClass="widget,smalltext">
 
-                  </PasswordField>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-      </HBox>
-      <Button mnemonicParsing="false" onMouseClicked="#signup" prefHeight="61.0" prefWidth="133.0" styleClass="widget,normaltext" text="Sign up">
+      <Button mnemonicParsing="false" onMouseClicked="#signup" prefHeight="61.0" prefWidth="133.0" styleClass="widget,normaltext" text="Sign up" fx:id="signUpButton">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
