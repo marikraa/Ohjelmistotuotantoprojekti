@@ -16,8 +16,16 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class NoteViewController implements UiInterface {
+    public Label notificationTimeLabel;
+    public Label titleLabel;
+    public Button deleteButton;
+    public Button editButton;
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
     public ImageView noteImage;
     public TextArea noteContent;
     public DatePicker dateSelector;
@@ -41,10 +49,17 @@ public class NoteViewController implements UiInterface {
     public void initialize() {
         noteImage.setOnMouseEntered(event -> {
             noteImage.setCursor(Cursor.HAND);
-            Tooltip tooltip = new Tooltip("Click to open big image!");
+            String tooltipString = rb.getString("bigImageTip");
+            Tooltip tooltip = new Tooltip(tooltipString);
             Tooltip.install(noteImage, tooltip);
         });
-
+        deleteButton.setText(rb.getString("deleteButton"));
+        editButton.setText(rb.getString("editButton"));
+        dateSelector.setPromptText(rb.getString("dateLabel"));
+        editCheckbox.setText(rb.getString("editNote"));
+        titleLabel.setText(rb.getString("lblTitle"));
+        notificationTimeLabel.setText(rb.getString("editNotificationTime"));
+        editProfilePic.setText(rb.getString("editImage"));
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         editCheckbox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -60,24 +75,21 @@ public class NoteViewController implements UiInterface {
     public void deleteNote() {
         if (PopupWindow.askForConfirmation("Deleting note", "Are you sure you want to delete this note?")
         ) {
-            try{
-                Boolean isDeleted= controller.deleteNote(currentNote);
-                if (isDeleted){
+            try {
+                Boolean isDeleted = controller.deleteNote(currentNote);
+                if (isDeleted) {
                     SessionManager.getCurrentUser().removeNote(currentNote);//remove from local storage
                     SceneManager.switchScene("MainScreen.fxml");
                     stage.close();
-                }
-                 else {
+                } else {
                     System.err.println("Failed to delete note");
 
 
                 }
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.err.println("Failed to delete note");
             }
-
 
 
         }
@@ -109,13 +121,16 @@ public class NoteViewController implements UiInterface {
         noteImage.setImage(new Image(currentNote.getImageUrl()));
         noteContent.setText(currentNote.getContent());
         noteTitleField.setText(currentNote.getTitle());
-        if (currentNote.getTitle().isEmpty())
-            noteTitle.setText("-No title-");
-        else
+        String noTitleLabel = rb.getString("lblNoTitle");
+        if (currentNote.getTitle().isEmpty()) {
+            noteTitle.setText(noTitleLabel);
+        } else {
             noteTitle.setText(note.getTitle());
+        }
         dateSelector.setValue(currentNote.getDate().toLocalDate());
         hourSpinner.getValueFactory().setValue(currentNote.getDate().getHour());
         minuteSpinner.getValueFactory().setValue(currentNote.getDate().getMinute());
+
 
     }
 
@@ -133,12 +148,14 @@ public class NoteViewController implements UiInterface {
 
 
     public void enableEditing() {
-        noteContent.setEditable(true);
         noteTitleField.setEditable(true);
+        noteContent.setEditable(true);
         dateSelector.setDisable(false);
         hourSpinner.setDisable(false);
         minuteSpinner.setDisable(false);
-        editProfilePic.setOnMouseClicked(event -> {addNoteImage(event);});
+        editProfilePic.setOnMouseClicked(event -> {
+            addNoteImage(event);
+        });
 
     }
 
@@ -148,7 +165,8 @@ public class NoteViewController implements UiInterface {
         dateSelector.setDisable(true);
         hourSpinner.setDisable(true);
         minuteSpinner.setDisable(true);
-        editProfilePic.setOnMouseClicked(event -> {});
+        editProfilePic.setOnMouseClicked(event -> {
+        });
 
     }
 

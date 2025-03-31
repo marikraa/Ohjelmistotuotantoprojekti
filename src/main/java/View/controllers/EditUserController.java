@@ -8,6 +8,8 @@ import View.managers.SessionManager;
 import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,12 +17,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 
 public class EditUserController implements UiInterface {
-    public TextField editUsernameField;
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
 
+    public Label editUserLabel;
+    public TextField editUsernameField;
     public PasswordField oldPasswordField;
     public PasswordField newPasswordField;
+    public Button deleteUserButton;
+    public Button editUserButton;
+    public Label newPasswordLabel;
+    public Label oldPasswordLabel;
+    public Label userNameLabel;
     private IControllerForGUI controller;
 
 
@@ -43,7 +56,15 @@ public class EditUserController implements UiInterface {
 
     //User edit window
     public void initialize() {
-        System.out.println("Edit user");
+        newPasswordLabel.setText(rb.getString("editNewPassword"));
+        oldPasswordLabel.setText(rb.getString("editOldPassword"));
+        userNameLabel.setText(rb.getString("username"));
+        deleteUserButton.setText(rb.getString("deleteButton"));
+        editUserButton.setText(rb.getString("editButton"));
+        editUserLabel.setText(rb.getString("editUser"));
+
+
+
         editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
         profilePic.setImage(new Image(user.getProfilePictureUrl()));
         newPasswordField.setText(SessionManager.getCurrentUser().getPassword());

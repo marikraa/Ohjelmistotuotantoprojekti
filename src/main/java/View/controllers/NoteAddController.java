@@ -17,11 +17,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class NoteAddController implements UiInterface {
+
+    public Label addNoteLabel;
+    public Button addNoteImage;
+    public Label noteTitleLabel;
+    public Label notificationTimeLabel;
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb =  ResourceBundle.getBundle("language", locale);
     public DatePicker dateSelector;
     public Spinner hourSpinner;
     public Spinner minuteSpinner;
+    public Button addNoteButton;
     ImageAdder imageAdder;
     public TextField titleField;
     IControllerForGUI controller;
@@ -41,7 +51,6 @@ public class NoteAddController implements UiInterface {
 
     public NoteAddController() {
         imageAdder = new ImageAdder();
-        //controller = Controller.getInstance();
         this.controller = controller;
 
         user = SessionManager.getCurrentUser();
@@ -49,6 +58,17 @@ public class NoteAddController implements UiInterface {
     }
 
     public void initialize() {
+        addNoteLabel.setText(rb.getString("addNote"));
+        noteTitleLabel.setText(rb.getString("lblTitle"));
+        titleField.setPromptText(rb.getString("noteTitle"));
+        addNoteImage.setText(rb.getString("addImage"));
+        addNoteButton.setText(rb.getString("addNote"));
+        notificationTimeLabel.setText(rb.getString("editNotificationTime"));
+
+
+
+
+
         dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));

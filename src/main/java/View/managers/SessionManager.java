@@ -5,7 +5,7 @@ import Model.User;
 import java.util.Locale;
 
 public class SessionManager {
-
+    static String languageString = "EN";
     static Locale locale;
     public static User currentUser = null;
 
@@ -22,6 +22,7 @@ public class SessionManager {
 
 
     public static void setLanguage(String language) {
+        languageString = language;
         switch (language) {
             case "EN":
                locale = new Locale("en", "US");
@@ -41,6 +42,11 @@ public class SessionManager {
 
     public static Locale getLocale() {
         return locale;
+    }
+
+    public static String getLanguageString() {
+        return languageString;
+
     }
 
 

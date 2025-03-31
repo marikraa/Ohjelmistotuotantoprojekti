@@ -1,6 +1,7 @@
 package View.utilies;
 
 import Model.Note;
+import View.managers.SessionManager;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,13 +20,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class NoteNode {
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
     private Note note;
     private String title;
     private String content;
@@ -73,7 +79,8 @@ public class NoteNode {
         noteDate.getStyleClass().addAll("bigtext", "pink");
 
         Label noteTime = new Label(time);
-        Label notificationTime = new Label("Notification: " + notificationDate);
+        String notification = MessageFormat.format(rb.getString("notificationLabel"), notificationDate);
+        Label notificationTime = new Label(notification);
         notificationTime.getStyleClass().addAll("extrasmalltext", "orange");
         noteTime.setFont(new Font(18));
 
@@ -122,7 +129,6 @@ public class NoteNode {
             Text showMoreText = new Text("... Show more");
             textFlow.getChildren().add(showMoreText);
             showMoreText.setFill(Color.rgb(107, 106, 106));
-
 
             noteContent.setText("");
             noteContent.setGraphic(textFlow);
