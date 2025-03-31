@@ -19,7 +19,7 @@ import java.time.LocalTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class NoteViewController implements UiInterface {
+public class NoteEditController implements UiInterface {
     public Label notificationTimeLabel;
     public Label titleLabel;
     public Button deleteButton;
@@ -73,7 +73,9 @@ public class NoteViewController implements UiInterface {
 
 
     public void deleteNote() {
-        if (PopupWindow.askForConfirmation("Deleting note", "Are you sure you want to delete this note?")
+        String deleteNoteTitle = rb.getString("deleteNoteTitle");
+        String deleteNoteMessage = rb.getString("deleteNoteMessage");
+        if (PopupWindow.askForConfirmation(deleteNoteTitle, deleteNoteMessage)
         ) {
             try {
                 Boolean isDeleted = controller.deleteNote(currentNote);
