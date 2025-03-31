@@ -2,15 +2,42 @@ package View.controllers;
 import Model.Note;
 import View.IControllerForGUI;
 import View.managers.SceneManager;
+import View.managers.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class StartScreenController implements UiInterface {
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class StartScreenController implements UiInterface {
+    Locale locale;
+    ResourceBundle rb;
+    public Label languageLabel;
+    public Button loginButton;
+    public Button signupButton;
+    public Label appTitle;
+    public Label notRegisteredLabel;
+    public ChoiceBox languageSelector;
     IControllerForGUI controller;
     Stage stage;
 
+    @Override
+    public void initialize() {
+        //set the language options
+        languageSelector.getItems().addAll("EN", "FI", "JA","AR");
+        languageSelector.getSelectionModel().selectFirst();
+        setLanguage();
+        //add listener to the language selector
+        languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            setLanguage();
+        });
+
+    }
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
@@ -28,10 +55,7 @@ public class StartScreenController implements UiInterface {
         this.stage = stage;
     }
 
-    @Override
-    public void initialize() {
 
-    }
     //these methods switch the scene to the login or signup screen
 
     @FXML
@@ -50,5 +74,19 @@ public class StartScreenController implements UiInterface {
         SceneManager.switchScene("SignupScreen.fxml");
 
     }
+
+
+    public void setLanguage() {
+        //set the language of the UI
+        SessionManager.setLanguage(languageSelector.getSelectionModel().getSelectedItem().toString());
+        locale = SessionManager.getLocale();
+        rb = ResourceBundle.getBundle("language",locale);
+        languageLabel.setText(rb.getString("language"));
+        loginButton.setText(rb.getString("login"));
+        signupButton.setText(rb.getString("signup"));
+        appTitle.setText(rb.getString("appTitle"));
+        notRegisteredLabel.setText(rb.getString("noAccount"));
+    }
+
 
 }

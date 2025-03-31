@@ -1,13 +1,7 @@
 
 .widget {
-    /*-fx-background-color: rgba(220, 166, 27, 0.06);*/ /* 50% läpinäkyvä tausta */
     -fx-background-radius: 10px;
-    /*-fx-background-color: rgba(0, 0, 0, 0.04)*/
     -fx-background-color: rgb(44, 47, 51);
-
-
-
-
 
 }
 .bigtext {
@@ -59,7 +53,6 @@
 }
 
 .canvas {
-    /*-fx-background-color: rgb(153, 255, 204, 0.5);*/
     -fx-background-color: rgb(39, 41, 44);
 
 
@@ -79,7 +72,6 @@
 
 }
 .button:hover {
-    /*-fx-background-color: rgba(0, 0, 0, 0.06);*/
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
 
@@ -94,9 +86,7 @@
 
 }
 .note{
-    /*-fx-background-color: rgba(220, 166, 27, 0.06);*/ /* 50% läpinäkyvä tausta */
     -fx-background-radius: 10px;
-    /*-fx-background-color: rgba(0, 0, 0, 0.04)*/
     -fx-background-color: rgb(44, 47, 51);
 
 }
@@ -142,4 +132,13 @@
 }
 .hidden {
     -fx-opacity: 0;
+}
+.black{
+    -fx-text-fill: #212121;
+}
+.choice-box .label {
+    -fx-text-fill: #a4a4a4;
+}
+.choice-box {
+    -fx-mark-color: #a4a4a4;; /* Muuttaa dropdownin nuolen värin */
 }

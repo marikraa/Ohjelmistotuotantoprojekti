@@ -2,7 +2,11 @@ package View.managers;
 
 import Model.User;
 
+import java.util.Locale;
+
 public class SessionManager {
+
+    static Locale locale;
     public static User currentUser = null;
 
     public static User getCurrentUser() {
@@ -15,4 +19,32 @@ public class SessionManager {
     public static void clearUser() {
         currentUser = null;
     }
+
+
+    public static void setLanguage(String language) {
+        switch (language) {
+            case "EN":
+               locale = new Locale("en", "US");
+                break;
+            case "FI":
+                locale = new Locale("fi", "FI");
+                break;
+            case "JA":
+                locale = new Locale("ja", "JP");
+                break;
+            case "AR":
+               locale = new Locale("ar", "IQ");
+                break;
+        }
+    }
+
+
+    public static Locale getLocale() {
+        return locale;
+    }
+
+
+
+
+
 }

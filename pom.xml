@@ -41,6 +41,18 @@
             <version>21</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-down-core</artifactId>
+            <version>3.8.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>util</artifactId>
+            <version>4.0.22</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- JSON dependency -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
