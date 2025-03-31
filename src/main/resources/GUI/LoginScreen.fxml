@@ -29,36 +29,43 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <Label fx:id="loginHeader" alignment="CENTER" contentDisplay="CENTER" prefWidth="422.0" styleClass="header" text="Login" />
-      <HBox alignment="CENTER">
+      <Label fx:id="loginHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="header" text="Login" />
+      <VBox prefHeight="103.0" prefWidth="342.0">
          <children>
-            <Label fx:id="usernameLabel" styleClass="smalltext" text="Username:" />
-            <TextField fx:id="usernameField" prefHeight="41.0" prefWidth="286.0" promptText="Username Here" styleClass="widget,smalltext">
+            <Label fx:id="usernameLabel" styleClass="smalltext" text="Username:">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="usernameField" prefHeight="41.0" styleClass="widget,smalltext">
                <font>
                   <Font size="17.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </TextField>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" top="30.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <Label fx:id="passwordLabel" styleClass="smalltext" text="Password:" />
-            <PasswordField fx:id="passwordField" onAction="#login" prefHeight="41.0" prefWidth="286.0" promptText="Password Here" styleClass="widget,smalltext">
+            <Label fx:id="passwordLabel" prefHeight="21.0" styleClass="smalltext" text="Password:">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" onAction="#login" prefHeight="41.0" styleClass="widget,smalltext">
                <font>
                   <Font size="17.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </PasswordField>
          </children>
          <VBox.margin>
-            <Insets bottom="30.0" top="10.0" />
+            <Insets left="40.0" right="40.0" />
          </VBox.margin>
-      </HBox>
-      <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#login" prefHeight="41.0" prefWidth="94.0" styleClass="widget,normaltext" text="Log in">
+      </VBox>
+      <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#login" prefHeight="41.0" styleClass="widget,normaltext" text="Log in">
          <VBox.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Button>
    </children>

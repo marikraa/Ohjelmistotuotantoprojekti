@@ -8,13 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.EditUserController">
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.EditUserController">
    <children>
-      <Label alignment="CENTER" prefHeight="81.0" prefWidth="640.0" styleClass="header" text="Edit user" />
+      <Label alignment="CENTER" styleClass="header" text="Edit user" />
       <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addProfilePicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -24,11 +23,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fx:id="profilePic" fitHeight="257.0" fitWidth="282.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <ImageView fx:id="profilePic" fitHeight="257.0" fitWidth="337.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+         </VBox.margin></ImageView>
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label prefHeight="21.0" prefWidth="96.0" styleClass="smalltext" text="Username:" />
-            <TextField fx:id="editUsernameField" onAction="#updateUser" prefHeight="74.0" prefWidth="402.0" promptText="Type username here">
+            <Label prefHeight="21.0" prefWidth="96.0" styleClass="smalltext" text="Username">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></Label>
+            <TextField fx:id="editUsernameField" onAction="#updateUser" prefHeight="41.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -36,13 +41,16 @@
                   <String fx:value="widget" />
                   <String fx:value="smalltext" />
                </styleClass>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </TextField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label styleClass="smalltext" text="Old password:" />
-            <PasswordField fx:id="oldPasswordField" onAction="#updateUser" prefHeight="74.0" prefWidth="402.0" promptText="Type password here">
+            <Label styleClass="smalltext" text="Old password">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="oldPasswordField" onAction="#updateUser" prefHeight="41.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -50,13 +58,16 @@
                   <String fx:value="widget" />
                   <String fx:value="smalltext" />
                </styleClass>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </PasswordField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label styleClass="smalltext" text="New password:" />
-            <PasswordField fx:id="newPasswordField" prefHeight="74.0" prefWidth="402.0" promptText="Type new password here">
+            <Label styleClass="smalltext" text="New password">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="newPasswordField" prefHeight="41.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -64,10 +75,16 @@
                   <String fx:value="widget" />
                   <String fx:value="smalltext" />
                </styleClass>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </PasswordField>
          </children>
-      </HBox>
-      <Button mnemonicParsing="false" onMouseClicked="#updateUser" prefHeight="64.0" prefWidth="172.0" text="Save changes">
+         <VBox.margin>
+            <Insets left="40.0" right="40.0" />
+         </VBox.margin>
+      </VBox>
+      <Button mnemonicParsing="false" onMouseClicked="#updateUser" prefHeight="41.0" text="Save changes">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
@@ -77,7 +94,7 @@
             <String fx:value="accept" />
          </styleClass>
       </Button>
-      <Button mnemonicParsing="false" onMouseClicked="#deleteUser" prefHeight="64.0" prefWidth="172.0" text="Delete account">
+      <Button mnemonicParsing="false" onMouseClicked="#deleteUser" prefHeight="41.0" text="Delete account">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>

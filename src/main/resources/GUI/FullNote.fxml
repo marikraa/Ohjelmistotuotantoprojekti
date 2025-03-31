@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
    <children>
       <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="432.0" styleClass="header" text="Note" />
       <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="267.0" onMouseClicked="#openImage" pickOnBounds="true" preserveRatio="true">
@@ -26,7 +26,7 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </ImageView>
-      <Button fx:id="editProfilePic" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="Change image">
+      <Button fx:id="editProfilePic" mnemonicParsing="false" prefHeight="41.0" text="Change image">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
@@ -37,7 +37,7 @@
       </Button>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="150.0">
          <children>
-            <TextField fx:id="noteTitleField" alignment="CENTER" prefHeight="100.0" prefWidth="202.0" promptText="Title For Note">
+            <TextField fx:id="noteTitleField" alignment="CENTER" prefHeight="41.0" promptText="Title For Note">
                <font>
                   <Font size="17.0" />
                </font>
@@ -96,7 +96,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#updateNote" prefHeight="64.0" prefWidth="172.0" text="Edit">
+            <Button mnemonicParsing="false" onMouseClicked="#updateNote" prefHeight="41.0" text="Edit">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -105,7 +105,7 @@
                   <String fx:value="smalltext" />
                </styleClass>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#deleteNote" prefHeight="64.0" prefWidth="172.0" text="Delete">
+            <Button mnemonicParsing="false" onMouseClicked="#deleteNote" prefHeight="41.0" text="Delete">
                <styleClass>
                   <String fx:value="widget" />
                   <String fx:value="smalltext" />

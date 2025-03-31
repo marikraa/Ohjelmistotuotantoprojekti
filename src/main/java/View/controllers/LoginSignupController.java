@@ -76,8 +76,8 @@ public class LoginSignupController implements UiInterface {
         }
         passwordLabel.setText(rb.getString("password"));
         usernameLabel.setText(rb.getString("username"));
-        passwordField.setText(rb.getString("newPassword"));
-        usernameField.setText(rb.getString("newUsername"));
+        //passwordField.setPromptText(rb.getString("newPassword"));
+        //usernameField.setPromptText(rb.getString("newUsername"));
 
     }
 
