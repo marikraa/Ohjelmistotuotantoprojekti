@@ -76,7 +76,9 @@ public class EditUserController implements UiInterface {
     // Delete user method
     public void deleteUser(MouseEvent mouseEvent) {
         //ask for confirmation before deleting user
-        if (PopupWindow.askForConfirmation("Delete user", "Are you sure you want to delete your account?")) {   //if user confirms, delete user
+        String deleteAccountMessage = rb.getString("deleteAccountMessage");
+        String deleteAccountTitle = rb.getString("deleteAccountTitle");
+        if (PopupWindow.askForConfirmation(deleteAccountTitle, deleteAccountMessage)) {   //if user confirms, delete user
             Boolean isDeleted = controller.deleteUser(user);
             //check if user is deleted from database
             if (isDeleted) {

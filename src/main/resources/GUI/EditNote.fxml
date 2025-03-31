@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteViewController">
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteEditController">
    <children>
       <Label fx:id="noteTitle" alignment="CENTER" contentDisplay="CENTER" prefWidth="433.0" styleClass="header" text="Note" textAlignment="CENTER" wrapText="true" VBox.vgrow="SOMETIMES" />
       <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="267.0" onMouseClicked="#openImage" pickOnBounds="true" preserveRatio="true">
