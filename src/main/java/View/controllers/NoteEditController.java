@@ -53,6 +53,7 @@ public class NoteEditController implements UiInterface {
             Tooltip tooltip = new Tooltip(tooltipString);
             Tooltip.install(noteImage, tooltip);
         });
+        noteTitleField.setPromptText(rb.getString("noteTitle"));
         deleteButton.setText(rb.getString("deleteButton"));
         editButton.setText(rb.getString("editButton"));
         dateSelector.setPromptText(rb.getString("dateLabel"));

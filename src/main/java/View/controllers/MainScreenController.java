@@ -104,7 +104,7 @@ public class MainScreenController implements UiInterface {
     @FXML
     public void addNote() {
         //open the add note window as a modal
-        SceneManager.openModal("EditNote.fxml", null);
+        SceneManager.openModal("NoteAdd.fxml", null);
 
     }
 
