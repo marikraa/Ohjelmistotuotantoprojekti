@@ -94,6 +94,7 @@ public class LoginSignupController implements UiInterface {
                 hideLoadingIndicator();
                 if (user == null) {
                     PopupWindow.showError("Login failed", "Username or password is incorrect");
+                    SceneManager.switchScene("LoginScreen.fxml");
                 } else {
                     openMainScreen(user);
                 }
@@ -123,11 +124,14 @@ public class LoginSignupController implements UiInterface {
                 hideLoadingIndicator();
                 if (user == null) {
                     PopupWindow.showError("Username already exists", usernameField.getText() + " is already taken");
+                    SceneManager.switchScene("SignupScreen.fxml");
                 } else {
                     openMainScreen(user);
                 }
             });
         }).start();
+
+
     }
     private void showLoadingIndicator() {
         if (progressIndicator == null) {
