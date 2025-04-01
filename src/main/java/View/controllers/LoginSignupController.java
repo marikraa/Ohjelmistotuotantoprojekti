@@ -10,12 +10,10 @@ import View.utilies.ImageAdder;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.TextField;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -34,6 +32,7 @@ public class LoginSignupController implements UiInterface {
     public Label loginHeader;
     public Label signUpHeader;
     public Button loginButton;
+    public Button addImageButton;
     Image selectedImage;
     @FXML
     TextField usernameField;
@@ -65,9 +64,11 @@ public class LoginSignupController implements UiInterface {
 
     @Override
     public void initialize() {
+
         if(signUpButton!=null){
             signUpButton.setText(rb.getString("signup"));
             signUpHeader.setText(rb.getString("signup"));
+            addImageButton.setText(rb.getString("addImage"));
         }
         if(loginHeader!=null){
             loginHeader.setText(rb.getString("login"));
@@ -135,7 +136,8 @@ public class LoginSignupController implements UiInterface {
         }
 
         container.getChildren().removeIf(node -> node instanceof VBox); // Poistaa aiemmat indikaattorit
-        Label loadingLabel = new Label("Loading...");
+        String loadingIndicatorText = rb.getString("loading");
+        Label loadingLabel = new Label(loadingIndicatorText);
         loadingLabel.getStyleClass().addAll("smalltext");
         VBox vbox = new VBox( loadingLabel, progressIndicator);
         vbox.setAlignment(Pos.CENTER);

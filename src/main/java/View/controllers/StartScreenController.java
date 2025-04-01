@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class StartScreenController implements UiInterface {
+    String languageString = SessionManager.getLanguageString();
     Locale locale;
     ResourceBundle rb;
     public Label languageLabel;
@@ -28,12 +29,12 @@ public class StartScreenController implements UiInterface {
 
     @Override
     public void initialize() {
-        //set the language options
-        languageSelector.getItems().addAll("EN", "FI", "JA","AR");
-        languageSelector.getSelectionModel().selectFirst();
+        languageSelector.getItems().addAll("EN", "FI", "JA","AR");//set the language options
+        languageSelector.setValue(languageString);//set the default language
         setLanguage();
         //add listener to the language selector
         languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            languageString = newValue.toString();
             setLanguage();
         });
 
@@ -78,7 +79,7 @@ public class StartScreenController implements UiInterface {
 
     public void setLanguage() {
         //set the language of the UI
-        SessionManager.setLanguage(languageSelector.getSelectionModel().getSelectedItem().toString());
+        SessionManager.setLanguage(languageString);
         locale = SessionManager.getLocale();
         rb = ResourceBundle.getBundle("language",locale);
         languageLabel.setText(rb.getString("language"));

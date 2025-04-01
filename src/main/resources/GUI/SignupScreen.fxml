@@ -32,15 +32,6 @@
             <String fx:value="pink" />
          </styleClass>
       </Label>
-      <Button mnemonicParsing="false" onMouseClicked="#addProfilePicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
-         <graphic>
-            <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/edit.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/defaultProfilePic.png" />
@@ -49,6 +40,12 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
         </ImageView>
+      <Button fx:id="addImageButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#addProfilePicture" text="Add image">
+         <styleClass>
+            <String fx:value="extrasmalltext" />
+            <String fx:value="widget" />
+         </styleClass>
+      </Button>
       <VBox prefHeight="63.0" prefWidth="342.0">
          <children>
             <Label fx:id="usernameLabel" styleClass="smalltext" text="Username:">

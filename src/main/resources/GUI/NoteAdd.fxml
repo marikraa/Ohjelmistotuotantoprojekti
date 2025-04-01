@@ -9,32 +9,46 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteAddController">
-   <children>
-      <Label styleClass="header" text="Add Note" />
-      <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <VBox.margin>
-            <Insets bottom="5.0" top="5.0" />
-         </VBox.margin>
-      </ImageView>
-      <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addNoteImage" prefHeight="25.0" prefWidth="105.0" text="Add Image">
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-         <styleClass>
-            <String fx:value="widget" />
-            <String fx:value="extrasmalltext" />
-         </styleClass>
-      </Button>
-      <TextField fx:id="titleField" alignment="CENTER" prefHeight="41.0" promptText="Title For Note">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <Label fx:id="addNoteLabel" alignment="CENTER" styleClass="header"  textAlignment="CENTER" wrapText="true" VBox.vgrow="SOMETIMES" />
+   <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+      <VBox.margin>
+         <Insets bottom="5.0" top="5.0" />
+      </VBox.margin>
+      <Image url="@../images/placeholder.png" />
+   </ImageView>
+   <Button fx:id="addNoteImage" mnemonicParsing="false" onMouseClicked="#addNoteImage" text="Add Image">
+      <VBox.margin>
+         <Insets bottom="10.0" top="10.0" />
+      </VBox.margin>
+      <styleClass>
+         <String fx:value="widget" />
+         <String fx:value="extrasmalltext" />
+      </styleClass>
+   </Button>
+   <Label fx:id="noteTitleLabel" text="Title" underline="true">
+      <styleClass>
+         <String fx:value="smalltext" />
+         <String fx:value="pink" />
+      </styleClass>
+      <VBox.margin>
+         <Insets bottom="5.0" top="10.0" />
+      </VBox.margin>
+   </Label>
+   <HBox alignment="CENTER">
+      <TextField fx:id="titleField" alignment="CENTER" prefHeight="41.0" promptText="Title for note">
          <font>
             <Font size="17.0" />
          </font>
@@ -42,74 +56,64 @@
             <String fx:value="widget" />
             <String fx:value="smalltext" />
          </styleClass>
+         <HBox.margin>
+            <Insets bottom="10.0" />
+         </HBox.margin>
       </TextField>
-      <Label text="Note" />
-      <TextArea fx:id="noteContent" prefHeight="200.0" prefWidth="382.0">
+   </HBox>
+   <HBox prefHeight="195.0" prefWidth="411.0">
+      <children>
+         <TextArea fx:id="noteContent">
+            <styleClass>
+               <String fx:value="widget" />
+               <String fx:value="smalltext" />
+               <String fx:value="black" />
+            </styleClass>
+         </TextArea>
+      </children>
+   </HBox>
+   <Label fx:id="notificationTimeLabel" text="Notification time" underline="true">
+      <styleClass>
+         <String fx:value="pink" />
+         <String fx:value="smalltext" />
+      </styleClass>
+      <VBox.margin>
+         <Insets bottom="5.0" top="10.0" />
+      </VBox.margin>
+   </Label>
+   <DatePicker fx:id="dateSelector" promptText="Date">
+      <styleClass>
+         <String fx:value="selector" />
+         <String fx:value="widget" />
+         <String fx:value="smalltext" />
+         <String fx:value="black" />
+      </styleClass>
+   </DatePicker>
+   <HBox alignment="CENTER" prefHeight="29.0" prefWidth="432.0">
+      <Spinner fx:id="hourSpinner" editable="true" prefHeight="25.0" prefWidth="75.0">
          <styleClass>
-            <String fx:value="widget" />
+            <String fx:value="selector" />
             <String fx:value="smalltext" />
+            <String fx:value="widget" />
             <String fx:value="black" />
          </styleClass>
-      </TextArea>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <VBox prefHeight="100.0" prefWidth="163.0">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="140.0" styleClass="smalltext" text="Notification date" />
-                  <DatePicker fx:id="dateSelector" prefHeight="41.0" promptText="Date">
-                     <styleClass>
-                        <String fx:value="widget" />
-                        <String fx:value="smalltext" />
-                        <String fx:value="black" />
-                     </styleClass>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </DatePicker>
-               </children>
-            </VBox>
-            <VBox prefHeight="100.0" prefWidth="88.0">
-               <children>
-                  <Label styleClass="smalltext" text="Time" />
-                  <Spinner fx:id="hourSpinner" editable="true" prefHeight="41.0" prefWidth="86.0">
-                     <styleClass>
-                        <String fx:value="widget" />
-                        <String fx:value="smalltext" />
-                        <String fx:value="black" />
-                     </styleClass>
-                  </Spinner>
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox prefHeight="74.0" prefWidth="100.0">
-               <children>
-                  <Spinner fx:id="minuteSpinner" editable="true" prefHeight="41.0" prefWidth="86.0">
-                     <styleClass>
-                        <String fx:value="widget" />
-                        <String fx:value="smalltext" />
-                        <String fx:value="black" />
-                     </styleClass>
-                  </Spinner>
-               </children>
-               <HBox.margin>
-                  <Insets top="21.0" />
-               </HBox.margin>
-            </VBox>
-         </children>
-      </HBox>
-      <Button mnemonicParsing="false" onMouseClicked="#addNote" prefHeight="41.0" text="Add Note">
+      </Spinner>
+      <Spinner fx:id="minuteSpinner" editable="true" prefHeight="25.0" prefWidth="75.0">
          <styleClass>
-            <String fx:value="widget" />
+            <String fx:value="selector" />
+            <String fx:value="black" />
             <String fx:value="smalltext" />
+            <String fx:value="widget" />
          </styleClass>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </Button>
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+      </Spinner>
+   </HBox>
+   <Button fx:id="addNoteButton" mnemonicParsing="false" onMouseClicked="#addNote" prefHeight="41.0" text="Add Note">
+      <styleClass>
+         <String fx:value="widget" />
+         <String fx:value="smalltext" />
+      </styleClass>
+      <VBox.margin>
+         <Insets bottom="10.0" top="10.0" />
+      </VBox.margin>
+   </Button>
 </VBox>
