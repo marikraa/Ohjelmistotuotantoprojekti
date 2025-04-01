@@ -70,7 +70,7 @@ public class Controller implements IControllerForGUI {
     }
 
     @Override
-    public User signup(String username, String password, Image image) {
+    public User signup(String username, String password, Image image) { //TODO tähän tulee se String languageCode "EN" muodossa
         String imageUrl = "";
         if (image != null) {
             try {
@@ -93,7 +93,7 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public boolean updateUser(String oldUsername, String newUsername, String password, Image image) {
+    public boolean updateUser(String oldUsername, String newUsername, String password, Image image) { //TODO tähän tulee se String languageCode "EN" muodossa
         String imageUrl = "";
         if (image != null) {
             imageUrl = image.getUrl();
