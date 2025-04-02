@@ -1,14 +1,17 @@
 package View.managers;
 
 import Model.User;
+import javafx.scene.control.ChoiceBox;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class SessionManager {
     static String languageString = "EN";
     static Locale locale;
     public static User currentUser = null;
-
+    static List<String> languages = List.of("EN", "FI", "JA", "AR");
     public static User getCurrentUser() {
         return currentUser;
     }
@@ -47,6 +50,9 @@ public class SessionManager {
     public static String getLanguageString() {
         return languageString;
 
+    }
+    public static List<String> getLanguages() {
+        return languages;
     }
 
 

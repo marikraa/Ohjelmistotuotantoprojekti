@@ -36,26 +36,24 @@
          <Insets left="40.0" right="40.0" />
       </VBox.margin>
       <VBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="338.0">
-         <children>
-            <Label fx:id="languageLabel" text="Language:">
-               <styleClass>
-                  <String fx:value="smalltext" />
-                  <String fx:value="pink" />
-               </styleClass>
-               <VBox.margin>
-                  <Insets bottom="2.0" left="2.0" />
-               </VBox.margin>
-            </Label>
-            <ChoiceBox fx:id="languageSelector">
-               <items>
-                  <FXCollections fx:factory="observableArrayList" />
-               </items>
-               <styleClass>
-                  <String fx:value="widget" />
-                  <String fx:value="smalltext" />
-               </styleClass>
-            </ChoiceBox>
-         </children>
+         <Label fx:id="languageLabel" text="Language:">
+            <styleClass>
+               <String fx:value="smalltext"/>
+               <String fx:value="pink"/>
+            </styleClass>
+            <VBox.margin>
+               <Insets bottom="2.0" left="2.0"/>
+            </VBox.margin>
+         </Label>
+         <ChoiceBox fx:id="languageSelector">
+            <items>
+               <FXCollections fx:factory="observableArrayList"/>
+            </items>
+            <styleClass>
+               <String fx:value="widget"/>
+               <String fx:value="smalltext"/>
+            </styleClass>
+         </ChoiceBox>
       </VBox>
       <Label fx:id="userNameLabel" prefHeight="21.0" prefWidth="96.0" styleClass="smalltext" text="Username">
          <VBox.margin>
