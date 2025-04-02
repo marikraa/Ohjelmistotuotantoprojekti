@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -29,7 +30,11 @@ public class StartScreenController implements UiInterface {
 
     @Override
     public void initialize() {
-        languageSelector.getItems().addAll("EN", "FI", "JA","AR");//set the language options
+        List<String> languages = SessionManager.getLanguages();
+        for(String language: languages){
+            languageSelector.getItems().add(language);
+        }
+        //languageSelector.getItems().addAll("EN", "FI", "JA","AR");//set the language options
         languageSelector.setValue(languageString);//set the default language
         setLanguage();
         //add listener to the language selector

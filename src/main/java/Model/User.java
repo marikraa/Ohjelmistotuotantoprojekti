@@ -22,19 +22,21 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
-
-
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
+
+    @Column(name = "language_code")
+    private String languageCode;
 
     public User() {
         this.notes = new ArrayList<>();
     }
 
-    public User(String username, String password, String imageurl) {
+    public User(String username, String password, String imageurl, String languageCode) {
         this.username = username;
         this.password = password;
         this.profilePictureUrl = imageurl;
+        this.languageCode = languageCode;
         this.notes = new ArrayList<>();
     }
 
@@ -77,6 +79,14 @@ public class User {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
     }
 
     public List<Note> getNotes() {

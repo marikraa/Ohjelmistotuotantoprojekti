@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -93,7 +94,10 @@ public class LoginSignupController implements UiInterface {
             Platform.runLater(() -> {
                 hideLoadingIndicator();
                 if (user == null) {
-                    PopupWindow.showError("Login failed", "Username or password is incorrect");
+                    String error = rb.getString("errorLoginTitle");
+                    String errorMsg = rb.getString("errorLogin");
+                    PopupWindow.showError(error, errorMsg);
+                    SceneManager.switchScene("LoginScreen.fxml");
                 } else {
                     openMainScreen(user);
                 }
@@ -108,7 +112,9 @@ public class LoginSignupController implements UiInterface {
             if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
                 Platform.runLater(() -> {
                     hideLoadingIndicator();
-                    PopupWindow.showError("Empty fields", "Please fill all fields");
+                    String error = rb.getString("error");
+                    String emptyErrorMessage = rb.getString("errorMessage");
+                    PopupWindow.showError(error, emptyErrorMessage);
                 });
                 return;
             }
@@ -117,17 +123,23 @@ public class LoginSignupController implements UiInterface {
             Image profPic = (selectedImage == null)
                     ? new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm())
                     : selectedImage;
+            String languageCode = SessionManager.getLanguageString();
+            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic, languageCode);
 
-            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
             Platform.runLater(() -> {
                 hideLoadingIndicator();
                 if (user == null) {
-                    PopupWindow.showError("Username already exists", usernameField.getText() + " is already taken");
+                    String message = MessageFormat.format(rb.getString("errorUsername"),usernameField.getText());
+                    String error = rb.getString("errorUsernameTitle");
+                    PopupWindow.showError(error, message);
+                    SceneManager.switchScene("SignupScreen.fxml");
                 } else {
                     openMainScreen(user);
                 }
             });
         }).start();
+
+
     }
     private void showLoadingIndicator() {
         if (progressIndicator == null) {

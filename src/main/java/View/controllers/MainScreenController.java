@@ -37,8 +37,9 @@ import java.util.ResourceBundle;
 public class MainScreenController implements UiInterface {
 
     public Button logoutButton;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
+
+    Locale locale;
+    ResourceBundle rb;
     private IControllerForGUI controller;
     public TextField searchField;
     public ImageView profilePic;
@@ -48,7 +49,6 @@ public class MainScreenController implements UiInterface {
     User user = SessionManager.getCurrentUser();
     @FXML
     public Label usernameLabel;
-    //IControllerForG UI controller = Controller.getInstance();
     GridPane noteGrid;
     ImageAdder imageAdder = new ImageAdder();
     List<Note> filteredNotes = new ArrayList<>();
@@ -60,7 +60,9 @@ public class MainScreenController implements UiInterface {
     }
 
     public void initialize() {
-
+        SessionManager.setLanguage(user.getLanguageCode());//set language from user settings stored in the database
+        locale= SessionManager.getLocale(); //get language from local storage
+        rb = ResourceBundle.getBundle("language", locale);//set bundle for current language
         searchField.setPromptText(rb.getString("searchNote"));
         logoutButton.setText(rb.getString("logout"));
         int noteCount = user.getNotes().size();
@@ -69,7 +71,6 @@ public class MainScreenController implements UiInterface {
         String noteLabel=  MessageFormat.format(rb.getString("notes"), noteCount);
         noteCounterLabel.setText(noteLabel);
         profilePic.setImage(new Image(user.getProfilePictureUrl()));
-        System.out.println("Main init");
         drawNotes();
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> {
@@ -104,7 +105,7 @@ public class MainScreenController implements UiInterface {
     @FXML
     public void addNote() {
         //open the add note window as a modal
-        SceneManager.openModal("EditNote.fxml", null);
+        SceneManager.openModal("NoteAdd.fxml", null);
 
     }
 

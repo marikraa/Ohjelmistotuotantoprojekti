@@ -13,9 +13,9 @@ public interface IControllerForGUI {
 
     List<Note> addNote(String username, String title, String content,Image image, LocalDateTime notificationTime);
 
-    User signup(String username, String password, Image image);
+    User signup(String username, String password, Image image, String languageCode);
 
-    boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture);
+    boolean updateUser(String oldUsername,String newUsername, String password, Image profilePicture, String languageCode);
 
     boolean deleteUser(User user);
 

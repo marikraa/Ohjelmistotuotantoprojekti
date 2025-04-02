@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS notes_app_db;  -- tai ottaa tämän pois jos ei halua poistaa
+DROP DATABASE IF EXISTS notes_app_db;
 CREATE DATABASE IF NOT EXISTS notes_app_db;
 USE notes_app_db;
 
@@ -7,6 +7,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     profile_picture_url VARCHAR(255),
+    language_code VARCHAR(2) DEFAULT 'EN',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

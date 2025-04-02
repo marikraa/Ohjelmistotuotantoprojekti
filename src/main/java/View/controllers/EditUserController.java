@@ -8,20 +8,19 @@ import View.managers.SessionManager;
 import View.utilies.PopupWindow;
 import View.utilies.ImageAdder;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 
 public class EditUserController implements UiInterface {
+    public ChoiceBox languageSelector;
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
 
@@ -62,13 +61,25 @@ public class EditUserController implements UiInterface {
         deleteUserButton.setText(rb.getString("deleteButton"));
         editUserButton.setText(rb.getString("editButton"));
         editUserLabel.setText(rb.getString("editUser"));
-
-
-
         editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
         profilePic.setImage(new Image(user.getProfilePictureUrl()));
         newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
         oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
+        List<String> languages = SessionManager.getLanguages();//add languages to selector
+        for(String language: languages){
+            languageSelector.getItems().add(language);
+        }
+        languageSelector.setValue(SessionManager.getLanguageString());//get language Abbreviation
+        languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+           user.setLanguageCode(newValue.toString());//set user language to selected
+        });
+
+
+
+
+
+
+
 
     }
 
@@ -120,8 +131,9 @@ public class EditUserController implements UiInterface {
             return;
         }
 
-
-        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture);
+        //TODO: Käyttäjän laittama language code
+        String languageCode = user.getLanguageCode();
+        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture, languageCode);
 
 
         if (isUpdated) {
