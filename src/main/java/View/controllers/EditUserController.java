@@ -120,8 +120,9 @@ public class EditUserController implements UiInterface {
             return;
         }
 
-
-        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture);
+        //TODO: Käyttäjän laittama language code
+        String languageCode = "EN"; //testausta varten
+        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture, languageCode);
 
 
         if (isUpdated) {

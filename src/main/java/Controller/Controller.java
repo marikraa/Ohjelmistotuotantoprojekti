@@ -70,7 +70,7 @@ public class Controller implements IControllerForGUI {
     }
 
     @Override
-    public User signup(String username, String password, Image image) { //TODO tähän tulee se String languageCode "EN" muodossa
+    public User signup(String username, String password, Image image, String languageCode) {
         String imageUrl = "";
         if (image != null) {
             try {
@@ -85,7 +85,7 @@ public class Controller implements IControllerForGUI {
         if (existingUser != null) {
             return null;
         }
-        User user = new User(username, password, imageUrl);
+        User user = new User(username, password, imageUrl, languageCode);
         if (!userDAO.createUser(user)) {
             return null;
         }
@@ -93,7 +93,7 @@ public class Controller implements IControllerForGUI {
     }
 //Updates user information to database
     @Override
-    public boolean updateUser(String oldUsername, String newUsername, String password, Image image) { //TODO tähän tulee se String languageCode "EN" muodossa
+    public boolean updateUser(String oldUsername, String newUsername, String password, Image image, String languageCode) {
         String imageUrl = "";
         if (image != null) {
             imageUrl = image.getUrl();
@@ -111,6 +111,7 @@ public class Controller implements IControllerForGUI {
                 user.setUsername(newUsername);
                 user.setPassword(password);
                 user.setProfilePictureUrl(imageUrl);
+                user.setLanguageCode(languageCode);
                 return userDAO.updateUser(user);
             } else {
                 System.out.println("User not found: " + oldUsername);

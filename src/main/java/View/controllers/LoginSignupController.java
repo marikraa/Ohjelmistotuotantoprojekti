@@ -119,7 +119,10 @@ public class LoginSignupController implements UiInterface {
                     ? new Image(Objects.requireNonNull(getClass().getResource("/images/defaultProfilePic.png")).toExternalForm())
                     : selectedImage;
 
-            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic);
+            //TODO: Käyttäjän laittama language code
+            String languageCode = "EN"; //testausta varten
+            User user = controller.signup(usernameField.getText(), passwordField.getText(), profPic, languageCode);
+
             Platform.runLater(() -> {
                 hideLoadingIndicator();
                 if (user == null) {
