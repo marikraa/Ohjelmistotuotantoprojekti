@@ -89,6 +89,8 @@ public class LoginSignupController implements UiInterface {
     @FXML
     public void login() {
         showLoadingIndicator();
+        loginButton.setVisible(false);
+        loginButton.setManaged(false);
         new Thread(() -> {
             User user = controller.login(usernameField.getText(), passwordField.getText());
             Platform.runLater(() -> {
@@ -107,6 +109,8 @@ public class LoginSignupController implements UiInterface {
 
     @FXML
     public void signup() {
+        signUpButton.setVisible(false);
+        signUpButton.setManaged(false);
         showLoadingIndicator();
         new Thread(() -> {
             if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
