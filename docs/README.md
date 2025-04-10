@@ -9,7 +9,7 @@ A simple and efficient note-taking application built with Java as the main progr
 - Search notes with keywords
 - Persistent storage using MariaDB
 - FXML-based UI design
-- Follows the MVC (Model-View-Controller) pattern
+- Follows the MVC (model-view-Controller) pattern
 
 ### Programming Languages, Technologies, and Tools Used
 - **Java**
@@ -49,7 +49,7 @@ Ensure you have the following installed:
 3. **Run the database creation script**
    ```
     ├── src/main/java/
-    │   ├── DataSource
+    │   ├── datasource
     │   │   ├── sql_script.sql
    ```
 
@@ -66,7 +66,7 @@ Ensure you have the following installed:
 
    ```
     ├── src/main/java/
-    │   ├── View
+    │   ├── view
     │   │   ├── Main.java
    ```
 

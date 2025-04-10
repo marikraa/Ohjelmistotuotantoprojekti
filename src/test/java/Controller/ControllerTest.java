@@ -1,11 +1,11 @@
 
 package Controller;
 
-import DataSource.NoteDAO;
-import DataSource.UserDAO;
-import DataSource.ImageHandling;
-import Model.Note;
-import Model.User;
+import datasource.NoteDAO;
+import datasource.UserDAO;
+import datasource.ImageHandling;
+import model.Note;
+import model.User;
 import javafx.scene.image.Image;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

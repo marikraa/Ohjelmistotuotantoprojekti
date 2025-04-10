@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="5.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.MainScreenController">
+<VBox alignment="CENTER" spacing="5.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.MainScreenController">
    <children>
       <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="41.0" styleClass="widget,smalltext,pink" text="Log out" VBox.vgrow="SOMETIMES">
          <VBox.margin>

@@ -1,12 +1,12 @@
 package Controller;
 
-import Model.Note;
-import Model.User;
-import DataSource.UserDAO;
-import DataSource.NoteDAO;
-import DataSource.ImageHandling;
+import model.Note;
+import model.User;
+import datasource.UserDAO;
+import datasource.NoteDAO;
+import datasource.ImageHandling;
 
-import View.IControllerForGUI;
+import view.IControllerForGUI;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
