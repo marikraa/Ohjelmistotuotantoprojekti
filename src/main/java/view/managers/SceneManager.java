@@ -10,6 +10,10 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 import java.io.IOException;
 
@@ -18,6 +22,7 @@ import java.io.IOException;
 public class SceneManager {
     private static Stage primaryStage;
     private static final IControllerForGUI controller = new Controller();
+    private static final Logger LOGGER = Logger.getLogger(SceneManager.class.getName());
     private SceneManager(){
 
     }
@@ -44,7 +49,9 @@ public class SceneManager {
             primaryStage.show();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        } catch (IllegalArgumentException e) {
+            LOGGER.log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -65,7 +72,9 @@ public class SceneManager {
             }
             modalStage.show();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        } catch (IllegalArgumentException e) {
+            LOGGER.log(Level.WARNING, e.getMessage());
         }
 
 
