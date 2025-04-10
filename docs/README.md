@@ -9,7 +9,7 @@ A simple and efficient note-taking application built with Java as the main progr
 - Search notes with keywords
 - Persistent storage using MariaDB
 - FXML-based UI design
-- Follows the MVC (model-view-Controller) pattern
+- Follows the MVC (model-view-controller) pattern
 
 ### Programming Languages, Technologies, and Tools Used
 - **Java**

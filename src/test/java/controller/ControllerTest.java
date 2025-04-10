@@ -1,5 +1,5 @@
 
-package Controller;
+package controller;
 
 import datasource.NoteDAO;
 import datasource.UserDAO;

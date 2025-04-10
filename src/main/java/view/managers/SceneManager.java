@@ -1,6 +1,6 @@
 package view.managers;
 
-import Controller.Controller;
+import controller.Controller;
 import model.Note;
 import view.IControllerForGUI;
 import view.controllers.UiInterface;
