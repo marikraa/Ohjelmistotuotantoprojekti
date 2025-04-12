@@ -1,15 +1,15 @@
 package view.controllers;
-import model.Note;
-import view.IControllerForGUI;
-import view.managers.SceneManager;
-import view.managers.SessionManager;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
+import model.Note;
+import view.IControllerForGUI;
+import view.managers.SceneManager;
+import view.managers.SessionManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,19 +19,26 @@ public class StartScreenController implements UiInterface {
     String languageString = SessionManager.getLanguageString();
     Locale locale;
     ResourceBundle rb;
-    public Label languageLabel;
-    public Button loginButton;
-    public Button signupButton;
-    public Label appTitle;
-    public Label notRegisteredLabel;
-    public ChoiceBox languageSelector;
     IControllerForGUI controller;
     Stage stage;
+
+    @FXML
+    public Label languageLabel;
+    @FXML
+    public Button loginButton;
+    @FXML
+    public Button signupButton;
+    @FXML
+    public Label appTitle;
+    @FXML
+    public Label notRegisteredLabel;
+    @FXML
+    public ChoiceBox<String> languageSelector;
 
     @Override
     public void initialize() {
         List<String> languages = SessionManager.getLanguages();
-        for(String language: languages){
+        for (String language : languages) {
             languageSelector.getItems().add(language);
         }
         //languageSelector.getItems().addAll("EN", "FI", "JA","AR");//set the language options
@@ -39,11 +46,12 @@ public class StartScreenController implements UiInterface {
         setLanguage();
         //add listener to the language selector
         languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            languageString = newValue.toString();
+            languageString = newValue;
             setLanguage();
         });
 
     }
+
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
@@ -70,8 +78,6 @@ public class StartScreenController implements UiInterface {
         SceneManager.switchScene("LoginScreen.fxml");
 
 
-
-
     }
 
     @FXML
@@ -86,7 +92,7 @@ public class StartScreenController implements UiInterface {
         //set the language of the UI
         SessionManager.setLanguage(languageString);
         locale = SessionManager.getLocale();
-        rb = ResourceBundle.getBundle("language",locale);
+        rb = ResourceBundle.getBundle("language", locale);
         languageLabel.setText(rb.getString("language"));
         loginButton.setText(rb.getString("login"));
         signupButton.setText(rb.getString("signup"));

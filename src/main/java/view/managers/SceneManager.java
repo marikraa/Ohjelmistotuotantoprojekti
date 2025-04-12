@@ -1,30 +1,28 @@
 package view.managers;
 
 import controller.Controller;
-import model.Note;
-import view.IControllerForGUI;
-import view.controllers.UiInterface;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Note;
+import view.IControllerForGUI;
+import view.controllers.UiInterface;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
-import java.io.IOException;
-
-
 //this class is used to switch scenes and open modal windows
 public class SceneManager {
-    private static Stage primaryStage;
     private static final IControllerForGUI controller = new Controller();
     private static final Logger LOGGER = Logger.getLogger(SceneManager.class.getName());
-    private SceneManager(){
+    private static Stage primaryStage;
 
+    private SceneManager() {
+//private constructor
     }
 
     //set programs main stage at the start

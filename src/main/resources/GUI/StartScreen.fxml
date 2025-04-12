@@ -9,63 +9,63 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.StartScreenController">
-   <children>
-      <HBox prefHeight="6.0" prefWidth="422.0">
-         <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label fx:id="languageLabel" text="Language:">
-                     <styleClass>
-                        <String fx:value="smalltext" />
-                        <String fx:value="pink" />
-                     </styleClass>
-                     <VBox.margin>
-                        <Insets bottom="2.0" left="2.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="languageSelector" prefWidth="150.0">
-                      <items>
-                      <FXCollections fx:factory="observableArrayList">
-                      </FXCollections>
-                      </items>
-                     <styleClass>
-                        <String fx:value="widget" />
-                        <String fx:value="smalltext" />
-                     </styleClass>
-                  </ChoiceBox>
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </VBox>
-         </children>
-      </HBox>
-        <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="68.0" prefWidth="422.0" styleClass="header" text="Notez wizard">
-
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.StartScreenController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+    <HBox prefHeight="6.0" prefWidth="422.0">
+        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+            <HBox.margin>
+                <Insets/>
+            </HBox.margin>
+            <Label fx:id="languageLabel" text="Language:">
+                <styleClass>
+                    <String fx:value="smalltext"/>
+                    <String fx:value="pink"/>
+                </styleClass>
+                <VBox.margin>
+                    <Insets bottom="2.0" left="2.0"/>
+                </VBox.margin>
             </Label>
+            <ChoiceBox fx:id="languageSelector" prefWidth="150.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    </FXCollections>
+                </items>
+                <styleClass>
+                    <String fx:value="widget"/>
+                    <String fx:value="smalltext"/>
+                </styleClass>
+            </ChoiceBox>
+        </VBox>
+    </HBox>
+    <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="68.0" prefWidth="422.0"
+           styleClass="header" text="Notez wizard">
 
-              <Button id="loginButton" fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogin" styleClass="widget,normaltext" text="Log in" wrapText="true">
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-      </Button>
-        <Label fx:id="notRegisteredLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0" styleClass="smalltext,pink" text="Don´t have account yet?">
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </Label>
+    </Label>
 
-              <Button id="signupButton" fx:id="signupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSignup" prefHeight="41.0" prefWidth="150.0" styleClass="widget,normaltext" text="Sign up" wrapText="true">
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </Button>
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+    <Button id="loginButton" fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+            onAction="#handleLogin" styleClass="widget,normaltext" text="Log in" wrapText="true">
+        <VBox.margin>
+  <Insets bottom="10.0" top="10.0"/>
+        </VBox.margin>
+    </Button>
+    <Label fx:id="notRegisteredLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="422.0"
+           styleClass="smalltext,pink" text="Don´t have account yet?">
+        <VBox.margin>
+        <Insets top="20.0"/>
+        </VBox.margin>
+    </Label>
+
+    <Button id="signupButton" fx:id="signupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+            onAction="#handleSignup" prefHeight="41.0" prefWidth="150.0" styleClass="widget,normaltext" text="Sign up"
+            wrapText="true">
+        <VBox.margin>
+  <Insets bottom="10.0" top="10.0"/>
+        </VBox.margin>
+        <padding>
+  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+    </Button>
 </VBox>

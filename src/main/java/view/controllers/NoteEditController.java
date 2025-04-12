@@ -1,50 +1,60 @@
 package view.controllers;
 
-import model.Note;
-import view.IControllerForGUI;
-import view.managers.SceneManager;
-import view.managers.SessionManager;
-import view.utilies.ImageAdder;
-import view.utilies.PopupWindow;
+import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Note;
+import view.IControllerForGUI;
+import view.managers.SceneManager;
+import view.managers.SessionManager;
+import view.utilies.ImageAdder;
+import view.utilies.PopupWindow;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NoteEditController implements UiInterface {
+    private static final Logger LOGGER = Logger.getLogger(NoteEditController.class.getName());
+    @FXML
     public Label notificationTimeLabel;
+    @FXML
     public Label titleLabel;
+    @FXML
     public Button deleteButton;
+    @FXML
     public Button editButton;
+    @FXML
+    public ImageView noteImage;
+    @FXML
+    public TextArea noteContent;
+    @FXML
+    public DatePicker dateSelector;
+    @FXML
+    public Spinner<Integer> hourSpinner;
+    @FXML
+    public Spinner<Integer> minuteSpinner;
+    @FXML
+    public TextField noteTitleField;
+    @FXML
+    public Label noteTitle;
+    @FXML
+    public CheckBox editCheckbox;
+    @FXML
+    public Button editProfilePic;
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    public ImageView noteImage;
-    public TextArea noteContent;
-    public DatePicker dateSelector;
-    public Spinner hourSpinner;
-    public Spinner minuteSpinner;
-    public TextField noteTitleField;
-    public Label noteTitle;
-    public CheckBox editCheckbox;
-    public Button editProfilePic;
     IControllerForGUI controller;
-
     Stage stage;
     Note currentNote;
-    Note oldNote;
-
-    @Override
-    public void setController(IControllerForGUI controller) {
-        this.controller = controller;
-    }
 
     public void initialize() {
         noteImage.setOnMouseEntered(event -> {
@@ -72,26 +82,27 @@ public class NoteEditController implements UiInterface {
         });
     }
 
+    @Override
+    public void setController(IControllerForGUI controller) {
+        this.controller = controller;
+    }
+
 
     public void deleteNote() {
         String deleteNoteTitle = rb.getString("deleteNoteTitle");
         String deleteNoteMessage = rb.getString("deleteNoteMessage");
-        if (PopupWindow.askForConfirmation(deleteNoteTitle, deleteNoteMessage)
-        ) {
+        if (Boolean.TRUE.equals(PopupWindow.askForConfirmation(deleteNoteTitle, deleteNoteMessage))) {
             try {
-                Boolean isDeleted = controller.deleteNote(currentNote);
-                if (isDeleted) {
+                boolean isDeleted = controller.deleteNote(currentNote);
+                if (Boolean.TRUE.equals(isDeleted)) {
                     SessionManager.getCurrentUser().removeNote(currentNote);//remove from local storage
                     SceneManager.switchScene("MainScreen.fxml");
                     stage.close();
                 } else {
-                    System.err.println("Failed to delete note");
-
-
+                    LOGGER.log(Level.WARNING, () -> "Note deletion failed: controller returned false for note: " + currentNote);
                 }
-
             } catch (Exception e) {
-                System.err.println("Failed to delete note");
+                LOGGER.log(Level.SEVERE, e, () -> "Exception occurred while deleting note: " + currentNote);
             }
 
 
@@ -99,21 +110,20 @@ public class NoteEditController implements UiInterface {
     }
 
     public void updateNote() {
-        oldNote = currentNote;
         currentNote.setTitle(noteTitleField.getText());
         currentNote.setBody(noteContent.getText());
         currentNote.setImageUrl(noteImage.getImage().getUrl());
         LocalDate selectedDate = dateSelector.getValue();
-        LocalTime selectedTime = LocalTime.of((int) hourSpinner.getValue(), (int) minuteSpinner.getValue());
+        LocalTime selectedTime = LocalTime.of(hourSpinner.getValue(), minuteSpinner.getValue());
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
         currentNote.setNotificationTime(selectedDateTime);
 
-        if (!controller.updateNote(currentNote)) {
-            //if update fails, revert to old note
-            currentNote = oldNote;
+        if (controller.updateNote(currentNote)) {
+            //if update is successful, go back to main screen
+            SceneManager.switchScene("MainScreen.fxml");
+            stage.close();
+
         }
-        SceneManager.switchScene("MainScreen.fxml");
-        stage.close();
 
 
     }
@@ -141,9 +151,9 @@ public class NoteEditController implements UiInterface {
         this.stage = stage;
     }
 
-    public void addNoteImage(MouseEvent mouseEvent) {
+    public void addNoteImage() {
         ImageAdder imageAdder = new ImageAdder();
-        Image selectedImage = imageAdder.addPicture(mouseEvent);
+        Image selectedImage = imageAdder.addPicture();
         if (selectedImage != null) {
             noteImage.setImage(selectedImage);
         }
@@ -156,9 +166,7 @@ public class NoteEditController implements UiInterface {
         dateSelector.setDisable(false);
         hourSpinner.setDisable(false);
         minuteSpinner.setDisable(false);
-        editProfilePic.setOnMouseClicked(event -> {
-            addNoteImage(event);
-        });
+        editProfilePic.setOnMouseClicked(e->addNoteImage());
 
     }
 
@@ -173,7 +181,7 @@ public class NoteEditController implements UiInterface {
 
     }
 
-    public void openImage(MouseEvent mouseEvent) {
+    public void openImage() {
         PopupWindow.showImage(noteImage.getImage());
     }
 }

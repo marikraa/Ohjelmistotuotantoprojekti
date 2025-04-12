@@ -11,65 +11,63 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="container" alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.LoginSignupController">
-   <children>
-      <HBox prefHeight="6.0" prefWidth="422.0">
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#openStartScreen" prefHeight="41.0" prefWidth="38.0" styleClass="widget">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/back.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <Label fx:id="loginHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="header" text="Login" />
-      <VBox prefHeight="103.0" prefWidth="342.0">
-         <children>
-            <Label fx:id="usernameLabel" styleClass="smalltext" text="Username:">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="usernameField" prefHeight="41.0" styleClass="widget,smalltext">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label fx:id="passwordLabel" prefHeight="21.0" styleClass="smalltext" text="Password:">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <PasswordField fx:id="passwordField" onAction="#login" prefHeight="41.0" styleClass="widget,smalltext">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </PasswordField>
-         </children>
-         <VBox.margin>
-            <Insets left="40.0" right="40.0" />
-         </VBox.margin>
-      </VBox>
-      <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#login" prefHeight="41.0" styleClass="widget,normaltext" text="Log in">
-         <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-         </VBox.margin>
-      </Button>
-   </children>
+<VBox fx:id="container" alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="view.controllers.LoginSignupController">
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
    </padding>
+   <HBox prefHeight="6.0" prefWidth="422.0">
+      <VBox.margin>
+         <Insets/>
+      </VBox.margin>
+      <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#openStartScreen" prefHeight="41.0"
+              prefWidth="38.0" styleClass="widget">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/back.png"/>
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </HBox>
+   <Label fx:id="loginHeader" alignment="CENTER" contentDisplay="CENTER" styleClass="header" text="Login"/>
+   <VBox prefHeight="103.0" prefWidth="342.0">
+      <VBox.margin>
+         <Insets left="40.0" right="40.0"/>
+      </VBox.margin>
+      <Label fx:id="usernameLabel" styleClass="smalltext" text="Username:">
+         <VBox.margin>
+            <Insets bottom="5.0"/>
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="usernameField" prefHeight="41.0" styleClass="widget,smalltext">
+         <font>
+            <Font size="17.0"/>
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0"/>
+         </VBox.margin>
+      </TextField>
+      <Label fx:id="passwordLabel" prefHeight="21.0" styleClass="smalltext" text="Password:">
+         <VBox.margin>
+            <Insets bottom="5.0"/>
+         </VBox.margin>
+      </Label>
+      <PasswordField fx:id="passwordField" onAction="#login" prefHeight="41.0" styleClass="widget,smalltext">
+         <font>
+            <Font size="17.0"/>
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0"/>
+         </VBox.margin>
+      </PasswordField>
+   </VBox>
+   <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+           onMouseClicked="#login" prefHeight="41.0" styleClass="widget,normaltext" text="Log in">
+      <VBox.margin>
+         <Insets bottom="10.0" top="10.0"/>
+      </VBox.margin>
+   </Button>
 </VBox>
