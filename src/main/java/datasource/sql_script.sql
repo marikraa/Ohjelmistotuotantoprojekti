@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS notes_app_db;
 USE notes_app_db;
 
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     profile_picture_url VARCHAR(255),
@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE notes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    note_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     title VARCHAR(100) NOT NULL,
     body TEXT,
@@ -20,7 +20,7 @@ CREATE TABLE notes (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notification_time TIMESTAMP,
     notification_shown BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 DROP USER IF EXISTS 'appuser'@'localhost';
