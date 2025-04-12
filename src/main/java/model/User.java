@@ -64,8 +64,7 @@ public class User {
     }
 
     public Image getProfilePicture() {
-        Image profilePicture = new Image(profilePictureUrl);
-        return profilePicture;
+        return new Image(profilePictureUrl);
     }
 
     public void setProfilePicture(Image image) {

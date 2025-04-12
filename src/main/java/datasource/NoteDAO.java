@@ -42,13 +42,10 @@ public class NoteDAO {
                 if (user != null) {
                     user.getNotes().remove(note);
                     em.merge(user);}
-                //em.remove(note);
                 em.flush();
                 em.getTransaction().commit();
-                System.out.println("Note deleted."+ note.getId());
                 return true;
             } else {
-                System.out.println("Note not found.");
                 em.getTransaction().rollback();
                 return false;
             }

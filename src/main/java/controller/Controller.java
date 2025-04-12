@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Controller implements IControllerForGUI {
-    //static Controller controller;
     UserDAO userDAO;
     NoteDAO noteDAO;
     ImageHandling imageHandling;
@@ -30,7 +29,6 @@ public class Controller implements IControllerForGUI {
 
         User user = userDAO.getUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            System.out.println(user.getUsername());
             return user;
         }
         return null;
@@ -60,7 +58,6 @@ public class Controller implements IControllerForGUI {
                     }
                     return user.getNotes();
                 } else {
-                    System.out.println("User not found: " + username);
                     return Collections.emptyList();
                 }
         } catch (Exception e) {
@@ -91,7 +88,7 @@ public class Controller implements IControllerForGUI {
         }
         return user;
     }
-//Updates user information to database
+
     @Override
     public boolean updateUser(String oldUsername, String newUsername, String password, Image image, String languageCode) {
         String imageUrl = "";
@@ -114,7 +111,6 @@ public class Controller implements IControllerForGUI {
                 user.setLanguageCode(languageCode);
                 return userDAO.updateUser(user);
             } else {
-                System.out.println("User not found: " + oldUsername);
                 return false;
             }
         } catch (Exception e) {
@@ -144,7 +140,6 @@ public class Controller implements IControllerForGUI {
                 existingNote.setNotificationTime(currentNote.getNotificationTime());
                 return noteDAO.updateNote(existingNote);
             } else {
-                System.out.println("Note not found: " + currentNote.getId());
                 return false;
             }
         } catch (Exception e) {

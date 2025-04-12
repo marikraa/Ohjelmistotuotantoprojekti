@@ -6,6 +6,9 @@ public class DatabaseConnection {
     private static EntityManagerFactory emf = null;
     private static EntityManager em = null;
 
+    private DatabaseConnection() {
+    }
+
     public static EntityManager getConnection() {
         if (em == null) {
             if (emf == null) {
@@ -15,7 +18,12 @@ public class DatabaseConnection {
                     e.printStackTrace();
                 }
             }
-            em = emf.createEntityManager();
+
+            if (emf != null) {
+                em = emf.createEntityManager();
+            } else {
+                throw new IllegalStateException("EntityManagerFactory is null");
+            }
         }
         return em;
     }

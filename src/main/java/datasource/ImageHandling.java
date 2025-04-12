@@ -3,8 +3,9 @@ package datasource;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -44,15 +45,15 @@ public class ImageHandling {
         byte[] imageData = outputStream.toByteArray();
         String encodedImage = Base64.getEncoder().encodeToString(imageData);
 
-        URL url = new URL("https://api.imgbb.com/1/upload?key=" + apiKey);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        URI uri = URI.create("https://api.imgbb.com/1/upload?key=" + apiKey);
+        HttpURLConnection con = (HttpURLConnection) uri.toURL().openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         con.setDoOutput(true);
 
-        String encodedData = "image=" + URLEncoder.encode(encodedImage, "UTF-8");
+        String encodedData = "image=" + URLEncoder.encode(encodedImage, StandardCharsets.UTF_8);
         try (OutputStream os = con.getOutputStream()) {
-            os.write(encodedData.getBytes("UTF-8"));
+            os.write(encodedData.getBytes(StandardCharsets.UTF_8));
             os.flush();
         }
 

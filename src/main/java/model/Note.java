@@ -11,14 +11,13 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //private final String time;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "title")
     private String title;
-
 
     @Column(name = "body")
     private String body;
@@ -31,6 +30,7 @@ public class Note {
 
     @Column(name = "notification_time")
     private LocalDateTime notificationTime;
+
     @Column(name = "notification_shown")
     private Boolean notificationShown;
 
@@ -43,9 +43,7 @@ public class Note {
         this.imageUrl = imageUrl;
         this.notificationTime = notificationTime;
         this.body = body;
-       notificationShown = false;
-
-
+        notificationShown = false;
     }
 
     public int getId() {
@@ -68,19 +66,12 @@ public class Note {
         return title;
     }
 
-    public String getImage() {
-        return imageUrl;
-    }
-
     public void setNotificationTime(LocalDateTime notificationTime) {
         this.notificationTime = notificationTime;
     }
+
     public LocalDateTime getNotificationTime() {
         return notificationTime;
-    }
-
-    public String getContent() {
-        return body;
     }
 
     public LocalDateTime getDate() {
@@ -107,22 +98,15 @@ public class Note {
         this.imageUrl = imageUrl;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
     public Boolean notificationShownProperty() {
         return notificationShown;
     }
+
     public void setNotificationShown(Boolean notificationShown) {
         this.notificationShown = notificationShown;
     }
-
-
-
 }
-
-

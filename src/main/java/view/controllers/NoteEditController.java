@@ -132,7 +132,7 @@ public class NoteEditController implements UiInterface {
     public void setNoteToEdit(Note note) {
         this.currentNote = note;
         noteImage.setImage(new Image(currentNote.getImageUrl()));
-        noteContent.setText(currentNote.getContent());
+        noteContent.setText(currentNote.getBody());
         noteTitleField.setText(currentNote.getTitle());
         String noTitleLabel = rb.getString("lblNoTitle");
         if (currentNote.getTitle().isEmpty()) {

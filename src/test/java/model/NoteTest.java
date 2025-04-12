@@ -91,14 +91,14 @@ class NoteTest {
 
     @Test
     void getDateTime() {
-        assertNotNull(note.getDateTime());
+        assertNotNull(note.getDate());
     }
 
     @Test
     void setDateTime() {
         LocalDateTime dateTime = LocalDateTime.now();
         note.setDateTime(dateTime);
-        assertEquals(dateTime, note.getDateTime());
+        assertEquals(dateTime, note.getDate());
     }
 
     @Test
@@ -115,12 +115,12 @@ class NoteTest {
 
     @Test
     void getImage() {
-        assertEquals("http://example.com/image.jpg", note.getImage());
+        assertEquals("http://example.com/image.jpg", note.getImageUrl());
     }
 
     @Test
     void getContent() {
-        assertEquals("body", note.getContent());
+        assertEquals("body", note.getBody());
     }
 
     @Test

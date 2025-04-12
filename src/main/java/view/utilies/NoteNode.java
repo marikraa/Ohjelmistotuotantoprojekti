@@ -47,7 +47,7 @@ public class NoteNode {
     public NoteNode(Note note) {
         this.note = note;
         this.title = note.getTitle();
-        this.content = note.getContent();
+        this.content = note.getBody();
         this.date = note.getDate().getDayOfMonth() + "." + note.getDate().getMonthValue() + "." + note.getDate().getYear();
         this.time = String.format("%02d:%02d", note.getDate().getHour(), note.getDate().getMinute());
         this.notificationDate = note.getNotificationTime();
