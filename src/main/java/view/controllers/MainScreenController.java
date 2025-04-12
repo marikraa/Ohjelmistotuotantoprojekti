@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
@@ -44,9 +43,9 @@ public class MainScreenController implements UiInterface {
     Stage stage;
     User user = SessionManager.getCurrentUser();
     ImageAdder imageAdder = new ImageAdder();
-    List<Note> filteredNotes = new ArrayList<>();
+    List<NoteNode> filteredNoteNodes = new ArrayList<>();
     List<Note> notes = new ArrayList<>();
-    List<Button> noteButtons = new ArrayList<>();
+    List<NoteNode> noteNodes = new ArrayList<>();
     Locale locale;
     ResourceBundle rb;
     @FXML
@@ -61,7 +60,7 @@ public class MainScreenController implements UiInterface {
 
     public void initialize() {
         notes=user.getNotes();
-        noteButtons = noteNodeBuilder.build(notes);
+        noteNodes = noteNodeBuilder.build(notes);
 
         SessionManager.setLanguage(user.getLanguageCode());//set language from user settings stored in the database
         locale = SessionManager.getLocale(); //get language from local storage
@@ -80,15 +79,15 @@ public class MainScreenController implements UiInterface {
                 drawNotes();
             } else {
                 String search = newValue.toLowerCase(); // Muutetaan pieniksi kirjaimiksi
-                filteredNotes.clear();
-                for (Note note : user.getNotes()) {
+                filteredNoteNodes.clear();
+                for (NoteNode note : noteNodes) {
                     String title = note.getTitle().toLowerCase();
                     if (isSubsequence(search, title)) { // Tarkistetaan järjestys
-                        filteredNotes.add(note);
+                        filteredNoteNodes.add(note);
                     }
                 }
 
-                drawFilteredNotes(filteredNotes);
+                drawFilteredNotes(filteredNoteNodes);
             }
         }));
 
@@ -130,14 +129,10 @@ public class MainScreenController implements UiInterface {
 
         Button addNoteButton = createAddButton();
         noteGrid.add(addNoteButton, 0, 0);
-
         int i = 1;
         int j = 0;
-        for (Note note : user.getNotes()) {
-            Button noteButton = createNoteButton(note);
-            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
-
-            noteGrid.add(noteButton, i, j);
+        for (NoteNode note : noteNodes) {
+            noteGrid.add(note.getNoteButton(), i, j);
             i++;
             if (i > 1) {
                 i = 0;
@@ -147,7 +142,7 @@ public class MainScreenController implements UiInterface {
     }
 
     //this method is used to draw the notes that match the search query
-    private void drawFilteredNotes(List<Note> filteredNotes) {
+    private void drawFilteredNotes(List<NoteNode> filteredNotes) {
         noteGrid.getChildren().clear();
 
         if (filteredNotes.isEmpty()) {
@@ -162,10 +157,10 @@ public class MainScreenController implements UiInterface {
 
         int i = 0;
         int j = 0;
-        for (Note note : filteredNotes) {
-            Button noteButton = createNoteButton(note);
-            noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
-            noteGrid.add(noteButton, i, j);
+        for (NoteNode note : filteredNotes) {
+            //Button noteButton = createNoteButton(note);
+            //noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
+            noteGrid.add(note.getNoteButton(), i, j);
             i++;
             if (i > 1) {
                 i = 0;
@@ -190,13 +185,13 @@ public class MainScreenController implements UiInterface {
         return addNoteButton;
     }
     //open the note view window as a modal when a note is clicked
-
+/*
     public void openNoteView(Note note) {
         SceneManager.openModal("EditNote.fxml", note);
 
-    }
+    }*/
 
-
+/*
     public Button createNoteButton(Note note) {
         Button noteButton = new Button();
         NoteNode noteNode = new NoteNode(note);
@@ -206,7 +201,7 @@ public class MainScreenController implements UiInterface {
         noteButton.setPrefSize(200, 200);
         //noteButton.setPrefWidth(200.0)
         return noteButton;
-    }
+    }*/
 
     @FXML
     public void addProfilePicture(MouseEvent mouseEvent) {

@@ -1,7 +1,9 @@
 package view.utilies;
 
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import model.Note;
+import view.managers.SceneManager;
 import view.managers.SessionManager;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -39,6 +41,7 @@ public class NoteNode {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final BooleanProperty notificationShown;
     String hidden = "hidden";
+    Button noteButton;
 
 
 
@@ -52,6 +55,7 @@ public class NoteNode {
         this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
         this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());//notification shown observer
         startNotificationChecker();
+        noteButton=createNoteNode();
 
     }
 
@@ -65,8 +69,10 @@ public class NoteNode {
             }
         }, 0, 1, TimeUnit.MINUTES);
     }
-    public VBox createNoteNode() {
+    public Button createNoteNode() {
         // Luo VBox ja HBox rakenteet
+
+        //noteButton.setPrefWidth(200.0)
         VBox noteVbox = new VBox();
 
 
@@ -144,24 +150,26 @@ public class NoteNode {
         noteVbox.getStyleClass().add("note");
         VBox vbox = new VBox();
         vbox.getChildren().addAll(notificationBell,noteVbox);
-
-
-        // Luo Button ja lisää siihen VBox
-        return vbox;
-    }
-
-    public Button createNoteButton(Note note) {
         Button noteButton = new Button();
-        NoteNode noteNode = new NoteNode(note);
-        VBox noteVBox = noteNode.createNoteNode();
         noteButton.getStyleClass().addAll("note");
-        noteButton.setGraphic(noteVBox);
+        noteButton.setGraphic(vbox);
         noteButton.setPrefSize(200, 200);
-        //noteButton.setPrefWidth(200.0)
+        noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
         return noteButton;
     }
+    public void openNoteView(Note note) {
+        SceneManager.openModal("EditNote.fxml", note);
+
+    }
+ public Button getNoteButton() {
+        return noteButton;
+ }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+    public String getTitle(){
+        return title;
     }
 
     public void setContent(String content) {
