@@ -1,17 +1,18 @@
 package view.controllers;
 
-import model.Note;
-import model.User;
-import view.*;
-import view.managers.SceneManager;
-import view.managers.SessionManager;
-import view.utilies.PopupWindow;
-import view.utilies.ImageAdder;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Note;
+import model.User;
+import view.IControllerForGUI;
+import view.managers.SceneManager;
+import view.managers.SessionManager;
+import view.utilies.ImageAdder;
+import view.utilies.PopupWindow;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,40 +22,47 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class NoteAddController implements UiInterface {
-
+    @FXML
     public Label addNoteLabel;
+    @FXML
     public Button addNoteImage;
+    @FXML
     public Label noteTitleLabel;
+    @FXML
     public Label notificationTimeLabel;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb =  ResourceBundle.getBundle("language", locale);
+    @FXML
     public DatePicker dateSelector;
-    public Spinner hourSpinner;
-    public Spinner minuteSpinner;
+    @FXML
+    public Spinner<Integer> hourSpinner;
+    @FXML
+    public Spinner<Integer> minuteSpinner;
+    @FXML
     public Button addNoteButton;
-    ImageAdder imageAdder;
+    @FXML
     public TextField titleField;
-    IControllerForGUI controller;
+    @FXML
     public ImageView noteImage;
+    @FXML
     public TextArea noteContent;
-    private Stage noteStage;
+    Locale locale = SessionManager.getLocale();
+    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
+    ImageAdder imageAdder;
+    IControllerForGUI controller;
     Image selectedImage;
     User user;
+    private Stage noteStage;
 
 
+    public NoteAddController() {
+        imageAdder = new ImageAdder();
+        user = SessionManager.getCurrentUser();
+        dateSelector = new DatePicker();
+    }
 
     //set backend controller
     @Override
     public void setController(IControllerForGUI controller) {
         this.controller = controller;
-    }
-
-    public NoteAddController() {
-        imageAdder = new ImageAdder();
-        this.controller = controller;
-
-        user = SessionManager.getCurrentUser();
-        dateSelector = new DatePicker();
     }
 
     public void initialize() {
@@ -66,9 +74,6 @@ public class NoteAddController implements UiInterface {
         notificationTimeLabel.setText(rb.getString("editNotificationTime"));
 
 
-
-
-
         dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
@@ -77,11 +82,11 @@ public class NoteAddController implements UiInterface {
 
 
     //this is method is called when the user clicks the add note button
-    public void addNote(MouseEvent mouseEvent) {
+    public void addNote() {
         LocalDate selectedDate = dateSelector.getValue();
-        LocalTime selectedTime = LocalTime.of((int) hourSpinner.getValue(), (int) minuteSpinner.getValue());
+        LocalTime selectedTime = LocalTime.of(hourSpinner.getValue(), minuteSpinner.getValue());
         LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
-        if(selectedImage == null){
+        if (selectedImage == null) {
             selectedImage = new Image("/images/placeholder.png");
         }
 
@@ -94,13 +99,12 @@ public class NoteAddController implements UiInterface {
             //refresh main screen
             SceneManager.switchScene("MainScreen.fxml");
         }
-        ;
 
 
     }
 
     //this method is called when the wants to add an image to the note
-    public void addNoteImage(MouseEvent mouseEvent) {
+    public void addImage(MouseEvent mouseEvent) {
         selectedImage = imageAdder.addPicture(mouseEvent);
         if (selectedImage != null) {
             noteImage.setImage(selectedImage);
@@ -119,8 +123,6 @@ public class NoteAddController implements UiInterface {
     public void setNoteToEdit(Note note) {
         //not used in this controller
     }
-
-
 
 
 }

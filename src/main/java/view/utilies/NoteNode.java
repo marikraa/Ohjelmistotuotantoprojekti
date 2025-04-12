@@ -1,5 +1,6 @@
 package view.utilies;
 
+import javafx.scene.control.Button;
 import model.Note;
 import view.managers.SessionManager;
 import javafx.application.Platform;
@@ -28,16 +29,19 @@ import java.util.concurrent.TimeUnit;
 public class NoteNode {
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    private Note note;
+    Note note;
     private String title;
     private String content;
     private String date;
     private String time;
-    private LocalDateTime notificationDate;
+    private final LocalDateTime notificationDate;
     private Image noteImage;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    HBox notificationHbox;
-    private BooleanProperty notificationShown;
+    private final BooleanProperty notificationShown;
+    String hidden = "hidden";
+
+
+
     public NoteNode(Note note) {
         this.note = note;
         this.title = note.getTitle();
@@ -47,7 +51,6 @@ public class NoteNode {
         this.notificationDate = note.getNotificationTime();
         this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
         this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());//notification shown observer
-
         startNotificationChecker();
 
     }
@@ -55,11 +58,10 @@ public class NoteNode {
     private void startNotificationChecker() {
         scheduler.scheduleAtFixedRate(() -> {
             LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-
             if (notificationDate != null && now.equals(notificationDate.truncatedTo(ChronoUnit.MINUTES))) {
-                Platform.runLater(() -> {
-                    notificationShown.set(true);
-                });
+                Platform.runLater(() ->
+                    notificationShown.set(true)
+                );
             }
         }, 0, 1, TimeUnit.MINUTES);
     }
@@ -73,15 +75,12 @@ public class NoteNode {
         noteDate.setFont(new Font(28));
         noteDate.setPadding(new Insets(3, 0, 3, 0));
         noteDate.getStyleClass().addAll("bigtext", "pink");
-
         Label noteTime = new Label(time);
         String notification = MessageFormat.format(rb.getString("notificationLabel"), notificationDate);
         Label notificationTime = new Label(notification);
         notificationTime.getStyleClass().addAll("extrasmalltext", "orange");
         noteTime.setFont(new Font(18));
-
         noteTime.getStyleClass().addAll("normaltext", "pink");
-
         Label noteTitle = new Label(title);
         noteTitle.getStyleClass().addAll("smalltext");
 
@@ -90,21 +89,19 @@ public class NoteNode {
         hbox.setPrefHeight(170.0);
         hbox.setPrefWidth(170.0);
         ImageView notificationBell = new ImageView(new Image("images/notificationBell.png"));//notification bell image
-        notificationBell.getStyleClass().addAll("hidden");//hide notification bell
+        notificationBell.getStyleClass().addAll(hidden);//hide notification bell
         notificationBell.setFitHeight(20);
         notificationBell.setFitWidth(20);
 
         //if notifcation allready shown show the bell when applicastion is restarted
         if(notificationShown.get()){
-            notificationBell.getStyleClass().remove("hidden");
-            System.out.println("notification shown already");
+            notificationBell.getStyleClass().remove(hidden);
         }
 
         //notification bell listener if value changes show the bell
         notificationShown.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                //notificationHbox.getStyleClass().remove("hidden");
-                notificationBell.getStyleClass().remove("hidden");
+            if (Boolean.TRUE.equals(newValue)) {
+                notificationBell.getStyleClass().remove(hidden);
             }
         });
 
@@ -153,7 +150,16 @@ public class NoteNode {
         return vbox;
     }
 
-
+    public Button createNoteButton(Note note) {
+        Button noteButton = new Button();
+        NoteNode noteNode = new NoteNode(note);
+        VBox noteVBox = noteNode.createNoteNode();
+        noteButton.getStyleClass().addAll("note");
+        noteButton.setGraphic(noteVBox);
+        noteButton.setPrefSize(200, 200);
+        //noteButton.setPrefWidth(200.0)
+        return noteButton;
+    }
     public void setTitle(String title) {
         this.title = title;
     }
@@ -170,9 +176,6 @@ public class NoteNode {
         this.time = time;
     }
 
-    public void setNotificationDate(LocalDateTime notificationDate) {
-        this.notificationDate = notificationDate;
-    }
 
     public void setImage(Image image) {
         this.noteImage = image;

@@ -14,10 +14,13 @@ import java.util.Optional;
 public class PopupWindow {
     public static void showError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Error");
+        alert.setTitle(title);
+        alert.setHeaderText(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    private PopupWindow(){
+    // constructor
     }
 
 

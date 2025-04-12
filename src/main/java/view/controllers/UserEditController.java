@@ -1,47 +1,54 @@
 package view.controllers;
 
-import model.Note;
-import model.User;
-import view.*;
-import view.managers.SceneManager;
-import view.managers.SessionManager;
-import view.utilies.PopupWindow;
-import view.utilies.ImageAdder;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Note;
+import model.User;
+import view.IControllerForGUI;
+import view.managers.SceneManager;
+import view.managers.SessionManager;
+import view.utilies.ImageAdder;
+import view.utilies.PopupWindow;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-public class EditUserController implements UiInterface {
-    public ChoiceBox languageSelector;
+public class UserEditController implements UiInterface {
+    private final User user = SessionManager.getCurrentUser();
+    private final ImageAdder imageAdder = new ImageAdder();
+    @FXML
+    public ChoiceBox<String> languageSelector;
+    @FXML
+    public Label editUserLabel;
+    @FXML
+    public TextField editUsernameField;
+    @FXML
+    public PasswordField oldPasswordField;
+    @FXML
+    public PasswordField newPasswordField;
+    @FXML
+    public Button deleteUserButton;
+    @FXML
+    public Button editUserButton;
+    @FXML
+    public Label newPasswordLabel;
+    @FXML
+    public Label oldPasswordLabel;
+    @FXML
+    public Label userNameLabel;
+    @FXML
+    public ImageView profilePic;
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-
-    public Label editUserLabel;
-    public TextField editUsernameField;
-    public PasswordField oldPasswordField;
-    public PasswordField newPasswordField;
-    public Button deleteUserButton;
-    public Button editUserButton;
-    public Label newPasswordLabel;
-    public Label oldPasswordLabel;
-    public Label userNameLabel;
-    private IControllerForGUI controller;
-
-
-    public ImageView profilePic;
-
     Stage editUserStage;
-    private ImageAdder imageAdder = new ImageAdder();
+    private IControllerForGUI controller;
     private Image selectedImage;
-    private User user = SessionManager.getCurrentUser();
 
     //set backend controller
     @Override
@@ -66,34 +73,26 @@ public class EditUserController implements UiInterface {
         newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
         oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
         List<String> languages = SessionManager.getLanguages();//add languages to selector
-        for(String language: languages){
+        for (String language : languages) {
             languageSelector.getItems().add(language);
         }
         languageSelector.setValue(SessionManager.getLanguageString());//get language Abbreviation
-        languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-           user.setLanguageCode(newValue.toString());//set user language to selected
-        });
-
-
-
-
-
-
+        languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> user.setLanguageCode(newValue)//set user language to selected
+        );
 
 
     }
 
 
     // Delete user method
-    public void deleteUser(MouseEvent mouseEvent) {
+    public void deleteUser() {
         //ask for confirmation before deleting user
         String deleteAccountMessage = rb.getString("deleteAccountMessage");
         String deleteAccountTitle = rb.getString("deleteAccountTitle");
-        if (PopupWindow.askForConfirmation(deleteAccountTitle, deleteAccountMessage)) {   //if user confirms, delete user
-            Boolean isDeleted = controller.deleteUser(user);
+        if (Boolean.TRUE.equals(PopupWindow.askForConfirmation(deleteAccountTitle, deleteAccountMessage))) {   //if user confirms, delete user
+            boolean isDeleted = controller.deleteUser(user);
             //check if user is deleted from database
-            if (isDeleted) {
-                System.out.println("User deleted");
+            if (Boolean.TRUE.equals(isDeleted)) {
                 editUserStage.close();
                 SessionManager.clearUser();
                 SceneManager.switchScene("StartScreen.fxml");
@@ -103,10 +102,7 @@ public class EditUserController implements UiInterface {
     }
 
 
-    // Update user method
     public void updateUser() {
-
-        System.out.println("Update user");
         //get user input
         String oldUsername = user.getUsername();
         String newUsername = editUsernameField.getText();
@@ -118,30 +114,18 @@ public class EditUserController implements UiInterface {
         }
 
         //if old password is correct, update password
-        if (oldPassword.equals(user.getPassword())) {
-            System.out.println("Old password is correct");
-            //if new password is same as old password, keep old password
-            if (oldPassword.equals(newPassword)) {
-                System.out.println("New password is same as old password");
-                newPassword = oldPassword;
-            }
-
-        } else {
+        if (!oldPassword.equals(user.getPassword())) {
             PopupWindow.showError("Wrong password", "Old password is incorrect");
             return;
         }
 
-        //TODO: Käyttäjän laittama language code
         String languageCode = user.getLanguageCode();
-        Boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture, languageCode);
-
-
+        boolean isUpdated = controller.updateUser(oldUsername, newUsername, newPassword, newProfilePicture, languageCode);
         if (isUpdated) {
             //if database is updated, update user object
             user.setUsername(newUsername);
             user.setPassword(newPassword);
             user.setProfilePictureUrl(newProfilePicture.getUrl());
-            System.out.println("User updated");
             editUserStage.close();
             //refresh main screen
             SceneManager.switchScene("MainScreen.fxml");
@@ -159,7 +143,6 @@ public class EditUserController implements UiInterface {
 
         }
     }
-
 
     @Override
     public void setNoteToEdit(Note note) {

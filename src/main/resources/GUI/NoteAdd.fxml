@@ -29,7 +29,7 @@
       </VBox.margin>
       <Image url="@../images/placeholder.png" />
    </ImageView>
-   <Button fx:id="addNoteImage" mnemonicParsing="false" onMouseClicked="#addNoteImage" text="Add Image">
+   <Button fx:id="addNoteImage" mnemonicParsing="false" onMouseClicked="#addImage" text="Add Image">
       <VBox.margin>
          <Insets bottom="10.0" top="10.0" />
       </VBox.margin>
