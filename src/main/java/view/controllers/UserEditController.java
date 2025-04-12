@@ -135,8 +135,8 @@ public class UserEditController implements UiInterface {
     }
 
     @FXML
-    public void addProfilePicture(MouseEvent mouseEvent) {
-        selectedImage = imageAdder.addPicture(mouseEvent);
+    public void addProfilePicture() {
+        selectedImage = imageAdder.addPicture();
         //set user profile picture to the image that user has selected
         if (selectedImage != null) {
             profilePic.setImage(selectedImage);

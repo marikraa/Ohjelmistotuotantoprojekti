@@ -153,7 +153,7 @@ public class LoginSignupController implements UiInterface {
             progressIndicator.setPrefSize(40, 40);
         }
 
-        container.getChildren().removeIf(VBox.class::isInstance); // Poistaa aiemmat indikaattorit
+        container.getChildren().removeIf(VBox.class::isInstance); // Delete an indicator already exists
         String loadingIndicatorText = rb.getString("loading");
         Label loadingLabel = new Label(loadingIndicatorText);
         loadingLabel.getStyleClass().addAll("smalltext");
@@ -163,18 +163,19 @@ public class LoginSignupController implements UiInterface {
     }
 
     private void hideLoadingIndicator() {
-        container.getChildren().removeIf(VBox.class::isInstance); // Poistaa latausindikaattorin
+        container.getChildren().removeIf(VBox.class::isInstance); // Delete indicator
     }
 
     @FXML
-    public void addProfilePicture(MouseEvent mouseEvent) {//when user clicks add image button open file chooser
+    public void addProfilePicture() {//when user clicks add image button open file chooser
         ImageAdder imageAdder = new ImageAdder();
-        selectedImage = imageAdder.addPicture(mouseEvent);
+        selectedImage = imageAdder.addPicture();
         profilePicView.setImage(selectedImage);
 
 
     }
 
+    //when singed/lodged in user, set user to session manager and open main screen
     public void openMainScreen(User currentUser) {
         SessionManager.setCurrentUser(currentUser);
         SceneManager.switchScene("MainScreen.fxml");

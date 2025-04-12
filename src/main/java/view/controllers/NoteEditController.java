@@ -151,9 +151,9 @@ public class NoteEditController implements UiInterface {
         this.stage = stage;
     }
 
-    public void addNoteImage(MouseEvent mouseEvent) {
+    public void addNoteImage() {
         ImageAdder imageAdder = new ImageAdder();
-        Image selectedImage = imageAdder.addPicture(mouseEvent);
+        Image selectedImage = imageAdder.addPicture();
         if (selectedImage != null) {
             noteImage.setImage(selectedImage);
         }
@@ -166,7 +166,7 @@ public class NoteEditController implements UiInterface {
         dateSelector.setDisable(false);
         hourSpinner.setDisable(false);
         minuteSpinner.setDisable(false);
-        editProfilePic.setOnMouseClicked(this::addNoteImage);
+        editProfilePic.setOnMouseClicked(e->addNoteImage());
 
     }
 

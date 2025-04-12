@@ -1,23 +1,23 @@
 package view.utilies;
 
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import model.Note;
-import view.managers.SceneManager;
-import view.managers.SessionManager;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import model.Note;
+import view.managers.SceneManager;
+import view.managers.SessionManager;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
@@ -29,20 +29,19 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class NoteNode {
+    private final LocalDateTime notificationDate;
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private final BooleanProperty notificationShown;
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
     Note note;
+    String hidden = "hidden";
+    Button noteButton;//this is the button that is shown in the main screen
     private String title;
     private String content;
     private String date;
     private String time;
-    private final LocalDateTime notificationDate;
     private Image noteImage;
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    private final BooleanProperty notificationShown;
-    String hidden = "hidden";
-    Button noteButton;
-
 
 
     public NoteNode(Note note) {
@@ -55,7 +54,7 @@ public class NoteNode {
         this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
         this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());//notification shown observer
         startNotificationChecker();
-        noteButton=createNoteNode();
+        noteButton = createNoteNode(); //note button is element that is shown in the main screen
 
     }
 
@@ -63,19 +62,15 @@ public class NoteNode {
         scheduler.scheduleAtFixedRate(() -> {
             LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
             if (notificationDate != null && now.equals(notificationDate.truncatedTo(ChronoUnit.MINUTES))) {
-                Platform.runLater(() ->
-                    notificationShown.set(true)
-                );
+                Platform.runLater(() -> notificationShown.set(true));
             }
         }, 0, 1, TimeUnit.MINUTES);
     }
+
     public Button createNoteNode() {
         // Luo VBox ja HBox rakenteet
-
-        //noteButton.setPrefWidth(200.0)
+        // noteVbox is content of note
         VBox noteVbox = new VBox();
-
-
         // Labelit (date, time, title)
         Label noteDate = new Label(date);
         noteDate.setFont(new Font(28));
@@ -99,8 +94,8 @@ public class NoteNode {
         notificationBell.setFitHeight(20);
         notificationBell.setFitWidth(20);
 
-        //if notifcation allready shown show the bell when applicastion is restarted
-        if(notificationShown.get()){
+        //if notification already shown show the bell when application is restarted.
+        if (notificationShown.get()) {
             notificationBell.getStyleClass().remove(hidden);
         }
 
@@ -111,13 +106,15 @@ public class NoteNode {
             }
         });
 
-
+        //note content preview
         Label noteContent = new Label(content);
         noteContent.setPrefHeight(97.0);
         noteContent.setPrefWidth(109.0);
         noteContent.wrapTextProperty().setValue(true);
         noteContent.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         noteContent.getStyleClass().add("extrasmalltext");
+
+        // if note content is long show only first 50 characters and add "Show more" text
         if (noteContent.getText().length() > 50) {
             TextFlow textFlow = new TextFlow();
             Text truncatedText = new Text(noteContent.getText().substring(0, 50));
@@ -132,6 +129,7 @@ public class NoteNode {
             noteContent.setText("");
             noteContent.setGraphic(textFlow);
         }
+        //note image
         ImageView noteImageView = new ImageView();
         noteImageView.setPreserveRatio(true);
         noteImageView.setFitHeight(50.0);
@@ -143,33 +141,37 @@ public class NoteNode {
 
 
         hbox.getChildren().addAll(noteContent, noteImageView);
-
         // Lisää Labelit ja HBox VBoxiin
         noteVbox.getChildren().addAll(noteDate, noteTime, notificationTime, noteTitle, hbox);
-
         noteVbox.getStyleClass().add("note");
+
+        //vbox is the main container and content of the note node button
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(notificationBell,noteVbox);
-        Button noteButton = new Button();
-        noteButton.getStyleClass().addAll("note");
-        noteButton.setGraphic(vbox);
-        noteButton.setPrefSize(200, 200);
-        noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
-        return noteButton;
+        vbox.getChildren().addAll(notificationBell, noteVbox);
+        Button button = new Button();
+        button.getStyleClass().addAll("note");
+        button.setGraphic(vbox);
+        button.setPrefSize(200, 200);
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openFullNoteView(note));
+        return button;
     }
-    public void openNoteView(Note note) {
+
+    //this is called when noteNode is clicked
+    public void openFullNoteView(Note note) {
         SceneManager.openModal("EditNote.fxml", note);
 
     }
- public Button getNoteButton() {
+
+    public Button getNoteButton() {
         return noteButton;
- }
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-    public String getTitle(){
-        return title;
     }
 
     public void setContent(String content) {

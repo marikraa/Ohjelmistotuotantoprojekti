@@ -104,8 +104,8 @@ public class NoteAddController implements UiInterface {
     }
 
     //this method is called when the wants to add an image to the note
-    public void addImage(MouseEvent mouseEvent) {
-        selectedImage = imageAdder.addPicture(mouseEvent);
+    public void addImage() {
+        selectedImage = imageAdder.addPicture();
         if (selectedImage != null) {
             noteImage.setImage(selectedImage);
         }

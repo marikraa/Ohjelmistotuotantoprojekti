@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Note;
@@ -16,7 +15,6 @@ import model.User;
 import view.IControllerForGUI;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
-import view.utilies.ImageAdder;
 import view.utilies.NoteNode;
 import view.utilies.NoteNodeBuilder;
 
@@ -42,7 +40,6 @@ public class MainScreenController implements UiInterface {
     public Label usernameLabel;
     Stage stage;
     User user = SessionManager.getCurrentUser();
-    ImageAdder imageAdder = new ImageAdder();
     List<NoteNode> filteredNoteNodes = new ArrayList<>();
     List<Note> notes = new ArrayList<>();
     List<NoteNode> noteNodes = new ArrayList<>();
@@ -59,7 +56,7 @@ public class MainScreenController implements UiInterface {
     }
 
     public void initialize() {
-        notes=user.getNotes();
+        notes = user.getNotes();
         noteNodes = noteNodeBuilder.build(notes);
 
         SessionManager.setLanguage(user.getLanguageCode());//set language from user settings stored in the database
@@ -144,7 +141,6 @@ public class MainScreenController implements UiInterface {
     //this method is used to draw the notes that match the search query
     private void drawFilteredNotes(List<NoteNode> filteredNotes) {
         noteGrid.getChildren().clear();
-
         if (filteredNotes.isEmpty()) {
             ImageView notFound = new ImageView(new Image("./images/NotFound.png"));
             notFound.setFitHeight(400);
@@ -158,8 +154,6 @@ public class MainScreenController implements UiInterface {
         int i = 0;
         int j = 0;
         for (NoteNode note : filteredNotes) {
-            //Button noteButton = createNoteButton(note);
-            //noteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openNoteView(note));
             noteGrid.add(note.getNoteButton(), i, j);
             i++;
             if (i > 1) {
@@ -184,34 +178,6 @@ public class MainScreenController implements UiInterface {
         //add add note button to the grid
         return addNoteButton;
     }
-    //open the note view window as a modal when a note is clicked
-/*
-    public void openNoteView(Note note) {
-        SceneManager.openModal("EditNote.fxml", note);
-
-    }*/
-
-/*
-    public Button createNoteButton(Note note) {
-        Button noteButton = new Button();
-        NoteNode noteNode = new NoteNode(note);
-        VBox noteVBox = noteNode.createNoteNode();
-        noteButton.getStyleClass().addAll("note");
-        noteButton.setGraphic(noteVBox);
-        noteButton.setPrefSize(200, 200);
-        //noteButton.setPrefWidth(200.0)
-        return noteButton;
-    }*/
-
-    @FXML
-    public void addProfilePicture(MouseEvent mouseEvent) {
-        Image selectedImage = imageAdder.addPicture(mouseEvent);
-        //set user profile picture to the image that user has selected
-        if (selectedImage != null) {
-            profilePic.setImage(selectedImage);
-
-        }
-    }
 
 
     @Override
@@ -224,6 +190,7 @@ public class MainScreenController implements UiInterface {
         this.stage = stage;
     }
 
+    //this method is used to check if the search string is a subsequence of the note title
     private boolean isSubsequence(String search, String text) {
         int searchIndex = 0;
         int textIndex = 0;
@@ -235,7 +202,7 @@ public class MainScreenController implements UiInterface {
             textIndex++;
         }
 
-        return searchIndex == search.length(); // Kaikki haetut kirjaimet löytyivät järjestyksessä
+        return searchIndex == search.length(); // Every character in search was found in text
     }
 }
 
