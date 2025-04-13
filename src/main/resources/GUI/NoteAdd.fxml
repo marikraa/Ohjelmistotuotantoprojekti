@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.NoteAddController">
+<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.NoteAddController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -29,7 +29,7 @@
       </VBox.margin>
       <Image url="@../images/placeholder.png" />
    </ImageView>
-   <Button fx:id="addNoteImage" mnemonicParsing="false" onMouseClicked="#addNoteImage" text="Add Image">
+   <Button fx:id="addNoteImage" mnemonicParsing="false" onMouseClicked="#addImage" text="Add Image">
       <VBox.margin>
          <Insets bottom="10.0" top="10.0" />
       </VBox.margin>

@@ -13,99 +13,86 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="5.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.controllers.MainScreenController">
-   <children>
-      <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="41.0" styleClass="widget,smalltext,pink" text="Log out" VBox.vgrow="SOMETIMES">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </Button>
-      <HBox styleClass="widget">
-         <children>
-            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-               <children>
-                  <VBox>
-                     <children>
-                        <Label fx:id="usernameLabel" alignment="TOP_LEFT" styleClass="bigtext,pink" text="Name">
-                           <VBox.margin>
-                              <Insets left="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="noteCounterLabel" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="bigtext,pink" text="Notes Counter">
-                           <VBox.margin>
-                              <Insets left="5.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-               <children>
-                  <VBox alignment="CENTER_RIGHT">
-                     <children>
-                        <HBox alignment="TOP_RIGHT">
-                           <children>
-                              <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Button id="editProfile" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#editUser" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
-                                 <graphic>
-                                    <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/edit.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets left="3.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-      <HBox prefHeight="41.0" prefWidth="431.0">
-         <children>
-            <TextField fx:id="searchField" prefHeight="55.0" prefWidth="382.0" style="-fx-background-color: 0000;" styleClass="normaltext">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </TextField>
-            <ImageView fx:id="searchButton" fitHeight="55.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/search.png" />
-               </image>
-            </ImageView>
-         </children>
-         <styleClass>
-            <String fx:value="widget" />
-            <String fx:value="searchBox" />
-         </styleClass>
-      </HBox>
-      <VBox>
-         <children>
-            <ScrollPane fx:id="noteArea" hbarPolicy="NEVER" prefHeight="439.0" prefWidth="431.0">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <opaqueInsets>
-                  <Insets right="100.0" top="100.0" />
-               </opaqueInsets>
-            </ScrollPane>
-         </children>
-      </VBox>
-   </children>
+<VBox alignment="CENTER" spacing="5.0" styleClass="canvas" stylesheets="@../styles.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="view.controllers.MainScreenController">
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
    </padding>
+   <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+           onMouseClicked="#logout" prefHeight="41.0" styleClass="widget,smalltext,pink" text="Log out"
+           VBox.vgrow="SOMETIMES">
+      <VBox.margin>
+         <Insets bottom="10.0"/>
+      </VBox.margin>
+   </Button>
+   <HBox styleClass="widget">
+      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <VBox>
+            <Label fx:id="usernameLabel" alignment="TOP_LEFT" styleClass="bigtext,pink" text="Name">
+               <VBox.margin>
+                  <Insets left="5.0"/>
+               </VBox.margin>
+            </Label>
+            <Label fx:id="noteCounterLabel" alignment="TOP_LEFT" contentDisplay="CENTER"
+                   styleClass="bigtext,pink" text="Notes Counter">
+               <VBox.margin>
+                  <Insets left="5.0"/>
+               </VBox.margin>
+            </Label>
+         </VBox>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT">
+         <VBox alignment="CENTER_RIGHT">
+            <HBox alignment="TOP_RIGHT">
+               <ImageView fx:id="profilePic" fitHeight="137.0" fitWidth="181.0" pickOnBounds="true"
+                          preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="10.0" top="10.0"/>
+                  </HBox.margin>
+               </ImageView>
+               <Button id="editProfile" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+                       mnemonicParsing="false" onMouseClicked="#editUser" prefHeight="19.0" prefWidth="13.0"
+                       styleClass="widget">
+                  <graphic>
+                     <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../images/edit.png"/>
+                     </ImageView>
+                  </graphic>
+                  <HBox.margin>
+                     <Insets left="3.0"/>
+                  </HBox.margin>
+               </Button>
+            </HBox>
+         </VBox>
+      </HBox>
+   </HBox>
+   <HBox prefHeight="41.0" prefWidth="431.0">
+      <styleClass>
+         <String fx:value="widget"/>
+         <String fx:value="searchBox"/>
+      </styleClass>
+      <TextField fx:id="searchField" prefHeight="55.0" prefWidth="382.0" style="-fx-background-color: 0000;"
+                 styleClass="normaltext">
+         <font>
+            <Font size="20.0"/>
+         </font>
+         <HBox.margin>
+            <Insets/>
+         </HBox.margin>
+      </TextField>
+      <ImageView fx:id="searchButton" fitHeight="55.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../images/search.png"/>
+      </ImageView>
+   </HBox>
+   <VBox>
+      <ScrollPane fx:id="noteArea" hbarPolicy="NEVER" prefHeight="439.0" prefWidth="431.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT"/>
+         </cursor>
+         <opaqueInsets>
+            <Insets right="100.0" top="100.0"/>
+         </opaqueInsets>
+      </ScrollPane>
+   </VBox>
 </VBox>
