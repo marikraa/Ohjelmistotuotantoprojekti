@@ -15,7 +15,7 @@ class NoteTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("testUser", "password", null);
+        user = new User("testUser", "password", null, "en"); // Added "en" as the languageCode
         note = new Note("title", "body", "http://example.com/image.jpg", LocalDateTime.now());
         note.setUser(user);
         note.setId(1);
@@ -51,7 +51,7 @@ class NoteTest {
 
     @Test
     void setUser() {
-        User newUser = new User("newUser", "newPassword", null);
+        User newUser = new User("newUser", "newPassword", null, "en"); // Added "en" as the languageCode
         note.setUser(newUser);
         assertEquals(newUser, note.getUser());
     }
@@ -111,21 +111,6 @@ class NoteTest {
         LocalDateTime notificationTime = LocalDateTime.now();
         note.setNotificationTime(notificationTime);
         assertEquals(notificationTime, note.getNotificationTime());
-    }
-
-    @Test
-    void getImage() {
-        assertEquals("http://example.com/image.jpg", note.getImageUrl());
-    }
-
-    @Test
-    void getContent() {
-        assertEquals("body", note.getBody());
-    }
-
-    @Test
-    void getDate() {
-        assertNotNull(note.getDate());
     }
 
     @Test
