@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * Global scene manager for handling screen changes based on the called FXML file.
+ * This class is responsible for switching between different views in the application.
+ */
 //this class is used to switch scenes and open modal windows
 public class SceneManager {
     private static final IControllerForGUI controller = new Controller();
@@ -30,7 +33,11 @@ public class SceneManager {
         primaryStage = stage;
     }
 
-
+    /**
+     * This function is called in UI controllers. It handles main screen view changes.
+     *
+     * @param fxmlFile is filepath, which is passed from Ui controllers
+     */
     //this is used to switch main screens
     public static void switchScene(String fxmlFile) {
         UiInterface primaryUiController;
@@ -53,6 +60,11 @@ public class SceneManager {
         }
     }
 
+    /**
+     * This function handles modal screen changes. It opens a new screen with certain fxml.
+     * @param fxmlFile is passed fxml file path
+     * @param note is note object, which is passed to the modal window if needed.
+     */
     //this is used to open a modal window
     public static void openModal(String fxmlFile, Note note) {
         try {

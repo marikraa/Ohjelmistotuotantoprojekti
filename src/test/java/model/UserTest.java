@@ -20,7 +20,7 @@ class UserTest extends ApplicationTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("testUser", "password", null);
+        user = new User("testUser", "password", null, "en"); // Added "en" as the languageCode
         note = new Note("title", "body", "http://example.com/image.jpg", LocalDateTime.now());
         user.addNote(note);
     }

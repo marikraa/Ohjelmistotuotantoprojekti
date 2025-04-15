@@ -3,14 +3,14 @@ package controller;
 import datasource.ImageHandling;
 import datasource.NoteDAO;
 import datasource.UserDAO;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import javafx.scene.image.Image;
 import model.Note;
 import model.User;
+import javafx.scene.image.Image;
 import view.IControllerForGUI;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Controller implements IControllerForGUI {
     UserDAO userDAO;

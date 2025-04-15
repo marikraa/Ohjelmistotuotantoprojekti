@@ -190,4 +190,8 @@ public class NoteNode {
     public void setImage(Image image) {
         this.noteImage = image;
     }
+
+    public BooleanProperty getNotificationShown() {
+        return notificationShown;
+    }
 }

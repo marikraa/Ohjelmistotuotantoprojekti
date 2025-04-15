@@ -22,6 +22,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This is controller for the Editing note
+ */
 public class NoteEditController implements UiInterface {
     private static final Logger LOGGER = Logger.getLogger(NoteEditController.class.getName());
     @FXML
@@ -87,7 +90,9 @@ public class NoteEditController implements UiInterface {
         this.controller = controller;
     }
 
-
+    /**
+     * This function handles the deleting selected note
+     */
     public void deleteNote() {
         String deleteNoteTitle = rb.getString("deleteNoteTitle");
         String deleteNoteMessage = rb.getString("deleteNoteMessage");
@@ -109,6 +114,9 @@ public class NoteEditController implements UiInterface {
         }
     }
 
+    /**
+     * This handles the editing of the note and updating it to database.
+     */
     public void updateNote() {
         currentNote.setTitle(noteTitleField.getText());
         currentNote.setBody(noteContent.getText());
@@ -128,6 +136,10 @@ public class NoteEditController implements UiInterface {
 
     }
 
+    /**
+     * This function sets the note to be edited. It is called in a main screen after note is clicked.
+     * @param note is a passed parameter from click event. And it is the note to be edited.
+     */
     @Override
     public void setNoteToEdit(Note note) {
         this.currentNote = note;
@@ -151,6 +163,10 @@ public class NoteEditController implements UiInterface {
         this.stage = stage;
     }
 
+    /**
+     * This handles image adding to note
+     *
+     */
     public void addNoteImage() {
         ImageAdder imageAdder = new ImageAdder();
         Image selectedImage = imageAdder.addPicture();
@@ -159,7 +175,9 @@ public class NoteEditController implements UiInterface {
         }
     }
 
-
+    /**
+     * This is called when edit note checkbox is checked. Allows note to be edited.
+     */
     public void enableEditing() {
         noteTitleField.setEditable(true);
         noteContent.setEditable(true);
@@ -170,6 +188,9 @@ public class NoteEditController implements UiInterface {
 
     }
 
+    /**
+     * This is called when edit note checkbox is unchecked. Disables editing of note.
+     */
     public void disableEditing() {
         noteContent.setEditable(false);
         noteTitleField.setEditable(false);
@@ -181,6 +202,9 @@ public class NoteEditController implements UiInterface {
 
     }
 
+    /**
+     * When note image is clicked it will be shown as a bigger picture.
+     */
     public void openImage() {
         PopupWindow.showImage(noteImage.getImage());
     }

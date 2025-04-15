@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
@@ -18,6 +17,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This is controller for user editing screen
+ */
 
 public class UserEditController implements UiInterface {
     private final User user = SessionManager.getCurrentUser();
@@ -83,7 +85,9 @@ public class UserEditController implements UiInterface {
 
     }
 
-
+    /**
+     * This is called when user clicks on the edit button. It passes delete command to database.
+     */
     // Delete user method
     public void deleteUser() {
         //ask for confirmation before deleting user
@@ -101,7 +105,9 @@ public class UserEditController implements UiInterface {
         }
     }
 
-
+    /**
+     * This is called when user wants to update own profile info. It passes update command to database.
+     */
     public void updateUser() {
         //get user input
         String oldUsername = user.getUsername();
@@ -134,6 +140,9 @@ public class UserEditController implements UiInterface {
 
     }
 
+    /**
+     * This function handles user profile pic adding
+     */
     @FXML
     public void addProfilePicture() {
         selectedImage = imageAdder.addPicture();

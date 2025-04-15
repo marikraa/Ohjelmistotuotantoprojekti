@@ -1,4 +1,3 @@
-
 package controller;
 
 import datasource.NoteDAO;
@@ -43,7 +42,7 @@ class ControllerTest {
 
     @Test
     void login() {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
 
         User user = controller.login("testUser", "password");
@@ -56,7 +55,7 @@ class ControllerTest {
 
     @Test
     void addNote() {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
         when(userDAO.updateUser(mockUser)).thenReturn(true);
 
@@ -69,7 +68,7 @@ class ControllerTest {
 
     @Test
     void addNoteWithImage() throws IOException {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
         when(userDAO.updateUser(mockUser)).thenReturn(true);
 
@@ -86,7 +85,7 @@ class ControllerTest {
 
     @Test
     void addNoteWithImageIOException() throws IOException {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
         when(userDAO.updateUser(mockUser)).thenReturn(true);
 
@@ -113,12 +112,12 @@ class ControllerTest {
         when(userDAO.getUserByUsername("newUser")).thenReturn(null);
         when(userDAO.createUser(any(User.class))).thenReturn(true);
 
-        User user = controller.signup("newUser", "password", null);
+        User user = controller.signup("newUser", "password", null, "en");
         assertNotNull(user);
         assertEquals("newUser", user.getUsername());
 
         when(userDAO.getUserByUsername("newUser")).thenReturn(user);
-        User duplicateUser = controller.signup("newUser", "password", null);
+        User duplicateUser = controller.signup("newUser", "password", null, "en");
         assertNull(duplicateUser);
     }
 
@@ -129,7 +128,7 @@ class ControllerTest {
         when(userDAO.getUserByUsername("newUser")).thenReturn(null);
         when(userDAO.createUser(any(User.class))).thenReturn(true);
 
-        User user = controller.signup("newUser", "password", image);
+        User user = controller.signup("newUser", "password", image, "en");
 
         assertNotNull(user);
         assertEquals("newUser", user.getUsername());
@@ -138,24 +137,24 @@ class ControllerTest {
 
     @Test
     void updateUser() {
-        User mockUser = new User("oldUser", "password", null);
+        User mockUser = new User("oldUser", "password", null, "en");
         when(userDAO.getUserByUsername("oldUser")).thenReturn(mockUser);
         when(userDAO.updateUser(mockUser)).thenReturn(true);
 
-        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", null);
+        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", null, "en");
         assertTrue(success);
     }
 
     @Test
     void updateUserWithImageIOException() throws IOException {
-        User mockUser = new User("oldUser", "password", null);
+        User mockUser = new User("oldUser", "password", null, "en");
         when(userDAO.getUserByUsername("oldUser")).thenReturn(mockUser);
         when(userDAO.updateUser(mockUser)).thenReturn(true);
 
         Image image = new Image(getClass().getResourceAsStream("/images/defaultProfilePic.png"));
         when(imageHandling.uploadImage(image)).thenThrow(new IOException("Test IOException"));
 
-        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", image);
+        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", image, "en");
 
         assertTrue(success);
         verify(imageHandling).uploadImage(image); // Verify that the method was called
@@ -165,13 +164,13 @@ class ControllerTest {
     void updateUserNotFound() {
         when(userDAO.getUserByUsername("unknownUser")).thenReturn(null);
 
-        Boolean success = controller.updateUser("unknownUser", "newUser", "newPassword", null);
+        Boolean success = controller.updateUser("unknownUser", "newUser", "newPassword", null, "en");
         assertFalse(success);
     }
 
     @Test
     void deleteUser() {
-        User user = new User("deleteUser", "password", null);
+        User user = new User("deleteUser", "password", null, "en");
         when(userDAO.deleteUser(user.getId())).thenReturn(true);
 
         Boolean success = controller.deleteUser(user);
@@ -180,7 +179,7 @@ class ControllerTest {
 
     @Test
     void deleteUserException() {
-        User user = new User("deleteUser", "password", null);
+        User user = new User("deleteUser", "password", null, "en");
         doThrow(new RuntimeException()).when(userDAO).deleteUser(user.getId());
 
         Boolean success = controller.deleteUser(user);
@@ -189,7 +188,7 @@ class ControllerTest {
 
     @Test
     void addNoteException() {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
         doThrow(new RuntimeException()).when(userDAO).updateUser(any(User.class));
 
@@ -201,17 +200,17 @@ class ControllerTest {
 
     @Test
     void updateUserException() {
-        User mockUser = new User("oldUser", "password", null);
+        User mockUser = new User("oldUser", "password", null, "en");
         when(userDAO.getUserByUsername("oldUser")).thenReturn(mockUser);
         doThrow(new RuntimeException()).when(userDAO).updateUser(any(User.class));
 
-        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", null);
+        Boolean success = controller.updateUser("oldUser", "newUser", "newPassword", null, "en");
         assertFalse(success);
     }
 
     @Test
     void loginInvalidPassword() {
-        User mockUser = new User("testUser", "password", null);
+        User mockUser = new User("testUser", "password", null, "en");
         when(userDAO.getUserByUsername("testUser")).thenReturn(mockUser);
 
         User user = controller.login("testUser", "wrongPassword");

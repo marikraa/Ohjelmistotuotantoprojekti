@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-
+/**
+ * This class represents the main screen controller of the application.
+ * It handles the user interface and user interactions in main view
+ */
 public class MainScreenController implements UiInterface {
     @FXML
     public Button logoutButton;
@@ -48,6 +50,7 @@ public class MainScreenController implements UiInterface {
     @FXML
     GridPane noteGrid;
     NoteNodeBuilder noteNodeBuilder = new NoteNodeBuilder();
+    Button addNoteButton;
 
 
     @Override
@@ -114,6 +117,9 @@ public class MainScreenController implements UiInterface {
         SceneManager.openModal("EditUser.fxml", null);
     }
 
+    /**
+     *  This function draws notes to grid
+     */
     public void drawNotes() {
         if (noteGrid == null) {
             noteGrid = new GridPane(10, 10);
@@ -123,8 +129,11 @@ public class MainScreenController implements UiInterface {
             noteGrid.getChildren().clear(); // Tyhjennä vanha sisältö
         }
 
+        if(addNoteButton == null) {addNoteButton = createAddButton();
 
-        Button addNoteButton = createAddButton();
+        }
+
+
         noteGrid.add(addNoteButton, 0, 0);
         int i = 1;
         int j = 0;
@@ -137,6 +146,11 @@ public class MainScreenController implements UiInterface {
             }
         }
     }
+
+    /**
+     * This filters notes by searched word nad displays them on screen
+     * @param filteredNotes are filtered notes by searched name
+     */
 
     //this method is used to draw the notes that match the search query
     private void drawFilteredNotes(List<NoteNode> filteredNotes) {
@@ -163,20 +177,24 @@ public class MainScreenController implements UiInterface {
         }
     }
 
+    /** This function creates Add button for note grid
+     *
+     * @return button element for adding a new note
+     */
     public Button createAddButton() {
         // Create button for adding a new note
-        Button addNoteButton = new Button("+");
-        addNoteButton.setId("addNoteButton");
-        addNoteButton.setPrefSize(200.0, 200.0);
-        addNoteButton.setMnemonicParsing(false);
+        Button addButton = new Button("+");
+        addButton.setId("addNoteButton");
+        addButton.setPrefSize(200.0, 200.0);
+        addButton.setMnemonicParsing(false);
 
         // add style classes to the button
-        addNoteButton.getStyleClass().addAll("note", "addNote");
+        addButton.getStyleClass().addAll("note", "addNote");
 
         // Set button action
-        addNoteButton.setOnMouseClicked(event -> addNote());
+        addButton.setOnMouseClicked(event -> addNote());
         //add add note button to the grid
-        return addNoteButton;
+        return addButton;
     }
 
 
@@ -190,6 +208,15 @@ public class MainScreenController implements UiInterface {
         this.stage = stage;
     }
 
+    /**
+     * Checks if the given search string is a subsequence of the provided text.
+     * A subsequence means all characters of the search string appear in the text in the same order,
+     * but not necessarily consecutively.
+     *
+     * @param search the string to search for as a subsequence
+     * @param text the text in which to search
+     * @return true if {@code search} is a subsequence of {@code text}, false otherwise
+     */
     //this method is used to check if the search string is a subsequence of the note title
     private boolean isSubsequence(String search, String text) {
         int searchIndex = 0;

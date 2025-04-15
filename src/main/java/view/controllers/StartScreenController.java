@@ -1,6 +1,4 @@
 package view.controllers;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -15,13 +13,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This is a controller for startscreen of the application. User can select either login or signup.
+ */
 public class StartScreenController implements UiInterface {
     String languageString = SessionManager.getLanguageString();
     Locale locale;
     ResourceBundle rb;
     IControllerForGUI controller;
     Stage stage;
-
     @FXML
     public Label languageLabel;
     @FXML
@@ -44,7 +44,7 @@ public class StartScreenController implements UiInterface {
         //languageSelector.getItems().addAll("EN", "FI", "JA","AR");//set the language options
         languageSelector.setValue(languageString);//set the default language
         setLanguage();
-        //add listener to the language selector
+        //add a listener to the language selector
         languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             languageString = newValue;
             setLanguage();
@@ -59,6 +59,7 @@ public class StartScreenController implements UiInterface {
 
     }
 
+
     @Override
     public void setNoteToEdit(Note note) {
         //not used in this controller
@@ -72,22 +73,30 @@ public class StartScreenController implements UiInterface {
 
     //these methods switch the scene to the login or signup screen
 
+    /**
+     *This is called when user clicks login button. It opens login screen.
+     */
     @FXML
-    public void handleLogin(ActionEvent actionEvent) {
+    public void handleLogin() {
         //switch to login screen
         SceneManager.switchScene("LoginScreen.fxml");
 
 
     }
 
+    /**
+     * This is called when user click signup button. It opens signup screen.
+     */
     @FXML
-    public void handleSignup(ActionEvent actionEvent) {
+    public void handleSignup() {
         //switch to signup screen
         SceneManager.switchScene("SignupScreen.fxml");
 
     }
 
-
+    /**
+     * This is setter function for language. When user selects a language from the dropdown, this function is called.
+     */
     public void setLanguage() {
         //set the language of the UI
         SessionManager.setLanguage(languageString);
