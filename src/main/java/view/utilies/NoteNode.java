@@ -187,6 +187,7 @@ public class NoteNode {
     }
 
 
+
     public void setImage(Image image) {
         this.noteImage = image;
     }

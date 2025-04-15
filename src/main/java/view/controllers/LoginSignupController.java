@@ -61,7 +61,11 @@ public class LoginSignupController implements UiInterface {
     //set backend controller
     @Override
     public void initialize() {
+        setTexts();
 
+    }
+
+    public void setTexts() {
         if (signUpButton != null) {
             signUpButton.setText(rb.getString("signup"));
             signUpHeader.setText(rb.getString("signup"));
@@ -74,9 +78,7 @@ public class LoginSignupController implements UiInterface {
         }
         passwordLabel.setText(rb.getString("password"));
         usernameLabel.setText(rb.getString("username"));
-
     }
-
     @Override
     public void setController(IControllerForGUI controller) {
         this.controller = controller;

@@ -66,6 +66,18 @@ public class NoteEditController implements UiInterface {
             Tooltip tooltip = new Tooltip(tooltipString);
             Tooltip.install(noteImage, tooltip);
         });
+        setTexts();
+        editCheckbox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            if (editCheckbox.isSelected()) {
+                enableEditing();
+            } else {
+                disableEditing();
+            }
+        });
+    }
+
+
+    public void setTexts() {
         noteTitleField.setPromptText(rb.getString("noteTitle"));
         deleteButton.setText(rb.getString("deleteButton"));
         editButton.setText(rb.getString("editButton"));
@@ -76,15 +88,7 @@ public class NoteEditController implements UiInterface {
         editProfilePic.setText(rb.getString("editImage"));
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
-        editCheckbox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            if (editCheckbox.isSelected()) {
-                enableEditing();
-            } else {
-                disableEditing();
-            }
-        });
     }
-
     @Override
     public void setController(IControllerForGUI controller) {
         this.controller = controller;

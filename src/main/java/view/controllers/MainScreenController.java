@@ -59,12 +59,11 @@ public class MainScreenController implements UiInterface {
     }
 
     public void initialize() {
-        notes = user.getNotes();
-        noteNodes = noteNodeBuilder.build(notes);
-
         SessionManager.setLanguage(user.getLanguageCode());//set language from user settings stored in the database
         locale = SessionManager.getLocale(); //get language from local storage
         rb = ResourceBundle.getBundle("language", locale);//set bundle for current language
+        notes = user.getNotes();
+        noteNodes = noteNodeBuilder.build(notes);
         searchField.setPromptText(rb.getString("searchNote"));
         logoutButton.setText(rb.getString("logout"));
         int noteCount = user.getNotes().size();

@@ -67,6 +67,10 @@ public class NoteAddController implements UiInterface {
     }
 
     public void initialize() {
+        setTexts();
+
+    }
+    public void setTexts() {
         addNoteLabel.setText(rb.getString("addNote"));
         noteTitleLabel.setText(rb.getString("lblTitle"));
         titleField.setPromptText(rb.getString("noteTitle"));
@@ -76,9 +80,7 @@ public class NoteAddController implements UiInterface {
         dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
-
     }
-
     /**
      * This handles note adding functionality
      */

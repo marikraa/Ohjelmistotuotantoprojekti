@@ -45,6 +45,8 @@ public class UserEditController implements UiInterface {
     @FXML
     public Label userNameLabel;
     @FXML
+    public Label languageLabel;
+    @FXML
     public ImageView profilePic;
     Locale locale = SessionManager.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
@@ -64,16 +66,7 @@ public class UserEditController implements UiInterface {
 
     //User edit window
     public void initialize() {
-        newPasswordLabel.setText(rb.getString("editNewPassword"));
-        oldPasswordLabel.setText(rb.getString("editOldPassword"));
-        userNameLabel.setText(rb.getString("username"));
-        deleteUserButton.setText(rb.getString("deleteButton"));
-        editUserButton.setText(rb.getString("editButton"));
-        editUserLabel.setText(rb.getString("editUser"));
-        editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
-        profilePic.setImage(new Image(user.getProfilePictureUrl()));
-        newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
-        oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
+        setTexts();
         List<String> languages = SessionManager.getLanguages();//add languages to selector
         for (String language : languages) {
             languageSelector.getItems().add(language);
@@ -82,6 +75,22 @@ public class UserEditController implements UiInterface {
         languageSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> user.setLanguageCode(newValue)//set user language to selected
         );
 
+
+    }
+
+    public void setTexts() {
+        languageLabel.setText(rb.getString("language"));
+        newPasswordLabel.setText(rb.getString("editNewPassword"));
+        oldPasswordLabel.setText(rb.getString("editOldPassword"));
+        userNameLabel.setText(rb.getString("username"));
+        deleteUserButton.setText(rb.getString("deleteButton"));
+        editUserButton.setText(rb.getString("editButton"));
+        editUserLabel.setText(rb.getString("editUser"));
+
+        editUsernameField.setText(SessionManager.getCurrentUser().getUsername());
+        profilePic.setImage(new Image(user.getProfilePictureUrl()));
+        newPasswordField.setText(SessionManager.getCurrentUser().getPassword());
+        oldPasswordField.setText(SessionManager.getCurrentUser().getPassword());
 
     }
 
