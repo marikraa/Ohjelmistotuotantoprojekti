@@ -1,17 +1,16 @@
 package controller;
 
-import model.Note;
-import model.User;
-import datasource.UserDAO;
-import datasource.NoteDAO;
 import datasource.ImageHandling;
-
-import view.IControllerForGUI;
-import javafx.scene.image.Image;
-
+import datasource.NoteDAO;
+import datasource.UserDAO;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import javafx.scene.image.Image;
+import model.Note;
+import model.User;
+import view.IControllerForGUI;
 
 public class Controller implements IControllerForGUI {
     UserDAO userDAO;
