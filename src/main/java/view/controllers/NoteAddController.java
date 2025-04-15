@@ -58,7 +58,6 @@ public class NoteAddController implements UiInterface {
     public NoteAddController() {
         imageAdder = new ImageAdder();
         user = SessionManager.getCurrentUser();
-        dateSelector = new DatePicker();
     }
 
     //set backend controller

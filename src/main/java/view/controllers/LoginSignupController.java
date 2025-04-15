@@ -184,7 +184,7 @@ public class LoginSignupController implements UiInterface {
 
     /**
      * If user clicks add image button in signup this will process it.
-     * @params imageAdder is utility class for adding image
+     *
      */
     @FXML
     public void addProfilePicture() {//when user clicks add image button open file chooser
