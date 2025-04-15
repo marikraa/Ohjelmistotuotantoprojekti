@@ -5,10 +5,8 @@ import datasource.NoteDAO;
 import datasource.UserDAO;
 import model.Note;
 import model.User;
-
-
-import view.IControllerForGUI;
 import javafx.scene.image.Image;
+import view.IControllerForGUI;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

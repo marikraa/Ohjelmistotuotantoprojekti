@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
@@ -21,6 +20,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This is controller for adding note
+ */
 public class NoteAddController implements UiInterface {
     @FXML
     public Label addNoteLabel;
@@ -72,15 +74,15 @@ public class NoteAddController implements UiInterface {
         addNoteImage.setText(rb.getString("addImage"));
         addNoteButton.setText(rb.getString("addNote"));
         notificationTimeLabel.setText(rb.getString("editNotificationTime"));
-
-
         dateSelector.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
 
     }
 
-
+    /**
+     * This handles note adding functionality
+     */
     //this is method is called when the user clicks the add note button
     public void addNote() {
         LocalDate selectedDate = dateSelector.getValue();
@@ -103,6 +105,9 @@ public class NoteAddController implements UiInterface {
 
     }
 
+    /**
+     * This handles Image adding to note
+     */
     //this method is called when the wants to add an image to the note
     public void addImage() {
         selectedImage = imageAdder.addPicture();

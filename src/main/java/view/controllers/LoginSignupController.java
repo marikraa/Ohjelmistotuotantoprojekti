@@ -9,7 +9,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Note;
@@ -25,6 +24,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This is controller for the user registration and login.
+ */
 //login and signup controller is used to handle login and signup operations both fxml uses this controller
 public class LoginSignupController implements UiInterface {
     @FXML
@@ -89,6 +91,9 @@ public class LoginSignupController implements UiInterface {
 
     //try to login with given credentials and get user data if successful
 
+    /**
+     * This handles login part.  Cheks if user exists and if true, Main screen will open
+     */
     @FXML
     public void login() {
         showLoadingIndicator();
@@ -110,10 +115,15 @@ public class LoginSignupController implements UiInterface {
         }).start();
     }
 
+    /**
+     * This handles signup part. If User not taken, user will be added to database and mainscreen will open.
+     */
     @FXML
     public void signup() {
         signUpButton.setVisible(false);
         signUpButton.setManaged(false);
+        addImageButton.setVisible(false);
+        addImageButton.setManaged(false);
         showLoadingIndicator();
         new Thread(() -> {
             if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
@@ -147,6 +157,9 @@ public class LoginSignupController implements UiInterface {
 
     }
 
+    /**
+     * This shows loading indicator when processing user data
+     */
     private void showLoadingIndicator() {
         if (progressIndicator == null) {
             progressIndicator = new ProgressIndicator();
@@ -162,10 +175,17 @@ public class LoginSignupController implements UiInterface {
         container.getChildren().add(vbox);
     }
 
+    /**
+     * Hides loading indicator
+     */
     private void hideLoadingIndicator() {
         container.getChildren().removeIf(VBox.class::isInstance); // Delete indicator
     }
 
+    /**
+     * If user clicks add image button in signup this will process it.
+     * @params imageAdder is utility class for adding image
+     */
     @FXML
     public void addProfilePicture() {//when user clicks add image button open file chooser
         ImageAdder imageAdder = new ImageAdder();
@@ -175,12 +195,19 @@ public class LoginSignupController implements UiInterface {
 
     }
 
+    /**
+     * this will open mainscreen after login or signup is successful.
+     * @param currentUser is user which registered or logged in
+     */
     //when singed/lodged in user, set user to session manager and open main screen
     public void openMainScreen(User currentUser) {
         SessionManager.setCurrentUser(currentUser);
         SceneManager.switchScene("MainScreen.fxml");
     }
 
+    /**
+     * Log out is done by this
+     */
     @FXML
     public void openStartScreen() {
         SceneManager.switchScene("StartScreen.fxml");
