@@ -36,7 +36,7 @@ public class NoteNode {
     ResourceBundle rb = ResourceBundle.getBundle("language", locale);
     Note note;
     String hidden = "hidden";
-    Button noteButton;//this is the button that is shown in the main screen
+    Button noteButtonElement;//this is the button that is shown in the main screen
     private String title;
     private String content;
     private String date;
@@ -54,7 +54,7 @@ public class NoteNode {
         this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
         this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());//notification shown observer
         startNotificationChecker();
-        noteButton = createNoteNode(); //note button is element that is shown in the main screen
+        noteButtonElement = createNoteNode(); //note button is element that is shown in the main screen
 
     }
 
@@ -162,8 +162,8 @@ public class NoteNode {
 
     }
 
-    public Button getNoteButton() {
-        return noteButton;
+    public Button getNoteButtonElement() {
+        return noteButtonElement;
     }
 
     public String getTitle() {

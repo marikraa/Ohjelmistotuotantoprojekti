@@ -31,7 +31,7 @@
          <Insets bottom="10.0" top="10.0"/>
       </VBox.margin>
    </ImageView>
-   <Button fx:id="editProfilePic" mnemonicParsing="false" onMouseClicked="#addNoteImage" text="Change image">
+   <Button fx:id="editProfilePic" mnemonicParsing="false" text="Change image">
       <VBox.margin>
          <Insets bottom="10.0" top="10.0"/>
       </VBox.margin>

@@ -5,7 +5,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Note;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 
@@ -17,11 +17,7 @@ import java.util.ResourceBundle;
  * This is a controller for startscreen of the application. User can select either login or signup.
  */
 public class StartScreenController implements UiInterface {
-    String languageString = SessionManager.getLanguageString();
-    Locale locale;
-    ResourceBundle rb;
-    IControllerForGUI controller;
-    Stage stage;
+    private String languageString = SessionManager.getLanguageString();
     @FXML
     public Label languageLabel;
     @FXML
@@ -35,7 +31,7 @@ public class StartScreenController implements UiInterface {
     @FXML
     public ChoiceBox<String> languageSelector;
 
-    @Override
+
     public void initialize() {
         List<String> languages = SessionManager.getLanguages();
         for (String language : languages) {
@@ -54,8 +50,8 @@ public class StartScreenController implements UiInterface {
 
     //set backend controller
     @Override
-    public void setController(IControllerForGUI controller) {
-        this.controller = controller;
+    public void setController(IControllerForView controller) {
+        //not needed in this
 
     }
 
@@ -67,7 +63,6 @@ public class StartScreenController implements UiInterface {
 
     @Override
     public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
 
@@ -100,8 +95,8 @@ public class StartScreenController implements UiInterface {
     public void setLanguage() {
         //set the language of the UI
         SessionManager.setLanguage(languageString);
-        locale = SessionManager.getLocale();
-        rb = ResourceBundle.getBundle("language", locale);
+        Locale locale = SessionManager.getLocale();
+        ResourceBundle rb = ResourceBundle.getBundle("language", locale);
         languageLabel.setText(rb.getString("language"));
         loginButton.setText(rb.getString("login"));
         signupButton.setText(rb.getString("signup"));

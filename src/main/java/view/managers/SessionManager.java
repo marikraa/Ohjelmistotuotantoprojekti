@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * This acts as Session storage for global saved values. Languages and aall user info.
+ * This acts as Session storage for global saved values. Languages and all user info.
  */
 public class SessionManager {
     private static String languageString = "EN";

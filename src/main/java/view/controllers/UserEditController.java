@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 import view.utilies.ImageAdder;
@@ -24,6 +24,13 @@ import java.util.ResourceBundle;
 public class UserEditController implements UiInterface {
     private final User user = SessionManager.getCurrentUser();
     private final ImageAdder imageAdder = new ImageAdder();
+    private  ResourceBundle rb;
+    private Stage editUserStage;
+    private IControllerForView controller;
+    private Image selectedImage;
+
+
+
     @FXML
     public ChoiceBox<String> languageSelector;
     @FXML
@@ -47,16 +54,12 @@ public class UserEditController implements UiInterface {
     @FXML
     public Label languageLabel;
     @FXML
-    public ImageView profilePic;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    Stage editUserStage;
-    private IControllerForGUI controller;
-    private Image selectedImage;
+    private  ImageView profilePic;
+
 
     //set backend controller
     @Override
-    public void setController(IControllerForGUI controller) {
+    public void setController(IControllerForView controller) {
         this.controller = controller;
     }
 
@@ -66,6 +69,8 @@ public class UserEditController implements UiInterface {
 
     //User edit window
     public void initialize() {
+        Locale locale = SessionManager.getLocale();
+        rb = ResourceBundle.getBundle("language",  locale);
         setTexts();
         List<String> languages = SessionManager.getLanguages();//add languages to selector
         for (String language : languages) {

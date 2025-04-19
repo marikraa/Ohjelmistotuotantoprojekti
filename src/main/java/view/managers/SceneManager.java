@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Note;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.controllers.UiInterface;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 //this class is used to switch scenes and open modal windows
 public class SceneManager {
-    private static final IControllerForGUI controller = new Controller();
+    private static final IControllerForView controller = new Controller();
     private static final Logger LOGGER = Logger.getLogger(SceneManager.class.getName());
     private static Stage primaryStage;
 

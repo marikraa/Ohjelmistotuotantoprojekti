@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Note;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 import view.utilies.ImageAdder;
@@ -27,6 +27,12 @@ import java.util.logging.Logger;
  */
 public class NoteEditController implements UiInterface {
     private static final Logger LOGGER = Logger.getLogger(NoteEditController.class.getName());
+    private ResourceBundle rb;
+    private  IControllerForView controller;
+    private  Stage stage;
+    private Note currentNote;
+
+
     @FXML
     public Label notificationTimeLabel;
     @FXML
@@ -53,13 +59,10 @@ public class NoteEditController implements UiInterface {
     public CheckBox editCheckbox;
     @FXML
     public Button editProfilePic;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    IControllerForGUI controller;
-    Stage stage;
-    Note currentNote;
 
     public void initialize() {
+        Locale locale = SessionManager.getLocale();
+        rb = ResourceBundle.getBundle("language", locale);
         noteImage.setOnMouseEntered(event -> {
             noteImage.setCursor(Cursor.HAND);
             String tooltipString = rb.getString("bigImageTip");
@@ -77,7 +80,7 @@ public class NoteEditController implements UiInterface {
     }
 
 
-    public void setTexts() {
+    private void setTexts() {
         noteTitleField.setPromptText(rb.getString("noteTitle"));
         deleteButton.setText(rb.getString("deleteButton"));
         editButton.setText(rb.getString("editButton"));
@@ -90,7 +93,7 @@ public class NoteEditController implements UiInterface {
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
     }
     @Override
-    public void setController(IControllerForGUI controller) {
+    public void setController(IControllerForView controller) {
         this.controller = controller;
     }
 
@@ -171,7 +174,7 @@ public class NoteEditController implements UiInterface {
      * This handles image adding to note
      *
      */
-    public void addNoteImage() {
+    private void addNoteImage() {
         ImageAdder imageAdder = new ImageAdder();
         Image selectedImage = imageAdder.addPicture();
         if (selectedImage != null) {
@@ -182,7 +185,7 @@ public class NoteEditController implements UiInterface {
     /**
      * This is called when edit note checkbox is checked. Allows note to be edited.
      */
-    public void enableEditing() {
+    private void enableEditing() {
         noteTitleField.setEditable(true);
         noteContent.setEditable(true);
         dateSelector.setDisable(false);
@@ -195,7 +198,7 @@ public class NoteEditController implements UiInterface {
     /**
      * This is called when edit note checkbox is unchecked. Disables editing of note.
      */
-    public void disableEditing() {
+    private void disableEditing() {
         noteContent.setEditable(false);
         noteTitleField.setEditable(false);
         dateSelector.setDisable(true);

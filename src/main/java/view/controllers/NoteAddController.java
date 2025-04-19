@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 import view.utilies.ImageAdder;
@@ -24,6 +24,12 @@ import java.util.ResourceBundle;
  * This is controller for adding note
  */
 public class NoteAddController implements UiInterface {
+    private final ImageAdder imageAdder;
+    private IControllerForView controller;
+    private Image selectedImage;
+    private final User user;
+    private Stage noteStage;
+    private ResourceBundle rb;
     @FXML
     public Label addNoteLabel;
     @FXML
@@ -46,13 +52,6 @@ public class NoteAddController implements UiInterface {
     public ImageView noteImage;
     @FXML
     public TextArea noteContent;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    ImageAdder imageAdder;
-    IControllerForGUI controller;
-    Image selectedImage;
-    User user;
-    private Stage noteStage;
 
 
     public NoteAddController() {
@@ -62,11 +61,13 @@ public class NoteAddController implements UiInterface {
 
     //set backend controller
     @Override
-    public void setController(IControllerForGUI controller) {
+    public void setController(IControllerForView controller) {
         this.controller = controller;
     }
 
     public void initialize() {
+        Locale locale = SessionManager.getLocale();
+        rb = ResourceBundle.getBundle("language", locale);
         setTexts();
 
     }

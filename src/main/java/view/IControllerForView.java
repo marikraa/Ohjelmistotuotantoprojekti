@@ -7,7 +7,7 @@ import model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface IControllerForGUI {
+public interface IControllerForView {
     User login(String username, String password);
 
     List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime);

@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 import view.utilies.ImageAdder;
@@ -29,6 +29,11 @@ import java.util.ResourceBundle;
  */
 //login and signup controller is used to handle login and signup operations both fxml uses this controller
 public class LoginSignupController implements UiInterface {
+    private IControllerForView controller;
+    private ProgressIndicator progressIndicator;
+    private ResourceBundle rb;
+    private Image selectedImage;
+
     @FXML
     public VBox container;
     @FXML
@@ -45,22 +50,18 @@ public class LoginSignupController implements UiInterface {
     public Button loginButton;
     @FXML
     public Button addImageButton;
-    ProgressIndicator progressIndicator;
-    Stage stage;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    Image selectedImage;
     @FXML
     TextField usernameField;
     @FXML
     TextField passwordField;
     @FXML
     ImageView profilePicView;
-    private IControllerForGUI controller;
 
     //set backend controller
-    @Override
+
     public void initialize() {
+        Locale locale = SessionManager.getLocale();
+        rb = ResourceBundle.getBundle("language", locale);
         setTexts();
 
     }
@@ -80,13 +81,12 @@ public class LoginSignupController implements UiInterface {
         usernameLabel.setText(rb.getString("username"));
     }
     @Override
-    public void setController(IControllerForGUI controller) {
+    public void setController(IControllerForView controller) {
         this.controller = controller;
     }
 
     @Override
     public void setStage(Stage stage) {
-        this.stage = stage;
 
     }
 
@@ -202,7 +202,7 @@ public class LoginSignupController implements UiInterface {
      * @param currentUser is user which registered or logged in
      */
     //when singed/lodged in user, set user to session manager and open main screen
-    public void openMainScreen(User currentUser) {
+    private void openMainScreen(User currentUser) {
         SessionManager.setCurrentUser(currentUser);
         SceneManager.switchScene("MainScreen.fxml");
     }

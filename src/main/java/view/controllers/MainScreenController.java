@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Note;
 import model.User;
-import view.IControllerForGUI;
+import view.IControllerForView;
 import view.managers.SceneManager;
 import view.managers.SessionManager;
 import view.utilies.NoteNode;
@@ -28,6 +28,13 @@ import java.util.ResourceBundle;
  * It handles the user interface and user interactions in main view
  */
 public class MainScreenController implements UiInterface {
+    private final User user = SessionManager.getCurrentUser();
+    private final List<NoteNode> filteredNoteNodes = new ArrayList<>();
+    private List<NoteNode> noteNodes = new ArrayList<>();
+    private final NoteNodeBuilder noteNodeBuilder = new NoteNodeBuilder();
+    private Button addNoteButton;
+    private ResourceBundle rb;
+
     @FXML
     public Button logoutButton;
     @FXML
@@ -40,38 +47,23 @@ public class MainScreenController implements UiInterface {
     public ScrollPane noteArea;
     @FXML
     public Label usernameLabel;
-    Stage stage;
-    User user = SessionManager.getCurrentUser();
-    List<NoteNode> filteredNoteNodes = new ArrayList<>();
-    List<Note> notes = new ArrayList<>();
-    List<NoteNode> noteNodes = new ArrayList<>();
-    Locale locale;
-    ResourceBundle rb;
     @FXML
     GridPane noteGrid;
-    NoteNodeBuilder noteNodeBuilder = new NoteNodeBuilder();
-    Button addNoteButton;
 
 
     @Override
-    public void setController(IControllerForGUI controller) {
+    public void setController(IControllerForView controller) {
         //not used in this class
     }
 
     public void initialize() {
         SessionManager.setLanguage(user.getLanguageCode());//set language from user settings stored in the database
-        locale = SessionManager.getLocale(); //get language from local storage
+        Locale locale = SessionManager.getLocale(); //get language from local storage
         rb = ResourceBundle.getBundle("language", locale);//set bundle for current language
-        notes = user.getNotes();
+        List<Note> notes = user.getNotes();
         noteNodes = noteNodeBuilder.build(notes);
-        searchField.setPromptText(rb.getString("searchNote"));
-        logoutButton.setText(rb.getString("logout"));
-        int noteCount = user.getNotes().size();
-        String username = user.getUsername();
-        usernameLabel.setText(username);
-        String noteLabel = MessageFormat.format(rb.getString("notes"), noteCount);
-        noteCounterLabel.setText(noteLabel);
         profilePic.setImage(new Image(user.getProfilePictureUrl()));
+        setTexts();
         drawNotes();
         searchField.textProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
             if (newValue.isEmpty()) {
@@ -93,7 +85,16 @@ public class MainScreenController implements UiInterface {
 
     }
 
+    public void setTexts() {
+        searchField.setPromptText(rb.getString("searchNote"));
+        logoutButton.setText(rb.getString("logout"));
+        int noteCount = user.getNotes().size();
+        String noteLabel = MessageFormat.format(rb.getString("notes"), noteCount);
+        noteCounterLabel.setText(noteLabel);
+        String username = user.getUsername();
+        usernameLabel.setText(username);
 
+    }
     @FXML
     public void logout() {
         //clear the current user and switch to the start screen
@@ -119,7 +120,7 @@ public class MainScreenController implements UiInterface {
     /**
      *  This function draws notes to grid
      */
-    public void drawNotes() {
+    private void drawNotes() {
         if (noteGrid == null) {
             noteGrid = new GridPane(10, 10);
             noteGrid.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
@@ -137,7 +138,7 @@ public class MainScreenController implements UiInterface {
         int i = 1;
         int j = 0;
         for (NoteNode note : noteNodes) {
-            noteGrid.add(note.getNoteButton(), i, j);
+            noteGrid.add(note.getNoteButtonElement(), i, j);
             i++;
             if (i > 1) {
                 i = 0;
@@ -167,7 +168,7 @@ public class MainScreenController implements UiInterface {
         int i = 0;
         int j = 0;
         for (NoteNode note : filteredNotes) {
-            noteGrid.add(note.getNoteButton(), i, j);
+            noteGrid.add(note.getNoteButtonElement(), i, j);
             i++;
             if (i > 1) {
                 i = 0;
@@ -180,7 +181,7 @@ public class MainScreenController implements UiInterface {
      *
      * @return button element for adding a new note
      */
-    public Button createAddButton() {
+    private Button createAddButton() {
         // Create button for adding a new note
         Button addButton = new Button("+");
         addButton.setId("addNoteButton");
@@ -204,7 +205,6 @@ public class MainScreenController implements UiInterface {
 
     @Override
     public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     /**
