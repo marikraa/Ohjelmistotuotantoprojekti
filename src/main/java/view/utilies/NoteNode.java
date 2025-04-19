@@ -170,29 +170,4 @@ public class NoteNode {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-
-
-    public void setImage(Image image) {
-        this.noteImage = image;
-    }
-
-    public BooleanProperty getNotificationShown() {
-        return notificationShown;
-    }
 }

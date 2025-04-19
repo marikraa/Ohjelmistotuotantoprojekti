@@ -106,13 +106,4 @@ public class User {
         this.notes = notes;
     }
 
-    public List<Note> sortNotes(String title) {
-        List<Note> sortedNotes = new ArrayList<>();
-        for (Note note : notes) {
-            if (note.getTitle().equals(title)) {
-                sortedNotes.add(note);
-            }
-        }
-        return sortedNotes;
-    }
 }

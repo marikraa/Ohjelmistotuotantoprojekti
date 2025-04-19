@@ -34,38 +34,6 @@ public class Controller implements IControllerForView {
     }
 
     @Override
-    public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
-        String imageUrl = "";
-        if (image != null) {
-            imageUrl = image.getUrl();
-            try {
-                String imageJSON = imageHandling.uploadImage(image);
-                imageUrl = imageHandling.parseImageUrl(imageJSON);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            User user = userDAO.getUserByUsername(username);
-                if (user != null) {
-                    Note note = new Note(title, content, imageUrl, notificationTime);
-                    note.setUser(user);
-                    user.addNote(note);
-                    if (!userDAO.updateUser(user)){
-                        return Collections.emptyList();
-                    }
-                    return user.getNotes();
-                } else {
-                    return Collections.emptyList();
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
     public User signup(String username, String password, Image image, String languageCode) {
         String imageUrl = "";
         if (image != null) {
@@ -86,6 +54,38 @@ public class Controller implements IControllerForView {
             return null;
         }
         return user;
+    }
+
+    @Override
+    public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
+        String imageUrl = "";
+        if (image != null) {
+            imageUrl = image.getUrl();
+            try {
+                String imageJSON = imageHandling.uploadImage(image);
+                imageUrl = imageHandling.parseImageUrl(imageJSON);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            User user = userDAO.getUserByUsername(username);
+            if (user != null) {
+                Note note = new Note(title, content, imageUrl, notificationTime);
+                note.setUser(user);
+                user.addNote(note);
+                if (!userDAO.updateUser(user)){
+                    return Collections.emptyList();
+                }
+                return user.getNotes();
+            } else {
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     @Override
