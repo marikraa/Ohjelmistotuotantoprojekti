@@ -159,9 +159,9 @@ public class NoteEditController implements UiInterface {
         } else {
             noteTitle.setText(note.getTitle());
         }
-        dateSelector.setValue(currentNote.getDate().toLocalDate());
-        hourSpinner.getValueFactory().setValue(currentNote.getDate().getHour());
-        minuteSpinner.getValueFactory().setValue(currentNote.getDate().getMinute());
+        dateSelector.setValue(currentNote.getNotificationTime().toLocalDate());
+        hourSpinner.getValueFactory().setValue(currentNote.getNotificationTime().getHour());
+        minuteSpinner.getValueFactory().setValue(currentNote.getNotificationTime().getMinute());
 
 
     }

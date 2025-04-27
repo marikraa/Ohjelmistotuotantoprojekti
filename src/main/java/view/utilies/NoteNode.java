@@ -61,7 +61,7 @@ public class NoteNode {
     private void startNotificationChecker() {
         scheduler.scheduleAtFixedRate(() -> {
             LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-            if (notificationDate != null && now.equals(notificationDate.truncatedTo(ChronoUnit.MINUTES))) {
+            if (notificationDate != null && !notificationShown.get() && !now.isBefore(notificationDate.truncatedTo(ChronoUnit.MINUTES))) {
                 Platform.runLater(() -> notificationShown.set(true));
             }
         }, 0, 1, TimeUnit.MINUTES);
