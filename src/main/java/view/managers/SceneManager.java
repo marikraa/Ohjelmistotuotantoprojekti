@@ -51,6 +51,11 @@ public class SceneManager {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryUiController.setStage(primaryStage);
+            primaryStage.setMinHeight(360);
+            primaryStage.setMinWidth(450);
+            primaryStage.setMaxHeight(750);
+            primaryStage.setMaxWidth(480);
+
             primaryStage.show();
 
         } catch (IOException e) {
@@ -80,6 +85,11 @@ public class SceneManager {
             if (note != null) {
                 modalUiController.setNoteToEdit(note);
             }
+
+            modalStage.setMinHeight(800);
+            modalStage.setMinWidth(500);
+            modalStage.setMaxHeight(800);
+            modalStage.setMaxWidth(500);
             modalStage.show();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
