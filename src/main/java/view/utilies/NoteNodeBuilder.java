@@ -3,6 +3,7 @@ import model.Note;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NoteNodeBuilder {
@@ -13,6 +14,7 @@ public class NoteNodeBuilder {
             NoteNode noteNode = new NoteNode(note);
             noteNodes.add(noteNode);
         }
+        Collections.reverse(noteNodes);
 
         return noteNodes;
 

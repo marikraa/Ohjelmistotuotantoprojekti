@@ -4,6 +4,7 @@ import controller.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Note;
@@ -76,6 +77,8 @@ public class SceneManager {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/GUI/" + fxmlFile));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
+            Image icon = new Image(SceneManager.class.getResourceAsStream("/images/app_icon.png"));
+            modalStage.getIcons().add(icon);
             Parent root = loader.load();
             UiInterface modalUiController = loader.getController();
             Scene scene = new Scene(root);
@@ -87,8 +90,8 @@ public class SceneManager {
             }
 
             modalStage.setMinHeight(800);
-            modalStage.setMinWidth(500);
-            modalStage.setMaxHeight(800);
+            modalStage.setMinWidth(400);
+            modalStage.setMaxHeight(1000);
             modalStage.setMaxWidth(500);
             modalStage.show();
         } catch (IOException e) {

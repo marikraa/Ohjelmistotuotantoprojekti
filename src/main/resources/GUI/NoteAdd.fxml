@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.NoteAddController">
+<VBox alignment="CENTER" prefHeight="848.0" prefWidth="464.0" styleClass="canvas" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controllers.NoteAddController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
-   <Label fx:id="addNoteLabel" alignment="CENTER" styleClass="header"  textAlignment="CENTER" wrapText="true" VBox.vgrow="SOMETIMES" />
+   <Label fx:id="addNoteLabel" alignment="CENTER" maxWidth="400.0" styleClass="header" text="Note nottttttttttttt" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
    <ImageView fx:id="noteImage" fitHeight="178.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
       <cursor>
          <Cursor fx:constant="DEFAULT" />

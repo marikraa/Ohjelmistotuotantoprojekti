@@ -18,7 +18,7 @@
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
-   <Label fx:id="editUserLabel" alignment="CENTER" prefWidth="433.0" styleClass="header" text="Edit user" textAlignment="CENTER" wrapText="true" VBox.vgrow="SOMETIMES" />
+   <Label fx:id="editUserLabel" alignment="CENTER" maxWidth="400.0" styleClass="header" text="Edit user" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
    <Button id="editProfile" mnemonicParsing="false" onMouseClicked="#addProfilePicture" prefHeight="19.0" prefWidth="13.0" styleClass="widget">
       <graphic>
          <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -38,20 +38,20 @@
       <VBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="338.0">
          <Label fx:id="languageLabel" text="Language:">
             <styleClass>
-               <String fx:value="smalltext"/>
-               <String fx:value="pink"/>
+               <String fx:value="smalltext" />
+               <String fx:value="pink" />
             </styleClass>
             <VBox.margin>
-               <Insets bottom="2.0" left="2.0"/>
+               <Insets bottom="2.0" left="2.0" />
             </VBox.margin>
          </Label>
          <ChoiceBox fx:id="languageSelector">
             <items>
-               <FXCollections fx:factory="observableArrayList"/>
+               <FXCollections fx:factory="observableArrayList" />
             </items>
             <styleClass>
-               <String fx:value="widget"/>
-               <String fx:value="smalltext"/>
+               <String fx:value="widget" />
+               <String fx:value="smalltext" />
             </styleClass>
          </ChoiceBox>
       </VBox>
