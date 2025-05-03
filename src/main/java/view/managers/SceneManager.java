@@ -54,7 +54,7 @@ public class SceneManager {
             primaryUiController.setStage(primaryStage);
             primaryStage.setMinHeight(360);
             primaryStage.setMinWidth(450);
-            primaryStage.setMaxHeight(750);
+            primaryStage.setMaxHeight(760);
             primaryStage.setMaxWidth(480);
 
             primaryStage.show();
