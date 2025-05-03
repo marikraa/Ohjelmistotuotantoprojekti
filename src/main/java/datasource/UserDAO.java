@@ -1,10 +1,13 @@
 package datasource;
 
 import model.User;
-
 import jakarta.persistence.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAO {
+    private static final Logger LOGGER = Logger.getLogger(UserDAO.class.getName());
+
     public boolean createUser(User user) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
@@ -12,8 +15,8 @@ public class UserDAO {
             em.persist(user);
             em.getTransaction().commit();
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error creating user", e);
             return false;
         }
     }
@@ -25,8 +28,8 @@ public class UserDAO {
             em.merge(user);
             em.getTransaction().commit();
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error updating user", e);
             return false;
         }
     }
@@ -41,8 +44,8 @@ public class UserDAO {
             }
             em.getTransaction().commit();
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error deleting user", e);
             return false;
         }
     }
@@ -51,8 +54,8 @@ public class UserDAO {
         EntityManager em = DatabaseConnection.getConnection();
         try {
             return em.find(User.class, id);
-        } catch(NoResultException e) {
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            LOGGER.log(Level.WARNING, "User not found with id: " + id, e);
             return null;
         }
     }
@@ -64,7 +67,7 @@ public class UserDAO {
             query.setParameter("username", username);
             return query.getSingleResult();
         } catch (NoResultException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "User not found with username: " + username, e);
             return null;
         }
     }

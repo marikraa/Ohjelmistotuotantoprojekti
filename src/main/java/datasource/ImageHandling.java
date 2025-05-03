@@ -7,6 +7,8 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.embed.swing.SwingFXUtils;
 
@@ -19,6 +21,7 @@ import org.json.simple.parser.JSONParser;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class ImageHandling {
+    private static final Logger LOGGER = Logger.getLogger(ImageHandling.class.getName());
     private String apiKey;
 
     public ImageHandling() {
@@ -36,7 +39,7 @@ public class ImageHandling {
                 return (String) dataObject.get("url");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error parsing image URL from response", e);
         }
         return null;
     }

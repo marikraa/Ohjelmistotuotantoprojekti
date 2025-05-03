@@ -1,11 +1,14 @@
 package datasource;
 
 import model.Note;
-
 import model.User;
 import jakarta.persistence.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NoteDAO {
+    private static final Logger LOGGER = Logger.getLogger(NoteDAO.class.getName());
+
     public boolean createNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
@@ -13,8 +16,8 @@ public class NoteDAO {
             em.persist(note);
             em.getTransaction().commit();
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error creating note", e);
             return false;
         }
     }
@@ -26,8 +29,8 @@ public class NoteDAO {
             em.merge(note);
             em.getTransaction().commit();
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error updating note", e);
             return false;
         }
     }
@@ -41,7 +44,8 @@ public class NoteDAO {
                 User user = note.getUser();
                 if (user != null) {
                     user.getNotes().remove(note);
-                    em.merge(user);}
+                    em.merge(user);
+                }
                 em.flush();
                 em.getTransaction().commit();
                 return true;
@@ -49,8 +53,8 @@ public class NoteDAO {
                 em.getTransaction().rollback();
                 return false;
             }
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error deleting note", e);
             em.getTransaction().rollback();
             return false;
         }
@@ -59,10 +63,9 @@ public class NoteDAO {
     public Note getNoteById(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
-
             return em.find(Note.class, id);
-        } catch(NoResultException e) {
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            LOGGER.log(Level.WARNING, "Note not found with id: " + id, e);
             return null;
         }
     }

@@ -1,8 +1,11 @@
 package datasource;
 
 import jakarta.persistence.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
     private static EntityManagerFactory emf = null;
     private static EntityManager em = null;
 
@@ -15,7 +18,7 @@ public class DatabaseConnection {
                 try {
                     emf = Persistence.createEntityManagerFactory("DBunit");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.SEVERE, "Failed to create EntityManagerFactory", e);
                 }
             }
 
