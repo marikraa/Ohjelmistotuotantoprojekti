@@ -35,26 +35,4 @@ class NoteNodeBuilderTest {
         assertTrue(result.isEmpty());
     }
 
-    /*
-    @Test
-    void testBuildWithNotes() {
-        // Mock Note objects
-        Note note1 = mock(Note.class);
-        Note note2 = mock(Note.class);
-
-        // Create a list of notes
-        List<Note> notes = new ArrayList<>();
-        notes.add(note1);
-        notes.add(note2);
-
-        // Test the build method
-        NoteNodeBuilder builder = new NoteNodeBuilder();
-        List<NoteNode> result = builder.build(notes);
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertTrue(result.get(0) instanceof NoteNode);
-        assertTrue(result.get(1) instanceof NoteNode);
-    }
-     */
 }

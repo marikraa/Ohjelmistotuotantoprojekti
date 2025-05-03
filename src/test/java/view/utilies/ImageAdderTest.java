@@ -37,16 +37,6 @@ class ImageAdderTest {
         };
     }
 
-    /*
-    @Test
-    void testAddPictureWithValidFile() {
-        Image result = imageAdder.addPicture();
-
-        assertNotNull(result);
-        assertEquals("file:test.png", result.getUrl());
-    }
-    */
-
 
     @Test
     void testAddPictureWithNoFileSelected() {

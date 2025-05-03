@@ -27,4 +27,16 @@ public class DatabaseConnection {
         }
         return em;
     }
+
+    // Reset method for testing purposes
+    public static void reset() {
+        if (em != null) {
+            em.close();
+            em = null;
+        }
+        if (emf != null) {
+            emf.close();
+            emf = null;
+        }
+    }
 }
