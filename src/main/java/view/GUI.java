@@ -12,8 +12,8 @@ import java.io.IOException;
 public class GUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Image icon = new Image(getClass().getResourceAsStream("/images/app_icon.png"));
-        primaryStage.getIcons().add(icon);
+         Image icon = new Image(getClass().getResourceAsStream("/images/app_icon.png"));
+         primaryStage.getIcons().add(icon);
         SceneManager.setStage(primaryStage);
         SceneManager.switchScene("StartScreen.fxml");
         primaryStage.setOnCloseRequest(evt -> {

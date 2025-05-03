@@ -13,6 +13,8 @@ import static org.mockito.Mockito.*;
 
 class NoteDAOTest {
 
+    private static final int NOTE_ID = 1;
+
     private NoteDAO noteDAO;
     private EntityManager entityManager;
 
@@ -67,12 +69,12 @@ class NoteDAOTest {
             mockedStatic.when(DatabaseConnection::getConnection).thenReturn(entityManager);
 
             when(entityManager.getTransaction()).thenReturn(mock(EntityTransaction.class));
-            when(entityManager.find(Note.class, 1)).thenReturn(note);
+            when(entityManager.find(Note.class, NOTE_ID)).thenReturn(note);
 
-            boolean result = noteDAO.deleteNote(1);
+            boolean result = noteDAO.deleteNote(NOTE_ID);
 
             assertTrue(result);
-            verify(entityManager).find(Note.class, 1);
+            verify(entityManager).find(Note.class, NOTE_ID);
             verify(entityManager).merge(user);
             verify(entityManager.getTransaction()).commit();
         }
@@ -84,13 +86,13 @@ class NoteDAOTest {
         try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
             mockedStatic.when(DatabaseConnection::getConnection).thenReturn(entityManager);
 
-            when(entityManager.find(Note.class, 1)).thenReturn(note);
+            when(entityManager.find(Note.class, NOTE_ID)).thenReturn(note);
 
-            Note result = noteDAO.getNoteById(1);
+            Note result = noteDAO.getNoteById(NOTE_ID);
 
             assertNotNull(result);
             assertEquals(note, result);
-            verify(entityManager).find(Note.class, 1);
+            verify(entityManager).find(Note.class, NOTE_ID);
         }
     }
 }

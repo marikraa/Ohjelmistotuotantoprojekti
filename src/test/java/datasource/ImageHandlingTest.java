@@ -15,6 +15,8 @@ import static org.mockito.Mockito.*;
 
 class ImageHandlingTest {
 
+    private static final String IMAGE_URL = "http://example.com/image.jpg";
+
     private ImageHandling imageHandling;
     private Image mockImage;
 
@@ -26,9 +28,9 @@ class ImageHandlingTest {
 
     @Test
     void testParseImageUrl() {
-        String jsonResponse = "{\"data\":{\"url\":\"http://example.com/image.jpg\"}}";
+        String jsonResponse = "{\"data\":{\"url\":\"" + IMAGE_URL + "\"}}";
         String imageUrl = imageHandling.parseImageUrl(jsonResponse);
-        assertEquals("http://example.com/image.jpg", imageUrl);
+        assertEquals(IMAGE_URL, imageUrl);
     }
 
     @Test

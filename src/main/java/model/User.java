@@ -106,4 +106,11 @@ public class User {
         this.notes = notes;
     }
 
+    public List<Note> sortNotes(String title) {
+        return notes.stream()
+                .filter(note -> note.getTitle().equalsIgnoreCase(title))
+                .toList();
+    }
+
 }
+

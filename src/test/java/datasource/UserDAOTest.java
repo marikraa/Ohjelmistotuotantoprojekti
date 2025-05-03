@@ -13,6 +13,9 @@ import static org.mockito.Mockito.*;
 
 class UserDAOTest {
 
+    private static final String TEST_USER = "testUser";
+    private static final int USER_ID = 1;
+
     private UserDAO userDAO;
     private EntityManager entityManager;
 
@@ -63,12 +66,12 @@ class UserDAOTest {
             mockedStatic.when(DatabaseConnection::getConnection).thenReturn(entityManager);
 
             when(entityManager.getTransaction()).thenReturn(mock(EntityTransaction.class));
-            when(entityManager.find(User.class, 1)).thenReturn(user);
+            when(entityManager.find(User.class, USER_ID)).thenReturn(user);
 
-            boolean result = userDAO.deleteUser(1);
+            boolean result = userDAO.deleteUser(USER_ID);
 
             assertTrue(result);
-            verify(entityManager).find(User.class, 1);
+            verify(entityManager).find(User.class, USER_ID);
             verify(entityManager).remove(user);
             verify(entityManager.getTransaction()).commit();
         }
@@ -80,13 +83,13 @@ class UserDAOTest {
         try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
             mockedStatic.when(DatabaseConnection::getConnection).thenReturn(entityManager);
 
-            when(entityManager.find(User.class, 1)).thenReturn(user);
+            when(entityManager.find(User.class, USER_ID)).thenReturn(user);
 
-            User result = userDAO.getUserById(1);
+            User result = userDAO.getUserById(USER_ID);
 
             assertNotNull(result);
             assertEquals(user, result);
-            verify(entityManager).find(User.class, 1);
+            verify(entityManager).find(User.class, USER_ID);
         }
     }
 
@@ -98,14 +101,14 @@ class UserDAOTest {
 
             TypedQuery<User> query = mock(TypedQuery.class);
             when(entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)).thenReturn(query);
-            when(query.setParameter("username", "testUser")).thenReturn(query);
+            when(query.setParameter("username", TEST_USER)).thenReturn(query);
             when(query.getSingleResult()).thenReturn(user);
 
-            User result = userDAO.getUserByUsername("testUser");
+            User result = userDAO.getUserByUsername(TEST_USER);
 
             assertNotNull(result);
             assertEquals(user, result);
-            verify(query).setParameter("username", "testUser");
+            verify(query).setParameter("username", TEST_USER);
             verify(query).getSingleResult();
         }
     }
