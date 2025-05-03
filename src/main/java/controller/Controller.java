@@ -11,8 +11,12 @@ import view.IControllerForView;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements IControllerForView {
+    private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+
     UserDAO userDAO;
     NoteDAO noteDAO;
     ImageHandling imageHandling;
@@ -25,7 +29,6 @@ public class Controller implements IControllerForView {
 
     @Override
     public User login(String username, String password) {
-
         User user = userDAO.getUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
             return user;
@@ -41,7 +44,7 @@ public class Controller implements IControllerForView {
                 String imageJSON = imageHandling.uploadImage(image);
                 imageUrl = imageHandling.parseImageUrl(imageJSON);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Error uploading or parsing image during signup", e);
             }
         }
 
@@ -65,7 +68,7 @@ public class Controller implements IControllerForView {
                 String imageJSON = imageHandling.uploadImage(image);
                 imageUrl = imageHandling.parseImageUrl(imageJSON);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Error uploading or parsing image during addNote", e);
             }
         }
 
@@ -75,7 +78,7 @@ public class Controller implements IControllerForView {
                 Note note = new Note(title, content, imageUrl, notificationTime);
                 note.setUser(user);
                 user.addNote(note);
-                if (!userDAO.updateUser(user)){
+                if (!userDAO.updateUser(user)) {
                     return Collections.emptyList();
                 }
                 return user.getNotes();
@@ -83,7 +86,7 @@ public class Controller implements IControllerForView {
                 return Collections.emptyList();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error adding note", e);
             return Collections.emptyList();
         }
     }
@@ -97,7 +100,7 @@ public class Controller implements IControllerForView {
                 String imageJSON = imageHandling.uploadImage(image);
                 imageUrl = imageHandling.parseImageUrl(imageJSON);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Error uploading or parsing image during updateUser", e);
             }
         }
 
@@ -113,8 +116,8 @@ public class Controller implements IControllerForView {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-             return false;
+            LOGGER.log(Level.SEVERE, "Error updating user", e);
+            return false;
         }
     }
 
@@ -123,7 +126,7 @@ public class Controller implements IControllerForView {
         try {
             return userDAO.deleteUser(user.getId());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error deleting user", e);
             return false;
         }
     }
@@ -142,7 +145,7 @@ public class Controller implements IControllerForView {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error updating note", e);
             return false;
         }
     }
@@ -152,7 +155,7 @@ public class Controller implements IControllerForView {
         try {
             return noteDAO.deleteNote(note.getId());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error deleting note", e);
             return false;
         }
     }

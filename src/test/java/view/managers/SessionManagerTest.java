@@ -2,7 +2,7 @@ package view.managers;
 
 import model.User;
 import org.junit.jupiter.api.Test;
-import view.utilies.NoteNode;
+
 
 import java.util.List;
 import java.util.Locale;
@@ -39,14 +39,4 @@ class SessionManagerTest {
         assertTrue(languages.contains("EN"));
         assertTrue(languages.contains("FI"));
     }
-    /*
-    @Test
-    void testSetAndGetNotes() {
-        NoteNode mockNoteNode = new NoteNode(null);
-        List<NoteNode> notes = List.of(mockNoteNode);
-        SessionManager.setNotes(notes);
-
-        assertEquals(notes, SessionManager.getNotes());
-    }
-     */
 }

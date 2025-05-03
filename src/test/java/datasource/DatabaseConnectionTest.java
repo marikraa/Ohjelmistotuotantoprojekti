@@ -17,10 +17,14 @@ class DatabaseConnectionTest {
     private static final String ENTITY_MANAGER_NOT_NULL = "EntityManager should not be null";
     private static final String DB_UNIT = "DBunit";
 
-    private void setPrivateFieldToNull(Class<?> clazz, String fieldName) throws Exception {
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        field.set(null, null);
+    private void setPrivateFieldToNull(Class<?> clazz, String fieldName) throws FieldAccessException {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true); // Temporarily make the field accessible
+            field.set(null, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new FieldAccessException("Failed to set field " + fieldName + " to null", e);
+        }
     }
 
     @Test
@@ -33,7 +37,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void testGetConnectionWhenEmfIsNull() throws Exception {
+    void testGetConnectionWhenEmfIsNull() throws FieldAccessException {
         try (MockedStatic<Persistence> persistenceMockedStatic = Mockito.mockStatic(Persistence.class)) {
             EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
             EntityManager mockEm = mock(EntityManager.class);
@@ -48,7 +52,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void testGetConnectionWhenEmIsNull() throws Exception {
+    void testGetConnectionWhenEmIsNull() throws FieldAccessException {
         try (MockedStatic<Persistence> persistenceMockedStatic = Mockito.mockStatic(Persistence.class)) {
             EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
             EntityManager mockEm = mock(EntityManager.class);
@@ -63,7 +67,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void testGetConnectionWhenEmAndEmfAreNull() throws Exception {
+    void testGetConnectionWhenEmAndEmfAreNull() throws FieldAccessException {
         try (MockedStatic<Persistence> persistenceMockedStatic = Mockito.mockStatic(Persistence.class)) {
             EntityManagerFactory mockEmf = mock(EntityManagerFactory.class);
             EntityManager mockEm = mock(EntityManager.class);
@@ -76,5 +80,16 @@ class DatabaseConnectionTest {
             EntityManager em = DatabaseConnection.getConnection();
             assertNotNull(em, ENTITY_MANAGER_NOT_NULL);
         }
+    }
+}
+
+// Custom exception class
+class FieldAccessException extends Exception {
+    public FieldAccessException(String message) {
+        super(message);
+    }
+
+    public FieldAccessException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

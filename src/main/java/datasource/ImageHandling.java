@@ -16,8 +16,15 @@ import javafx.scene.image.Image;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class ImageHandling {
-    private String apiKey = "b9f3ecbc93a44b77a11d12ede92dd507";
+    private String apiKey;
+
+    public ImageHandling() {
+        Dotenv dotenv = Dotenv.load(); // Load the .env file
+        this.apiKey = dotenv.get("IMGBB_API_KEY"); // Retrieve the API key from the .env file
+    }
 
     // parse JSON for the URL of the uploaded image
     public String parseImageUrl(String response) {
