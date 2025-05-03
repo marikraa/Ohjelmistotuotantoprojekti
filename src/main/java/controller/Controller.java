@@ -14,19 +14,33 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller class that implements the IControllerForView interface.
+ * This class acts as a bridge between the view and the data access layer, handling user and note operations.
+ */
 public class Controller implements IControllerForView {
     private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
-    UserDAO userDAO;
-    NoteDAO noteDAO;
-    ImageHandling imageHandling;
+    private UserDAO userDAO;
+    private NoteDAO noteDAO;
+    private ImageHandling imageHandling;
 
+    /**
+     * Constructor that initializes the DAOs and image handling utility.
+     */
     public Controller() {
         userDAO = new UserDAO();
         noteDAO = new NoteDAO();
         imageHandling = new ImageHandling();
     }
 
+    /**
+     * Logs in a user by verifying their username and password.
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return The User object if login is successful, or null if login fails.
+     */
     @Override
     public User login(String username, String password) {
         User user = userDAO.getUserByUsername(username);
@@ -36,6 +50,15 @@ public class Controller implements IControllerForView {
         return null;
     }
 
+    /**
+     * Signs up a new user with the provided details.
+     *
+     * @param username     The username of the new user.
+     * @param password     The password of the new user.
+     * @param image        The profile picture of the new user.
+     * @param languageCode The preferred language code of the new user.
+     * @return The created User object, or null if signup fails.
+     */
     @Override
     public User signup(String username, String password, Image image, String languageCode) {
         String imageUrl = "";
@@ -59,6 +82,16 @@ public class Controller implements IControllerForView {
         return user;
     }
 
+    /**
+     * Adds a new note for a user.
+     *
+     * @param username         The username of the user.
+     * @param title            The title of the note.
+     * @param content          The content of the note.
+     * @param image            The image associated with the note.
+     * @param notificationTime The notification time for the note.
+     * @return A list of the user's notes after adding the new note, or an empty list if the operation fails.
+     */
     @Override
     public List<Note> addNote(String username, String title, String content, Image image, LocalDateTime notificationTime) {
         String imageUrl = "";
@@ -91,6 +124,16 @@ public class Controller implements IControllerForView {
         }
     }
 
+    /**
+     * Updates a user's details.
+     *
+     * @param oldUsername  The current username of the user.
+     * @param newUsername  The new username of the user.
+     * @param password     The new password of the user.
+     * @param image        The new profile picture of the user.
+     * @param languageCode The new preferred language code of the user.
+     * @return true if the update is successful, false otherwise.
+     */
     @Override
     public boolean updateUser(String oldUsername, String newUsername, String password, Image image, String languageCode) {
         String imageUrl = "";
@@ -121,6 +164,12 @@ public class Controller implements IControllerForView {
         }
     }
 
+    /**
+     * Deletes a user from the system.
+     *
+     * @param user The User object to be deleted.
+     * @return true if the deletion is successful, false otherwise.
+     */
     @Override
     public boolean deleteUser(User user) {
         try {
@@ -131,6 +180,12 @@ public class Controller implements IControllerForView {
         }
     }
 
+    /**
+     * Updates an existing note.
+     *
+     * @param currentNote The Note object with updated details.
+     * @return true if the update is successful, false otherwise.
+     */
     @Override
     public boolean updateNote(Note currentNote) {
         try {
@@ -150,6 +205,12 @@ public class Controller implements IControllerForView {
         }
     }
 
+    /**
+     * Deletes a note from the system.
+     *
+     * @param note The Note object to be deleted.
+     * @return true if the deletion is successful, false otherwise.
+     */
     @Override
     public boolean deleteNote(Note note) {
         try {

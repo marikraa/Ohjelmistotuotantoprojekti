@@ -6,9 +6,19 @@ import jakarta.persistence.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Data Access Object (DAO) for managing `Note` entities in the database.
+ * Provides methods for creating, updating, deleting, and retrieving notes.
+ */
 public class NoteDAO {
     private static final Logger LOGGER = Logger.getLogger(NoteDAO.class.getName());
 
+    /**
+     * Persists a new note in the database.
+     *
+     * @param note The `Note` object to be created.
+     * @return `true` if the note was successfully created, `false` otherwise.
+     */
     public boolean createNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
@@ -22,6 +32,12 @@ public class NoteDAO {
         }
     }
 
+    /**
+     * Updates an existing note in the database.
+     *
+     * @param note The `Note` object with updated data.
+     * @return `true` if the note was successfully updated, `false` otherwise.
+     */
     public boolean updateNote(Note note) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
@@ -35,6 +51,12 @@ public class NoteDAO {
         }
     }
 
+    /**
+     * Deletes a note from the database by its ID.
+     *
+     * @param id The ID of the note to be deleted.
+     * @return `true` if the note was successfully deleted, `false` otherwise.
+     */
     public boolean deleteNote(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {
@@ -60,6 +82,12 @@ public class NoteDAO {
         }
     }
 
+    /**
+     * Retrieves a note from the database by its ID.
+     *
+     * @param id The ID of the note to be retrieved.
+     * @return The `Note` object if found, or `null` if no note with the given ID exists.
+     */
     public Note getNoteById(int id) {
         EntityManager em = DatabaseConnection.getConnection();
         try {

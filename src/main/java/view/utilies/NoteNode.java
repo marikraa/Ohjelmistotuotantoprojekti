@@ -28,22 +28,31 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a UI component for displaying a note in the application.
+ * Handles the creation of a note button with its content and notification logic.
+ */
 public class NoteNode {
     private final LocalDateTime notificationDate;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final BooleanProperty notificationShown;
-    Locale locale = SessionManager.getLocale();
-    ResourceBundle rb = ResourceBundle.getBundle("language", locale);
-    Note note;
-    String hidden = "hidden";
-    Button noteButtonElement;//this is the button that is shown in the main screen
-    private String title;
-    private String content;
-    private String date;
-    private String time;
-    private Image noteImage;
+    private final Locale locale = SessionManager.getLocale();
+    private final ResourceBundle rb = ResourceBundle.getBundle("language", locale);
+    private final Note note;
+    private final String hidden = "hidden";
+    private final Button noteButtonElement; // Button displayed on the main screen
+    private final String title;
+    private final String content;
+    private final String date;
+    private final String time;
+    private final Image noteImage;
 
-
+    /**
+     * Constructs a NoteNode object for the given note.
+     * Initializes the note's content, notification logic, and UI button.
+     *
+     * @param note The note to be represented by this NoteNode.
+     */
     public NoteNode(Note note) {
         this.note = note;
         this.title = note.getTitle();
@@ -52,12 +61,14 @@ public class NoteNode {
         this.time = String.format("%02d:%02d", note.getDate().getHour(), note.getDate().getMinute());
         this.notificationDate = note.getNotificationTime();
         this.noteImage = (note.getImageUrl() == null ? new Image("") : new Image(note.getImageUrl()));
-        this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());//notification shown observer
+        this.notificationShown = new SimpleBooleanProperty(note.notificationShownProperty());
         startNotificationChecker();
-        noteButtonElement = createNoteNode(); //note button is element that is shown in the main screen
-
+        this.noteButtonElement = createNoteNode();
     }
 
+    /**
+     * Starts a scheduled task to check for notifications at regular intervals.
+     */
     private void startNotificationChecker() {
         scheduler.scheduleAtFixedRate(() -> {
             LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
@@ -67,46 +78,48 @@ public class NoteNode {
         }, 0, 1, TimeUnit.MINUTES);
     }
 
+    /**
+     * Creates a button representing the note with its content and notification logic.
+     *
+     * @return The created Button object.
+     */
     public Button createNoteNode() {
-        // Luo VBox ja HBox rakenteet
-        // noteVbox is content of note
         VBox noteVbox = new VBox();
-        // Labelit (date, time, title)
+
         Label noteDate = new Label(date);
         noteDate.setFont(new Font(28));
         noteDate.setPadding(new Insets(3, 0, 3, 0));
         noteDate.getStyleClass().addAll("bigtext", "pink");
+
         Label noteTime = new Label(time);
         String notification = MessageFormat.format(rb.getString("notificationLabel"), notificationDate);
         Label notificationTime = new Label(notification);
         notificationTime.getStyleClass().addAll("extrasmalltext", "orange");
         noteTime.setFont(new Font(18));
         noteTime.getStyleClass().addAll("normaltext", "pink");
+
         Label noteTitle = new Label(title);
         noteTitle.getStyleClass().addAll("smalltext");
 
-        // HBox sisällä oleva Label ja ImageView
         HBox hbox = new HBox();
         hbox.setPrefHeight(170.0);
         hbox.setPrefWidth(170.0);
-        ImageView notificationBell = new ImageView(new Image("images/notificationBell.png"));//notification bell image
-        notificationBell.getStyleClass().addAll(hidden);//hide notification bell
+
+        ImageView notificationBell = new ImageView(new Image("images/notificationBell.png"));
+        notificationBell.getStyleClass().addAll(hidden);
         notificationBell.setFitHeight(20);
         notificationBell.setFitWidth(20);
 
-        //if notification already shown show the bell when application is restarted.
         if (notificationShown.get()) {
             notificationBell.getStyleClass().remove(hidden);
         }
 
-        //notification bell listener if value changes show the bell
         notificationShown.addListener((observable, oldValue, newValue) -> {
             if (Boolean.TRUE.equals(newValue)) {
                 notificationBell.getStyleClass().remove(hidden);
             }
         });
 
-        //note content preview
         Label noteContent = new Label(content);
         noteContent.setPrefHeight(97.0);
         noteContent.setPrefWidth(109.0);
@@ -114,13 +127,11 @@ public class NoteNode {
         noteContent.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         noteContent.getStyleClass().add("extrasmalltext");
 
-        // if note content is long show only first 50 characters and add "Show more" text
         if (noteContent.getText().length() > 50) {
             TextFlow textFlow = new TextFlow();
             Text truncatedText = new Text(noteContent.getText().substring(0, 50));
             textFlow.getChildren().add(truncatedText);
             truncatedText.setFill(Color.rgb(164, 164, 164));
-
 
             Text showMoreText = new Text("... Show more");
             textFlow.getChildren().add(showMoreText);
@@ -129,7 +140,7 @@ public class NoteNode {
             noteContent.setText("");
             noteContent.setGraphic(textFlow);
         }
-        //note image
+
         ImageView noteImageView = new ImageView();
         noteImageView.setPreserveRatio(true);
         noteImageView.setFitHeight(50.0);
@@ -139,15 +150,13 @@ public class NoteNode {
             noteImageView.setImage(noteImage);
         }
 
-
         hbox.getChildren().addAll(noteContent, noteImageView);
-        // Lisää Labelit ja HBox VBoxiin
         noteVbox.getChildren().addAll(noteDate, noteTime, notificationTime, noteTitle, hbox);
         noteVbox.getStyleClass().add("note");
 
-        //vbox is the main container and content of the note node button
         VBox vbox = new VBox();
         vbox.getChildren().addAll(notificationBell, noteVbox);
+
         Button button = new Button();
         button.getStyleClass().addAll("note");
         button.setGraphic(vbox);
@@ -156,18 +165,30 @@ public class NoteNode {
         return button;
     }
 
-    //this is called when noteNode is clicked
+    /**
+     * Opens the full view of the note when the note button is clicked.
+     *
+     * @param note The note to be displayed in full view.
+     */
     public void openFullNoteView(Note note) {
         SceneManager.openModal("EditNote.fxml", note);
-
     }
 
+    /**
+     * Gets the button element representing the note.
+     *
+     * @return The Button object.
+     */
     public Button getNoteButtonElement() {
         return noteButtonElement;
     }
 
+    /**
+     * Gets the title of the note.
+     *
+     * @return The title of the note.
+     */
     public String getTitle() {
         return title;
     }
-
 }
