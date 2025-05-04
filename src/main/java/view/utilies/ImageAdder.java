@@ -28,4 +28,13 @@ public class ImageAdder {
         }
         return image;
     }
+
+    /**
+     * Protected getter for the image field.
+     *
+     * @return The current image.
+     */
+    protected Image getImage() {
+        return image;
+    }
 }

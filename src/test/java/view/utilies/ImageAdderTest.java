@@ -22,6 +22,7 @@ class ImageAdderTest {
             public Image addPicture() {
                 FileChooser fileChooserMock = mock(FileChooser.class);
                 File mockFile = mock(File.class);
+                Image mockImage = mock(Image.class);
 
                 // Mock the behavior of the file
                 when(mockFile.toURI()).thenReturn(new File("test.png").toURI());
@@ -30,13 +31,12 @@ class ImageAdderTest {
                 File selectedFile = fileChooserMock.showOpenDialog(null);
 
                 if (selectedFile != null) {
-                    image = new Image(selectedFile.toURI().toString());
+                    return mockImage; // Return the mocked Image object
                 }
-                return image;
+                return null;
             }
         };
     }
-
 
     @Test
     void testAddPictureWithNoFileSelected() {
@@ -52,9 +52,9 @@ class ImageAdderTest {
                 File selectedFile = fileChooserMock.showOpenDialog(null);
 
                 if (selectedFile != null) {
-                    image = new Image(selectedFile.toURI().toString());
+                    return mock(Image.class); // Return a mocked Image object
                 }
-                return image;
+                return null;
             }
         };
 

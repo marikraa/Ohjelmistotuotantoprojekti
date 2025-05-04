@@ -39,9 +39,9 @@ class ControllerTest {
         noteDAO = mock(NoteDAO.class);
         imageHandling = mock(ImageHandling.class);
         controller = new Controller();
-        controller.userDAO = userDAO;
-        controller.noteDAO = noteDAO;
-        controller.imageHandling = imageHandling;
+        controller.setUserDAO(userDAO);
+        controller.setNoteDAO(noteDAO);
+        controller.setImageHandling(imageHandling);
     }
 
     @AfterEach
@@ -115,7 +115,6 @@ class ControllerTest {
 
         assertNull(user);
     }
-
 
     @Test
     void updateUserNotFound() {

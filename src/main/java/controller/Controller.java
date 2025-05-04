@@ -33,6 +33,17 @@ public class Controller implements IControllerForView {
         noteDAO = new NoteDAO();
         imageHandling = new ImageHandling();
     }
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public void setNoteDAO(NoteDAO noteDAO) {
+        this.noteDAO = noteDAO;
+    }
+
+    public void setImageHandling(ImageHandling imageHandling) {
+        this.imageHandling = imageHandling;
+    }
 
     /**
      * Logs in a user by verifying their username and password.
